@@ -256,6 +256,24 @@ export function getDemo(slug: string): DemoEntry | undefined {
   return catalogue.find((d) => d.slug === slug);
 }
 
+/**
+ * The three demos the portfolio leads with.
+ *
+ * A portfolio that gives ten projects equal weight reads as a product list,
+ * not as a studio's work. These three are chosen for a mix of visual pull and
+ * commercial value: restaurants and salons are the highest-frequency buyers in
+ * Indian towns and both demos photograph well, while the property site carries
+ * the most complex build and justifies the top of the price range.
+ */
+export const FEATURED_SLUGS = ['restaurant', 'realestate', 'salon'] as const;
+
+export const featured: DemoEntry[] = FEATURED_SLUGS.map((s) => catalogue.find((d) => d.slug === s)!);
+
+/** Everything not in the lead three, in registry order. */
+export const alsoBuilt: DemoEntry[] = catalogue.filter(
+  (d) => !FEATURED_SLUGS.includes(d.slug as (typeof FEATURED_SLUGS)[number])
+);
+
 /** Solution groups, in registry order, for the gallery filter. */
 export function groups(): SolutionGroup[] {
   return [...new Set(catalogue.map((d) => d.solution.group))];

@@ -253,4 +253,120 @@ export function SolutionCard({ demo, index, priority }: { demo: DemoEntry; index
   );
 }
 
+/**
+ * A lead project, given the room a real portfolio gives its best work: the
+ * screenshot runs nearly the full width and the writing sits beside it rather
+ * than beneath a thumbnail.
+ */
+export function FeatureRow({ demo, index, priority }: { demo: DemoEntry; index: number; priority: boolean }) {
+  const [view, setView] = useState<PreviewView>('desktop');
+  const headingId = useId();
+  const s = demo.solution;
+  const flip = index % 2 === 1;
+
+  return (
+    <article className="grid min-w-0 items-center gap-8 lg:grid-cols-[1.35fr_1fr] lg:gap-14 xl:gap-20" data-reveal>
+      <Link
+        href={`${site.basePath}/${demo.slug}`}
+        onClick={() => track('demo_open', { demo: demo.slug, from: 'featured_preview', view })}
+        className={cn(
+          'group block min-w-0 rounded-[12px] bg-paper-2 p-3 transition-colors duration-500 hover:bg-ink/6 sm:p-5',
+          flip && 'lg:order-2'
+        )}
+        aria-label={`Open the live ${demo.brand} demo`}
+      >
+        <PreviewStage demo={demo} view={view} priority={priority} sizes="(min-width:1024px) 58vw, 92vw" />
+        <span className="mt-3 flex items-center justify-between gap-3 text-[0.8rem] text-ink-3">
+          <span className="truncate">
+            {demo.brand} · {demo.location}
+          </span>
+          <span className="shrink-0 font-medium text-ink transition-colors group-hover:text-flame">
+            Open it <span aria-hidden>→</span>
+          </span>
+        </span>
+      </Link>
+
+      <div className="min-w-0">
+        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
+          <p className="flex min-w-0 items-baseline gap-3 font-mono text-[0.62rem] tracking-[0.16em] text-ink-3 uppercase">
+            <span className="text-flame">{String(index + 1).padStart(2, '0')}</span>
+            <span aria-hidden className="h-px w-8 bg-rule" />
+            <span className="truncate">{demo.industry}</span>
+          </p>
+          <DeviceToggle
+            value={view}
+            labelledBy={headingId}
+            onChange={(v) => {
+              setView(v);
+              track('demo_preview_toggle', { demo: demo.slug, view: v, from: 'featured' });
+            }}
+          />
+        </div>
+
+        <h3
+          id={headingId}
+          className="mt-5 font-display text-[clamp(1.6rem,2.6vw,2.15rem)] leading-[1.1] font-extrabold tracking-[-0.028em]"
+        >
+          {s.name}
+        </h3>
+        <p className="mt-4 text-[1rem] leading-relaxed text-ink-2">{s.outcome}</p>
+
+        <p className="mt-5 border-l-2 border-flame/35 pl-4 text-[0.9rem] leading-relaxed text-ink-3">
+          <span className="text-ink-2">{s.before}</span>
+          <span aria-hidden className="mx-2 text-flame">
+            →
+          </span>
+          {s.after}
+        </p>
+
+        <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-rule pt-5 text-[0.85rem] text-ink-3">
+          <span>
+            From <span className="font-medium text-ink">{s.priceFrom}</span>
+          </span>
+          <span aria-hidden className="h-3 w-px bg-rule" />
+          <span>{s.timeline}</span>
+          <Link
+            href={`${site.basePath}/contact?demo=${demo.slug}&view=${view}`}
+            onClick={() => track('demo_cta_click', { demo: demo.slug, cta: 'featured_quote', view })}
+            className="ml-auto inline-flex min-h-[40px] items-center rounded-full bg-ink px-5 text-[0.85rem] font-medium text-paper transition-colors hover:bg-flame"
+          >
+            Get this for my business
+          </Link>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+/**
+ * A supporting project. Small, quiet and quick to scan — its job is to show
+ * range, not to compete with the lead three for attention.
+ */
+export function CompactCard({ demo, index }: { demo: DemoEntry; index: number }) {
+  const s = demo.solution;
+  return (
+    <article className="flex min-w-0 flex-col" data-reveal style={{ ['--reveal-delay' as string]: `${(index % 3) * 70}ms` }}>
+      <Link
+        href={`${site.basePath}/${demo.slug}`}
+        onClick={() => track('demo_open', { demo: demo.slug, from: 'compact_card', view: 'desktop' })}
+        className="group block min-w-0"
+      >
+        <span className="block overflow-hidden rounded-[10px] bg-paper-2 p-2 transition-colors duration-500 group-hover:bg-ink/6">
+          <PreviewStage demo={demo} view="desktop" sizes="(min-width:1024px) 30vw, 90vw" />
+        </span>
+        <span className="mt-4 flex items-baseline gap-3 font-mono text-[0.6rem] tracking-[0.16em] text-ink-3 uppercase">
+          <span className="truncate">{demo.industry}</span>
+        </span>
+        <h3 className="mt-2 font-display text-[1.15rem] leading-snug font-bold tracking-[-0.02em] transition-colors group-hover:text-flame">
+          {s.name}
+        </h3>
+      </Link>
+      <p className="mt-2 text-[0.88rem] leading-relaxed text-ink-3">{s.after}</p>
+      <p className="mt-3 text-[0.8rem] text-ink-3">
+        From <span className="font-medium text-ink">{s.priceFrom}</span>
+      </p>
+    </article>
+  );
+}
+
 export { DeviceToggle };

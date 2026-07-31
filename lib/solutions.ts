@@ -31,6 +31,12 @@ export type Solution = {
   outcome: string;
   /** The measurable thing the site is built to move. */
   metric: string;
+  /**
+   * The change the owner actually buys, as a pair. Owners rarely care that a
+   * site is well designed; they care what stops being a problem.
+   */
+  before: string;
+  after: string;
   /** In the box. Six to eight — enough to feel complete, few enough to read. */
   core: string[];
   /** Sensible additions. Never pushed on the portfolio itself. */
@@ -49,6 +55,8 @@ export const solutions: Record<string, Solution> = {
     outcome:
       'Prices are answered before anyone calls, and a slot request reaches the desk on WhatsApp with the service, stylist and time already filled in.',
     metric: 'Appointment requests per month',
+    before: 'Price questions answered on the phone all day',
+    after: 'the menu and every price are public, so calls are people ready to book',
     core: [
       'Full service menu with real prices and durations',
       'Stylist and therapist profiles',
@@ -72,6 +80,8 @@ export const solutions: Record<string, Solution> = {
     outcome:
       'A menu that opens instantly on any phone, reservations that arrive with date, party size and time, and a direct-ordering route that keeps the margin in the kitchen.',
     metric: 'Direct reservations and orders',
+    before: 'An Instagram page and a photo of the menu',
+    after: 'a menu that reads on a phone, live opening status and a table request that lands on WhatsApp',
     core: [
       'Digital menu by course, with veg and spice markers',
       'Live open/closed status from your real kitchen hours',
@@ -95,6 +105,8 @@ export const solutions: Record<string, Solution> = {
     outcome:
       'Treatments explained with honest price bands and real credentials, so the patient who calls has already decided — and can book a slot in two taps.',
     metric: 'Appointment requests and calls',
+    before: 'Patients ring to ask what a treatment costs',
+    after: 'honest price bands are published, so the person who calls has already decided',
     core: [
       'Treatment pages with transparent price bands',
       'Doctor profiles with qualifications and registration',
@@ -118,6 +130,8 @@ export const solutions: Record<string, Solution> = {
     outcome:
       'Every question a parent asks is answered on the site, and the enquiry reaches the admissions desk with the grade, locality and transport need attached.',
     metric: 'Qualified admission enquiries',
+    before: 'Admission enquiries scattered across WhatsApp and phone calls',
+    after: 'one enquiry form that reaches the admissions desk with grade, locality and transport attached',
     core: [
       'Admission enquiry funnel with grade and locality capture',
       'Published fee structure, with no hidden charges',
@@ -141,6 +155,8 @@ export const solutions: Record<string, Solution> = {
     outcome:
       'Buyers self-qualify on configuration, price and EMI before they ask for a visit — so the site-visit calendar fills with people who already know the number.',
     metric: 'Site-visit bookings',
+    before: 'Brochures forwarded by hand to anyone who asks',
+    after: 'configuration-wise pricing and an EMI calculator qualify the buyer before the site visit',
     core: [
       'Configuration-wise pricing and availability',
       'Interactive floor plans and specifications',
@@ -164,6 +180,8 @@ export const solutions: Record<string, Solution> = {
     outcome:
       'The full day-by-day itinerary, inclusions and departure dates are public — so the enquiries that arrive are from people who have read them and are ready to talk dates.',
     metric: 'Trip enquiries with dates',
+    before: 'The same itinerary retyped into chat all week',
+    after: 'packages, day-by-day plans and departure dates are public, so enquiries arrive with dates',
     core: [
       'Filterable packages by region, length and pace',
       'Day-by-day itineraries, published in full',
@@ -187,6 +205,8 @@ export const solutions: Record<string, Solution> = {
     outcome:
       'Timetable, coaches and prices are all public, and the free-trial form turns a curious passer-by into someone standing on the floor this week.',
     metric: 'Free-trial bookings',
+    before: 'Walk-ins are the only way to see the timetable',
+    after: 'the schedule, the coaches and the membership price are online, and a trial can be booked at 11pm',
     core: [
       'Weekly class timetable, readable on a phone',
       'Coach profiles and certifications',
@@ -210,6 +230,8 @@ export const solutions: Record<string, Solution> = {
     outcome:
       'Full project case studies with area, duration and cost, and published fee bands — so the enquiries that come through are budget-aware from the first message.',
     metric: 'Qualified project enquiries',
+    before: 'Work shown as a folder of photos on a phone',
+    after: 'finished projects with budgets and durations, and an enquiry that already states the brief',
     core: [
       'Long-form project case studies with real numbers',
       'Materials and craft point of view',
@@ -233,6 +255,8 @@ export const solutions: Record<string, Solution> = {
     outcome:
       'Room types, tariffs and experiences are shown properly, and a date-based enquiry with a best-rate promise gives guests a reason to book with you instead.',
     metric: 'Direct booking enquiries',
+    before: 'Every booking arrives through an OTA and its commission',
+    after: 'guests can see the rooms, the tariff and the experiences, and ask to book direct',
     core: [
       'Room and villa types with real tariffs',
       'Date-based availability enquiry with an estimate',
@@ -256,6 +280,8 @@ export const solutions: Record<string, Solution> = {
     outcome:
       'A proper catalogue with prices, sizes and fabric detail, and an order that arrives on WhatsApp naming the exact piece and size — no more price-in-DM.',
     metric: 'Product enquiries and orders',
+    before: 'Orders negotiated one WhatsApp photo at a time',
+    after: 'a catalogue with fabric, sizes and prices, and an order that starts with the piece already chosen',
     core: [
       'Product catalogue with prices, sizes and materials',
       'Piece-level detail with availability',

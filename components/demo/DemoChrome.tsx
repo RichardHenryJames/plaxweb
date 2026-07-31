@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useId, useRef, useState } from 'react';
 import { setSourceDemo, track } from '@/lib/analytics';
-import { site } from '@/lib/site';
+import { site, whatsappUrl } from '@/lib/site';
 import { otherDemos, type DemoEntry } from '@/lib/demos';
 import { PreviewStage, type PreviewView } from '@/components/studio/DemoShowcase';
 
@@ -182,6 +182,20 @@ export function DemoChrome({ demo }: { demo: DemoEntry }) {
               >
                 Get this for my business
               </Link>
+              {/* Most Indian SMB owners would rather start on WhatsApp than fill
+                  a form, so it carries the solution name and the demo they were
+                  looking at — the conversation opens already in context. */}
+              <a
+                href={whatsappUrl(
+                  `Hi PlaxWeb, I was looking at the ${demo.brand} demo on your site. I run a business in ${demo.industry.toLowerCase()} and I'd like a ${demo.solution.name.toLowerCase()}.`
+                )}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => track('whatsapp_click', { demo: demo.slug, from: 'chrome_panel', view })}
+                className="mt-2 inline-flex min-h-[42px] w-full items-center justify-center rounded-full border border-white/25 px-4 text-[0.86rem] text-white transition-colors hover:border-white hover:bg-white/5"
+              >
+                Ask on WhatsApp
+              </a>
               <Link
                 href={site.basePath}
                 onClick={() => track('demo_cta_click', { demo: demo.slug, cta: 'chrome_portfolio' })}

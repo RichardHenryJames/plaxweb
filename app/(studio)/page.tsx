@@ -4,6 +4,7 @@ import { DemoGallery } from '@/components/studio/DemoGallery';
 import { Capabilities } from '@/components/studio/Capabilities';
 import { Process } from '@/components/studio/Process';
 import { MobileProof } from '@/components/studio/MobileProof';
+import { WhyNotATemplate } from '@/components/studio/WhyNotATemplate';
 import { Pricing } from '@/components/studio/Pricing';
 import { Faq, faqSchema } from '@/components/studio/Faq';
 import { ContactSection } from '@/components/studio/ContactSection';
@@ -85,6 +86,7 @@ export default function PortfolioPage() {
       </section>
 
       <DemoGallery />
+      <WhyNotATemplate />
       <Capabilities />
       <Process />
       <MobileProof />

@@ -18,6 +18,7 @@
 export type PlaxEvent =
   | 'portfolio_view'
   | 'demo_card_view'
+  | 'sector_filter'
   | 'demo_preview_toggle'
   | 'demo_open'
   | 'demo_cta_click'
