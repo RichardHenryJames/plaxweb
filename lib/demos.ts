@@ -18,7 +18,7 @@ import {
  * Demo registry.
  *
  * Adding a new industry means adding one entry here plus a route folder under
- * app/web/(demos)/<slug>. The gallery, sitemap, demo switcher, contact form
+ * app/(demos)/<slug>. The gallery, sitemap, demo switcher, contact form
  * and analytics all read from this list — nothing else needs touching.
  *
  * The registry deliberately describes a demo; it does NOT describe how the

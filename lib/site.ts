@@ -6,8 +6,14 @@
 export const site = {
   name: 'PlaxWeb',
   parent: 'PlaxLabs',
-  /** Path the portfolio is mounted at. Demos live one level below it. */
-  basePath: '/web',
+  /**
+   * The studio is the site root, so demos sit directly under it as
+   * plaxlabs.com/salon. Kept as a constant because metadata, the sitemap and
+   * every internal link derive from it.
+   */
+  basePath: '',
+  /** Same place, but usable as an href — `basePath` alone is not a valid one. */
+  home: '/',
   domain: 'plaxlabs.com',
   tagline: 'Websites built for real businesses.',
   description:

@@ -12,18 +12,18 @@ import { chromium } from 'playwright';
 
 const BASE = process.env.QA_BASE ?? 'http://localhost:3000';
 const ROUTES = [
-  '/web',
-  '/web/contact',
-  '/web/salon',
-  '/web/restaurant',
-  '/web/clinic',
-  '/web/school',
-  '/web/realestate',
-  '/web/travel',
-  '/web/fitness',
-  '/web/interior',
-  '/web/resort',
-  '/web/boutique',
+  '/',
+  '/contact',
+  '/salon',
+  '/restaurant',
+  '/clinic',
+  '/school',
+  '/realestate',
+  '/travel',
+  '/fitness',
+  '/interior',
+  '/resort',
+  '/boutique',
 ];
 
 const browser = await chromium.launch();

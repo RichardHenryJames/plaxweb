@@ -40,7 +40,7 @@ for (const slug of SLUGS) {
     reducedMotion: 'reduce',
   });
   const page = await ctx.newPage();
-  await page.goto(`${BASE}/web/${slug}`, { waitUntil: 'networkidle', timeout: 60_000 });
+  await page.goto(`${BASE}/${slug}`, { waitUntil: 'networkidle', timeout: 60_000 });
   await page.waitForTimeout(700);
   shots.push({ slug, buf: await page.screenshot() });
   await ctx.close();

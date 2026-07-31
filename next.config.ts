@@ -2,21 +2,18 @@ import type { NextConfig } from 'next';
 
 const isDev = process.env.NODE_ENV === 'development';
 
+/**
+ * The news app (github.com/RichardHenryJames/plax) is a separate Vercel
+ * project served under /news. Override in that project's env if its
+ * deployment URL changes.
+ */
+const NEWS_ZONE = process.env.NEWS_ZONE_URL ?? 'https://plax-rouge.vercel.app';
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
-  // plaxlabs.com is served by a separate Vercel project that proxies /web here
-  // (a Next.js multi-zone). This app's JS, CSS and fonts must therefore sit
-  // under a path the parent can forward verbatim and that cannot collide with
-  // the parent's own /_next assets. Next 15+ serves them from the prefix
-  // itself, so the app still works when opened on its own deployment URL.
-  assetPrefix: '/web-static',
-  experimental: {
-    // Server Actions reject requests whose Origin does not match the host.
-    // Behind the proxy the browser's origin is the parent domain, not this
-    // deployment, so the lead form would 403 without this.
-    serverActions: { allowedOrigins: ['plaxlabs.com', 'www.plaxlabs.com'] },
-  },
+  // This app owns plaxlabs.com and every path not handed to another zone, so
+  // it needs no assetPrefix of its own — only the zones behind it do.
   // The floating badge sits bottom-left, where the demo chrome lives.
   devIndicators: false,
   // Pin the workspace root; a stray lockfile in the home directory otherwise
@@ -26,10 +23,6 @@ const nextConfig: NextConfig = {
     // All demo photography is served from the Unsplash CDN and is verified by
     // `npm run images:verify` before it is allowed into lib/images.ts.
     remotePatterns: [{ protocol: 'https', hostname: 'images.unsplash.com', pathname: '/**' }],
-    // assetPrefix does NOT cover the image optimiser, so without this every
-    // <Image> would request /_next/image from the parent zone, which knows
-    // nothing about this app's files. Must stay in step with assetPrefix.
-    path: '/web-static/_next/image',
     // Preview screenshots keep a stable filename but carry a `?v=<hash>` of
     // their own bytes, so re-shooting a demo busts the month-long cache below.
     // Nothing else is allowed to pass a query string to the optimiser.
@@ -39,10 +32,33 @@ const nextConfig: NextConfig = {
     imageSizes: [64, 96, 128, 200, 256, 320, 400],
     minimumCacheTTL: 60 * 60 * 24 * 30,
   },
+  // The news app is its own Next.js project mounted at /news. It sets
+  // `basePath: '/news'`, so its pages *and* its /news/_next assets are both
+  // covered by the second rule below — no separate asset prefix is needed.
+  async rewrites() {
+    return [
+      { source: '/news', destination: `${NEWS_ZONE}/news` },
+      { source: '/news/:path+', destination: `${NEWS_ZONE}/news/:path+` },
+    ];
+  },
+  // The news app used to own these paths at the domain root. Preserve the
+  // links and search rankings that already point at them. Safe to delete once
+  // the old URLs no longer appear in Search Console.
+  async redirects() {
+    return ['topics', 'samachar', 'profile'].map((p) => ({
+      source: `/${p}/:path*`,
+      destination: `/news/${p}/:path*`,
+      permanent: true,
+    }));
+  },
   async headers() {
     return [
       {
-        source: '/(.*)',
+        // Everything except /news. These rules are written for this app — its
+        // CSP allows only Unsplash images and no third-party connections.
+        // Applying them to the proxied news app would block its image sources
+        // and its Supabase calls, so that zone sends its own headers.
+        source: '/((?!news).*)',
         headers: [
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },

@@ -41,7 +41,7 @@ export function StudioHeader() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-[84rem] items-center justify-between gap-6 px-5 sm:px-8">
-        <Link href={site.basePath} className="group flex min-h-11 items-baseline gap-2 py-2" aria-label="PlaxWeb home">
+        <Link href={site.home} className="group flex min-h-11 items-baseline gap-2 py-2" aria-label="PlaxWeb home">
           <span className="font-display text-[1.35rem] leading-none font-extrabold tracking-[-0.03em]">
             Plax<span className="text-flame">Web</span>
           </span>

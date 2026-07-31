@@ -1,7 +1,7 @@
 /**
  * Walks the journey a real buyer takes, end to end, on desktop and on a phone:
  *
- *   /web → find an industry → switch to the mobile preview → open the live
+ *   / → find an industry → switch to the mobile preview → open the live
  *   demo → open the PlaxWeb panel → ask for the same thing → land on a contact
  *   page that already knows the solution and the device they liked → send it.
  *
@@ -21,7 +21,7 @@ async function journey(label, contextOptions) {
   const tag = (s) => `[${label}] ${s}`;
 
   // 1. Land and understand.
-  await page.goto(`${BASE}/web`, { waitUntil: 'networkidle' });
+  await page.goto(`${BASE}/`, { waitUntil: 'networkidle' });
   check(tag('hero states the offer'), (await page.locator('h1').innerText()).includes('real businesses'));
   check(tag('hero shows a real screenshot'), await page.locator('img[src*="previews"]').first().isVisible());
 
@@ -51,8 +51,8 @@ async function journey(label, contextOptions) {
 
   // 5. Open the live demo.
   await card.getByRole('link', { name: /Open the live/ }).click();
-  await page.waitForURL('**/web/salon', { timeout: 20_000 });
-  check(tag('live demo opens'), page.url().endsWith('/web/salon'));
+  await page.waitForURL('**/salon', { timeout: 20_000 });
+  check(tag('live demo opens'), page.url().endsWith('/salon'));
   check(tag('demo looks like the business, not PlaxWeb'), (await page.locator('h1').innerText()).includes('Hair that behaves'));
 
   // 6. The badge is the sales layer for direct traffic.

@@ -1,6 +1,9 @@
-# PlaxWeb — plaxlabs.com/web
+# PlaxWeb — plaxlabs.com
 
 A website showroom for PlaxWeb, the web-development studio inside PlaxLabs.
+
+This app owns the domain root. The news app (`RichardHenryJames/plax`) is a
+second Next.js project mounted at `/news` — see [Deployment](#deployment).
 
 The portfolio is not a page of screenshots. It is ten complete, working websites
 for ten Indian industries, each sold as a **solution** — a business type, the
@@ -10,28 +13,30 @@ and asks for the same thing. The demo _is_ the pitch.
 
 ### Two layers
 
-| Layer            | What it is                                                   | Where it lives                                              |
-| ---------------- | ------------------------------------------------------------ | ----------------------------------------------------------- |
-| **The website**  | A finished, live site for a fictional business                | `/web/<slug>`                                               |
-| **The solution** | What a real business buys: outcome, features, price, timeline | `lib/solutions.ts`, shown on `/web` and in the in-demo panel |
+| Layer            | What it is                                                   | Where it lives                                          |
+| ---------------- | ------------------------------------------------------------ | ------------------------------------------------------- |
+| **The website**  | A finished, live site for a fictional business                | `/<slug>`                                               |
+| **The solution** | What a real business buys: outcome, features, price, timeline | `lib/solutions.ts`, shown on `/` and in the in-demo panel |
 
 So `Maison Aria` is the demo; **Salon Booking Website — from ₹32,000, live in
 2–3 weeks** is the product. Every card, the in-demo panel and the contact page
 speak the second language.
 
 ```
-plaxlabs.com/web              the studio site + showroom
-plaxlabs.com/web/salon        Maison Aria — hair & skin studio, Bengaluru
-plaxlabs.com/web/restaurant   Kesari House — regional Indian kitchen, Bengaluru
-plaxlabs.com/web/clinic       Aarogya Dental Studio — Koramangala, Bengaluru
-plaxlabs.com/web/school       Rosewood International School — Nashik
-plaxlabs.com/web/realestate   Aashray Grove — 42 garden villas, Sarjapur Road
-plaxlabs.com/web/travel       Wayfare Journeys — tour operator, Goa
-plaxlabs.com/web/fitness      Ironhouse Strength Club — Jubilee Hills, Hyderabad
-plaxlabs.com/web/interior     Studio Mitti — interior design, Bengaluru
-plaxlabs.com/web/resort       Tamara Backwaters — boutique resort, Kumarakom
-plaxlabs.com/web/boutique     Kaanchi — handloom & occasion wear, Chennai
-plaxlabs.com/web/contact      shared lead capture
+plaxlabs.com              the studio site + showroom
+plaxlabs.com/salon        Maison Aria — hair & skin studio, Bengaluru
+plaxlabs.com/restaurant   Kesari House — regional Indian kitchen, Bengaluru
+plaxlabs.com/clinic       Aarogya Dental Studio — Koramangala, Bengaluru
+plaxlabs.com/school       Rosewood International School — Nashik
+plaxlabs.com/realestate   Aashray Grove — 42 garden villas, Sarjapur Road
+plaxlabs.com/travel       Wayfare Journeys — tour operator, Goa
+plaxlabs.com/fitness      Ironhouse Strength Club — Jubilee Hills, Hyderabad
+plaxlabs.com/interior     Studio Mitti — interior design, Bengaluru
+plaxlabs.com/resort       Tamara Backwaters — boutique resort, Kumarakom
+plaxlabs.com/boutique     Kaanchi — handloom & occasion wear, Chennai
+plaxlabs.com/contact      shared lead capture
+
+plaxlabs.com/news         the Plax news app — a separate project
 ```
 
 ---
@@ -66,7 +71,7 @@ two share a colour ramp.
 
 ```bash
 npm install
-npm run dev          # http://localhost:3000 → redirects to /web
+npm run dev          # http://localhost:3000
 npm run build
 npm run start
 
@@ -145,14 +150,12 @@ that the URL resolves.
 ```
 app/
   layout.tsx                  html shell, base metadata, analytics
-  page.tsx                    /  →  redirect to /web
   globals.css                 design tokens for the studio and all ten demos
   sitemap.ts  robots.ts
   actions/lead.ts             'use server' — validation, rate limit, delivery
-  web/
-    (studio)/                 the PlaxWeb site
-      layout.tsx  page.tsx  contact/page.tsx
-    (demos)/                  the ten demos — route group, no shared chrome
+  (studio)/                   the PlaxWeb site, mounted at /
+    layout.tsx  page.tsx  contact/page.tsx
+  (demos)/                    the ten demos — route group, no shared chrome
       layout.tsx              scroll-reveal only; everything else is per demo
       salon/  { fonts.ts, data.ts, parts.tsx, page.tsx }
       restaurant/ …
@@ -180,7 +183,7 @@ scripts/
 1. Add an entry to `lib/demos.ts` and a solution to `lib/solutions.ts`.
 2. Add photography to `lib/images.ts` (after `images:verify` + `images:sheet`).
 3. Add the demo's palette and font tokens to `app/globals.css`.
-4. Create `app/web/(demos)/<slug>/` with its own `fonts.ts`, `data.ts`,
+4. Create `app/(demos)/<slug>/` with its own `fonts.ts`, `data.ts`,
    `parts.tsx` and `page.tsx`.
 5. Run `npm run previews <slug>` to capture its screenshots.
 
@@ -202,7 +205,7 @@ silently falls back to the system stack. `scripts/qa.mjs` asserts against this.
 
 Every demo carries a small badge, bottom-left. It is the entire sales layer for
 the visitor who arrived straight from a WhatsApp message, an ad or a search
-result rather than through `/web` — opening it gives the solution name, the
+result rather than through `/` — opening it gives the solution name, the
 outcome, a desktop/mobile preview, the starting price, the timeline, what is
 included and a pinned "Get this for my business". It shrinks to its mark once
 the visitor starts scrolling, so it never sits on top of the demo's content.
@@ -237,111 +240,69 @@ local development work without secrets.
 
 ## Deployment
 
-plaxlabs.com is served by a **separate** Vercel project (`plax`). Vercel attaches
-a domain to a whole project, so there is no way to point `plaxlabs.com/web` at a
-different project from the dashboard. This repo is therefore deployed as its own
-project and the parent proxies `/web` to it — a Next.js
-[multi-zone](https://nextjs.org/docs/app/guides/multi-zones).
+Two Vercel projects serve one domain as a Next.js
+[multi-zone](https://nextjs.org/docs/app/guides/multi-zones):
 
-### 1. This project
+| Project   | Repo                        | Serves                          |
+| --------- | --------------------------- | ------------------------------- |
+| `plaxweb` | `RichardHenryJames/plaxweb` | `plaxlabs.com` and everything not claimed below |
+| `plax`    | `RichardHenryJames/plax`    | `plaxlabs.com/news/*` (the news app) |
 
-Import the repo in Vercel as a new project (framework auto-detects as Next.js).
-Set the environment variables from `.env.example`, plus:
+A Vercel domain attaches to a whole project, so only one project can own the
+domain. This one does, because it owns `/`. It forwards `/news` to the other.
 
-```
-NEXT_PUBLIC_SITE_ORIGIN=https://plaxlabs.com
-```
+### This project
 
-so canonical URLs, Open Graph tags and the sitemap point at the public domain
-rather than the deployment URL. Do **not** add plaxlabs.com as a domain here.
+- Attach **plaxlabs.com** here.
+- Set `NEXT_PUBLIC_SITE_ORIGIN` to the exact canonical host, including `www` if
+  that is the host you keep. Canonicals, Open Graph tags and the sitemap all
+  derive from it.
+- Set `NEWS_ZONE_URL` to the news project's production URL. It defaults to
+  `https://plax-rouge.vercel.app`.
+- Other environment variables are in `.env.example`.
 
-The zone config is already in `next.config.ts` and needs no changes:
+As the default zone this app needs no `assetPrefix` — only the zones behind it
+do. Two details in `next.config.ts` are load-bearing:
 
 | Setting | Why |
 | --- | --- |
-| `assetPrefix: '/web-static'` | Keeps this app's JS/CSS/fonts from colliding with the parent's `/_next`. |
-| `images.path: '/web-static/_next/image'` | `assetPrefix` does **not** cover the image optimiser. Without it every image requests `/_next/image` from the parent. |
-| `serverActions.allowedOrigins` | Behind the proxy the browser's origin is plaxlabs.com, not this deployment. The lead form 403s without it. |
+| `rewrites()` → `/news`, `/news/:path+` | The news app sets `basePath: '/news'`, so its pages *and* its `/news/_next` assets are both covered. No separate asset rule is needed. |
+| `headers()` source `/((?!news).*)` | The CSP here allows only Unsplash images and no third-party connections. Applied to the proxied news app it would block that app's image sources and its Supabase calls, so the news zone sends its own headers. |
 
-### 2. The parent project (`plax`)
+`redirects()` sends the news app's old root-level URLs (`/topics`, `/samachar`,
+`/profile`) to their new `/news/*` homes. Delete it once those stop appearing in
+Search Console.
 
-Add these rewrites. In `next.config.ts` if the parent is Next.js:
+### The news project
 
-```ts
-async rewrites() {
-  const zone = 'https://plaxweb.vercel.app';
-  return [
-    { source: '/web', destination: `${zone}/web` },
-    { source: '/web/:path+', destination: `${zone}/web/:path+` },
-    // Assets. Omit this and the pages arrive unstyled.
-    { source: '/web-static/:path+', destination: `${zone}/web-static/:path+` },
-    // Public files — the social-card screenshots are absolute URLs on the
-    // public domain, so crawlers fetch them from the parent.
-    { source: '/previews/:path+', destination: `${zone}/previews/:path+` },
-    { source: '/web-sitemap.xml', destination: `${zone}/sitemap.xml` },
-  ];
-}
+Keeps its own `*.vercel.app` URL — do **not** attach the domain there. It sets
+`basePath: '/news'`, which prefixes its routes, `<Link>`s and `/_next` assets
+automatically. Three things `basePath` does not touch, all handled in that repo:
+
+- `fetch()` calls — they go through `withBase()` in `src/lib/base-path.ts`
+- files in `public/` — served at `/news/<file>`, so `next/image` and `<img>`
+  both need the prefix (an unprefixed `next/image` src returns **400**)
+- the Supabase auth `redirectTo`
+
+Its Supabase project must allow `https://plaxlabs.com/news/auth/callback` as a
+redirect URL, and `NEXT_PUBLIC_SITE_URL` must match the canonical host chosen
+above.
+
+### Running both locally
+
+```bash
+# news app
+cd ../plax && npm run build && npx next start -p 3101
+
+# this app, pointed at it
+NEWS_ZONE_URL=http://localhost:3101 npm run build && npm run start
 ```
 
-or in `vercel.json` if it is not:
+Then `localhost:3000` is the studio and `localhost:3000/news` is the news app.
 
-```json
-{
-  "rewrites": [
-    { "source": "/web", "destination": "https://plaxweb.vercel.app/web" },
-    { "source": "/web/:path+", "destination": "https://plaxweb.vercel.app/web/:path+" },
-    { "source": "/web-static/:path+", "destination": "https://plaxweb.vercel.app/web-static/:path+" },
-    { "source": "/previews/:path+", "destination": "https://plaxweb.vercel.app/previews/:path+" },
-    { "source": "/web-sitemap.xml", "destination": "https://plaxweb.vercel.app/sitemap.xml" }
-  ]
-}
-```
+### Check after deploying
 
-Point the parent's `robots.txt` at `https://plaxlabs.com/web-sitemap.xml` so the
-demos get indexed — the parent owns `/robots.txt` and `/sitemap.xml`.
-
-Replace `plaxweb.vercel.app` with this project's real production URL. Links from
-the parent site into `/web` must be plain `<a>` tags, not `<Link>` — soft
-navigation does not work across zones.
-
-### 3. Check after deploying
-
-- `plaxlabs.com/web` is styled (if not, the `/web-static` rewrite is missing)
-- a demo's photos load (if not, `/web-static/_next/image` is not reaching here)
-- the contact form submits (if not, check `allowedOrigins`)
-
-### If plaxlabs.com later becomes this project
-
-Attach the domain here and delete the parent rewrites. Nothing else changes —
-the app already serves everything under `/web`, and `assetPrefix` is served
-correctly whether or not a proxy is in front of it.
-
----
-
-## Performance and SEO notes
-
-- No animation library, no UI kit, no icon package. Motion is CSS plus one
-  shared `IntersectionObserver`; icons are inline SVG or type.
-- The showroom renders optimised WebP screenshots, never live demos. The hero
-  keeps only the current and next shot mounted, so it does not download twenty
-  images to show one.
-- Each demo declares its own fonts in its own folder, so a visitor opening
-  `/web/salon` never downloads the studio's display face or any other demo's.
-- Images are optimised by `next/image` with explicit `sizes` everywhere, AVIF and
-  WebP output, inlined blur placeholders and a 30-day cache. `/web` loads about
-  130kB of imagery on a phone.
-- Every page is statically prerendered except `/web/contact`, which reads a
-  query string.
-- Per-page metadata, canonical URLs, Open Graph and Twitter cards — with the
-  demo's real screenshot as the social image — a generated sitemap and robots
-  file, plus JSON-LD per demo (`HairSalon`, `Restaurant`, `Dentist`, `School`,
-  `Residence`, `TravelAgency`, `Resort`, `ClothingStore` …) and `FAQPage` on the
-  studio site.
-- Security headers including a Content-Security-Policy are set in
-  `next.config.ts`.
-
----
-
-All ten businesses in the showroom are fictional. Any resemblance to a real
-salon, school or builder is a coincidence — the prices, hours and addresses were
-written to be plausible, not real.
+- `plaxlabs.com` shows the studio, `plaxlabs.com/salon` shows a demo
+- `plaxlabs.com/news` is styled and its logo loads
+- the contact form submits
+- `/topics` redirects to `/news/topics`

@@ -7,7 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
   return [
-    { url: `${base}${site.basePath}`, lastModified: now, changeFrequency: 'weekly', priority: 1 },
+    { url: `${base}${site.home}`, lastModified: now, changeFrequency: 'weekly', priority: 1 },
     { url: `${base}${site.basePath}/contact`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     ...demos
       .filter((d) => d.status === 'live')

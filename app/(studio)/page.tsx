@@ -15,7 +15,7 @@ import { demos } from '@/lib/demos';
 export const metadata: Metadata = pageMetadata({
   title: 'PlaxWeb — Websites built for real businesses',
   description: site.description,
-  path: site.basePath,
+  path: site.home,
   image: demos[0].cover.src,
 });
 

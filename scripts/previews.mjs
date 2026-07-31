@@ -74,7 +74,7 @@ for (const slug of slugs) {
       reducedMotion: 'reduce',
     });
     const page = await ctx.newPage();
-    await page.goto(`${BASE}/web/${slug}`, { waitUntil: 'networkidle', timeout: 90_000 });
+    await page.goto(`${BASE}/${slug}`, { waitUntil: 'networkidle', timeout: 90_000 });
 
     await page.evaluate(async () => {
       // The PlaxWeb badge is meta — it must not appear inside a preview.

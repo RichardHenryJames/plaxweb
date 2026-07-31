@@ -16,7 +16,7 @@ export function DemoCredit({ slug, className }: { slug: string; className?: stri
     >
       <p>
         A fictional business. Website designed &amp; built by{' '}
-        <Link href={site.basePath} className="underline underline-offset-4 hover:no-underline">
+        <Link href={site.home} className="underline underline-offset-4 hover:no-underline">
           PlaxWeb
         </Link>
         .
@@ -25,7 +25,7 @@ export function DemoCredit({ slug, className }: { slug: string; className?: stri
         <Link href={quoteUrl(slug)} className="underline underline-offset-4 hover:no-underline">
           Get a website like this
         </Link>
-        <Link href={site.basePath} className="underline underline-offset-4 hover:no-underline">
+        <Link href={site.home} className="underline underline-offset-4 hover:no-underline">
           See other demos
         </Link>
       </p>

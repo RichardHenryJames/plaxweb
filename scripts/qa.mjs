@@ -19,18 +19,18 @@ const BASE = process.env.QA_BASE ?? 'http://localhost:3000';
 const WIDTHS = [375, 390, 430, 768, 1024, 1440, 1920];
 
 const ROUTES = {
-  home: '/web',
-  contact: '/web/contact',
-  salon: '/web/salon',
-  restaurant: '/web/restaurant',
-  clinic: '/web/clinic',
-  school: '/web/school',
-  realestate: '/web/realestate',
-  travel: '/web/travel',
-  fitness: '/web/fitness',
-  interior: '/web/interior',
-  resort: '/web/resort',
-  boutique: '/web/boutique',
+  home: '/',
+  contact: '/contact',
+  salon: '/salon',
+  restaurant: '/restaurant',
+  clinic: '/clinic',
+  school: '/school',
+  realestate: '/realestate',
+  travel: '/travel',
+  fitness: '/fitness',
+  interior: '/interior',
+  resort: '/resort',
+  boutique: '/boutique',
 };
 
 const args = process.argv.slice(2);
@@ -39,7 +39,7 @@ const rest = args.filter((a) => !a.startsWith('--'));
 const routeArgs = rest.filter((a) => Number.isNaN(Number(a)));
 const widthArgs = rest.filter((a) => !Number.isNaN(Number(a))).map(Number);
 
-const routes = routeArgs.length ? Object.fromEntries(routeArgs.map((r) => [r, ROUTES[r] ?? `/web/${r}`])) : ROUTES;
+const routes = routeArgs.length ? Object.fromEntries(routeArgs.map((r) => [r, ROUTES[r] ?? `/${r}`])) : ROUTES;
 const widths = widthArgs.length ? widthArgs : WIDTHS;
 
 await mkdir(new URL('../.imgqa/', import.meta.url), { recursive: true });

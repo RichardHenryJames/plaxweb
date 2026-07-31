@@ -2,7 +2,7 @@ import { Bricolage_Grotesque, Geist, Geist_Mono } from 'next/font/google';
 
 /**
  * Studio typography only. Each demo declares its own faces in its own folder
- * so a visitor opening /web/salon never downloads the studio display face.
+ * so a visitor opening /salon never downloads the studio display face.
  */
 
 export const bricolage = Bricolage_Grotesque({
