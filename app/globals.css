@@ -1,0 +1,331 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   PlaxWeb design tokens
+
+   The studio palette lives under the plain names (paper / ink / flame).
+   Every demo gets its own namespaced scale so the ten sites never share a
+   colour ramp by accident — that is what keeps them from looking templated.
+
+   NOTE ON FONTS: the font families live in a separate `@theme inline` block.
+   next/font puts its variables on a wrapper element, not on :root, so a plain
+   `@theme` would try to resolve `var(--font-x)` at :root, fail, and silently
+   fall back to the system stack on every page.
+   ========================================================================== */
+
+@theme {
+  /* ---- Studio (plaxlabs.com/web) ---- */
+  --color-paper: #f4f1ea;
+  --color-paper-2: #ece7dc;
+  --color-ink: #14120f;
+  --color-ink-2: #2b2721;
+  --color-ink-3: #6b6459;
+  --color-rule: #d8d1c3;
+  /* flame is the accent on paper; flame-lit is the same accent on ink. Both
+     clear 4.5:1 against their own background at small sizes. */
+  --color-flame: #b83916;
+  --color-flame-lit: #f0733f;
+  --color-flame-soft: #f2d7cd;
+
+  /* ---- 01 Salon — Maison Aria (dark, brass, editorial) ---- */
+  --color-salon-espresso: #201814;
+  --color-salon-deep: #17110e;
+  --color-salon-bone: #f0e7db;
+  --color-salon-sand: #ddcdb8;
+  --color-salon-brass: #c39b48;
+  --color-salon-muted: #9c8d7c;
+
+  /* ---- 02 Restaurant — Kesari House (charcoal, chilli, turmeric) ---- */
+  --color-kesari-char: #17120d;
+  --color-kesari-soot: #241b14;
+  --color-kesari-cream: #f6ead6;
+  --color-kesari-chilli: #c0392b;
+  --color-kesari-turmeric: #e0a32e;
+  --color-kesari-muted: #a2907a;
+
+  /* ---- 03 Clinic — Aarogya Dental (clean, teal, high trust) ---- */
+  --color-clinic-ink: #0d2027;
+  --color-clinic-slate: #45606b;
+  --color-clinic-teal: #0d7c76;
+  --color-clinic-lit: #4fc9bf;
+  --color-clinic-deep: #0a5f5a;
+  --color-clinic-mist: #eef6f4;
+  --color-clinic-line: #d8e6e3;
+
+  /* ---- 04 School — Rosewood International (navy, gold, institutional) ---- */
+  --color-school-navy: #10294a;
+  --color-school-deep: #0a1c33;
+  --color-school-gold: #b98a1f;
+  --color-school-gold-lit: #e0b44a;
+  --color-school-crimson: #8f2233;
+  --color-school-paper: #fbf8f2;
+  --color-school-line: #dfd6c4;
+
+  /* ---- 05 Real estate — Aashray Grove (forest, sand, brass) ---- */
+  --color-estate-forest: #10322a;
+  --color-estate-deep: #0a231d;
+  --color-estate-sand: #e8e1d4;
+  --color-estate-stone: #f5f1e9;
+  --color-estate-brass: #c9a253;
+  --color-estate-moss: #4b6b5c;
+
+  /* ---- 06 Travel — Wayfare Journeys (ink teal, sunset, sand) ---- */
+  --color-way-ink: #0c2a33;
+  --color-way-deep: #071c23;
+  --color-way-sun: #e8834f;
+  --color-way-sand: #f3ece1;
+  --color-way-sea: #2f7f86;
+
+  /* ---- 07 Fitness — Ironhouse (black, volt, concrete) ---- */
+  --color-iron-black: #0a0a0b;
+  --color-iron-coal: #16161a;
+  --color-iron-steel: #2a2a30;
+  --color-iron-volt: #d7ff3e;
+  --color-iron-smoke: #8e8e97;
+
+  /* ---- 08 Interior — Studio Mitti (warm white, clay, charcoal) ---- */
+  --color-mitti-linen: #f2eee7;
+  --color-mitti-shell: #e6dfd4;
+  --color-mitti-char: #1d1a16;
+  --color-mitti-clay: #9a5b3b;
+  --color-mitti-clay-lit: #d59168;
+  --color-mitti-stone: #6d6558;
+
+  /* ---- 09 Resort — Tamara Backwaters (ocean slate, shell, coral) ---- */
+  --color-tamara-slate: #12333d;
+  --color-tamara-deep: #0b232b;
+  --color-tamara-shell: #f6f1e7;
+  --color-tamara-coral: #e88a68;
+  --color-tamara-reed: #6e8a76;
+
+  /* ---- 10 Boutique — Kaanchi Label (ivory, ink, plum, gold) ---- */
+  --color-kaanchi-ivory: #faf6f0;
+  --color-kaanchi-ink: #1b1616;
+  --color-kaanchi-plum: #6f1d3b;
+  --color-kaanchi-gold: #ab8433;
+  --color-kaanchi-mute: #6e625a;
+}
+
+/* ==========================================================================
+   Typography tokens
+
+   `inline` matters: Tailwind substitutes these values straight into the
+   utility, so `var(--font-cormorant)` is resolved on the element that carries
+   the next/font class rather than on :root — where it does not exist.
+   ========================================================================== */
+
+@theme inline {
+  /* Studio */
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* 01 Salon */
+  --font-salon-display: var(--font-cormorant), Georgia, serif;
+  --font-salon-sans: var(--font-jost), ui-sans-serif, system-ui, sans-serif;
+
+  /* 02 Restaurant */
+  --font-kesari-display: var(--font-fraunces), Georgia, serif;
+  --font-kesari-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+
+  /* 03 Clinic */
+  --font-clinic-display: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-clinic-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+
+  /* 04 School */
+  --font-school-display: var(--font-playfair), Georgia, serif;
+  --font-school-sans: var(--font-public-sans), ui-sans-serif, system-ui, sans-serif;
+
+  /* 05 Real estate */
+  --font-estate-display: var(--font-newsreader), Georgia, serif;
+  --font-estate-sans: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
+
+  /* 06 Travel */
+  --font-way-display: var(--font-instrument-serif), Georgia, serif;
+  --font-way-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+
+  /* 07 Fitness */
+  --font-iron-display: var(--font-anton), Impact, sans-serif;
+  --font-iron-sans: var(--font-barlow), ui-sans-serif, system-ui, sans-serif;
+
+  /* 08 Interior */
+  --font-mitti-display: var(--font-marcellus), Georgia, serif;
+  --font-mitti-sans: var(--font-work-sans), ui-sans-serif, system-ui, sans-serif;
+
+  /* 09 Resort */
+  --font-tamara-display: var(--font-tenor), Georgia, serif;
+  --font-tamara-sans: var(--font-karla), ui-sans-serif, system-ui, sans-serif;
+
+  /* 10 Boutique */
+  --font-kaanchi-display: var(--font-bodoni), Georgia, serif;
+  --font-kaanchi-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    /* Every shell (studio and each demo) sets its own family; this is only
+       what shows before those wrappers take over. */
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  /* Only draw focus rings for keyboard users, but never remove them. */
+  :focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: var(--color-flame);
+    color: #fff;
+  }
+
+  img,
+  svg,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* Balanced headline wrapping — avoids the lone orphan word on mobile. */
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   Utilities
+   ========================================================================== */
+
+/* Scroll-reveal. The <noscript> block in the root layout neutralises this, so
+   visitors without JavaScript always get the finished page. */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal='in'] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Range inputs: keep the track thin but give the control a 24px hit area,
+   and inherit the demo's accent through `currentColor`. */
+.range-control {
+  appearance: none;
+  width: 100%;
+  height: 1.5rem;
+  background: transparent;
+  cursor: pointer;
+}
+
+.range-control::-webkit-slider-runnable-track {
+  height: 0.5rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, currentColor 22%, transparent);
+}
+
+.range-control::-webkit-slider-thumb {
+  appearance: none;
+  margin-top: -0.3rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+.range-control::-moz-range-track {
+  height: 0.5rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, currentColor 22%, transparent);
+}
+
+.range-control::-moz-range-thumb {
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 0;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+/* Horizontal scrollers used by galleries, menus and timetables. */
+.scroll-x {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.scroll-x::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-x > * {
+  scroll-snap-align: start;
+}
+
+/* Marquee — used once, on the studio hero. */
+@keyframes plax-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.marquee-track {
+  animation: plax-marquee var(--marquee-duration, 60s) linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
