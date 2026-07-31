@@ -8,7 +8,7 @@
  */
 const ITEMS: [string, string][] = [
   ['Business websites', 'The five to twelve pages a real business needs, readable on a phone in ninety seconds.'],
-  ['Enquiry & booking flows', 'Appointments, admissions, site visits, tables — with the fields your team needs to act.'],
+  ['Enquiry & booking flows', 'Appointments, admissions, site visits and tables, with the fields your team needs to act.'],
   ['Menus, catalogues & tariffs', 'Prices, sizes and packages that load instantly instead of a PDF nobody can pinch-zoom.'],
   ['WhatsApp & call routing', 'Pre-filled WhatsApp, click-to-call, and a copy of every lead in your inbox.'],
   ['Local SEO groundwork', 'Titles, structured data, sitemap and a Google Business Profile checklist.'],
@@ -23,7 +23,7 @@ export function Capabilities() {
           <div>
             <p className="font-mono text-[0.66rem] tracking-[0.2em] text-flame uppercase">What we build</p>
             <h2 className="mt-4 font-display text-[clamp(1.8rem,4vw,2.6rem)] leading-[1.05] font-extrabold tracking-[-0.032em]">
-              What is in every build.
+              In every build.
             </h2>
           </div>
           <p className="max-w-sm text-[0.95rem] leading-relaxed text-ink-3">

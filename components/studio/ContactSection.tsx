@@ -26,7 +26,7 @@ export function ContactSection() {
             >
               Message us on WhatsApp
             </a>
-            <p className="mt-3 text-[0.82rem] text-ink-3">Or fill in the form — it takes about twenty seconds.</p>
+            <p className="mt-3 text-[0.82rem] text-ink-3">Or fill in the form. It takes about twenty seconds.</p>
 
             <dl className="mt-9 space-y-5 border-t border-rule pt-7">
               <div>

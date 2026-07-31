@@ -14,14 +14,14 @@ export function Hero() {
         <div className="flex flex-col gap-8 lg:grid lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-x-14 lg:gap-y-0 xl:gap-x-20">
           <div className="lg:col-start-1 lg:row-start-1 lg:self-end">
             <p className="font-mono text-[0.66rem] tracking-[0.2em] text-flame uppercase sm:text-[0.68rem]">
-              PlaxWeb — a PlaxLabs studio
+              PlaxWeb, a PlaxLabs studio
             </p>
             <h1 className="mt-4 font-display text-[clamp(2.15rem,5.4vw,3.9rem)] leading-[1.03] font-extrabold tracking-[-0.036em] sm:mt-5">
               Websites built for real businesses.
             </h1>
             <p className="mt-5 max-w-xl text-[1.02rem] leading-relaxed text-ink-2 sm:mt-6 sm:text-[1.05rem]">
-              Explore websites designed for businesses like yours — built to turn visitors into bookings, orders and
-              enquiries. See every design on desktop and mobile.
+              Find a website close to your business and open it. Each one is set up to bring in bookings, orders or
+              enquiries, and works as well on a phone as on a laptop.
             </p>
           </div>
 

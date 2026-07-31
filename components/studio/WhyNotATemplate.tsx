@@ -8,8 +8,8 @@
  */
 const points: [string, string][] = [
   ['We start with the enquiry, not the layout', 'The salon booking request arrives with service, stylist and time already filled in.'],
-  ['Your prices, your rooms, your photographs', 'Real service menus, fee tables, floor plans and tariffs — not placeholder copy.'],
-  ['The phone version is designed, not squeezed', 'Open any demo at 390px. Nothing is pinch-to-zoom or out of thumb reach.'],
+  ['Your prices, your rooms, your photographs', 'Your own service menus, fee tables, floor plans and tariffs, in place of placeholder copy.'],
+  ['The phone version gets its own layout', 'Open any demo at 390px. Nothing is pinch-to-zoom or out of thumb reach.'],
   ['You own it outright', 'Code, domain and content are yours. No monthly licence for the site itself.'],
 ];
 
@@ -28,7 +28,7 @@ export function WhyNotATemplate() {
               and we will tell you so on the call.
             </p>
             <p className="mt-4 text-[1rem] leading-relaxed text-ink-2">
-              Come to us when the website has a job to do — taking bookings, qualifying enquiries, filling an admission
+              Come to us when the website has a job to do: taking bookings, qualifying enquiries, filling an admission
               list, showing inventory, cutting the same phone call you answer ten times a day.
             </p>
           </div>

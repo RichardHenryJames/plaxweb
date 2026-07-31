@@ -103,7 +103,7 @@ export const solutions: Record<string, Solution> = {
     problem:
       'Patients compare four clinics before calling any of them, and the one that hides its pricing and its doctors’ credentials is the one they skip.',
     outcome:
-      'Treatments explained with honest price bands and real credentials, so the patient who calls has already decided — and can book a slot in two taps.',
+      'Treatments explained with honest price bands and real credentials, so the patient who calls has already decided, and can book a slot in two taps.',
     metric: 'Appointment requests and calls',
     before: 'Patients ring to ask what a treatment costs',
     after: 'honest price bands are published, so the person who calls has already decided',
@@ -126,7 +126,7 @@ export const solutions: Record<string, Solution> = {
     group: 'Education',
     bestFor: 'CBSE/ICSE/state schools, preschools and coaching institutes',
     problem:
-      'Admission season is decided in eight weeks, and parents are choosing on a phone at 11pm — from fee structures, board results and a prospectus they cannot find.',
+      'Admission season is decided in eight weeks, and parents are choosing on a phone at 11pm, from fee structures, board results and a prospectus they cannot find.',
     outcome:
       'Every question a parent asks is answered on the site, and the enquiry reaches the admissions desk with the grade, locality and transport need attached.',
     metric: 'Qualified admission enquiries',
@@ -153,7 +153,7 @@ export const solutions: Record<string, Solution> = {
     problem:
       'Portal leads cost thousands each and arrive unqualified, so the sales team burns its week on site visits from people who were never going to buy.',
     outcome:
-      'Buyers self-qualify on configuration, price and EMI before they ask for a visit — so the site-visit calendar fills with people who already know the number.',
+      'Buyers self-qualify on configuration, price and EMI before they ask for a visit. The site-visit calendar fills with people who already know the number.',
     metric: 'Site-visit bookings',
     before: 'Brochures forwarded by hand to anyone who asks',
     after: 'configuration-wise pricing and an EMI calculator qualify the buyer before the site visit',
@@ -178,7 +178,7 @@ export const solutions: Record<string, Solution> = {
     problem:
       'Itineraries go out as PDFs over WhatsApp, the same eight questions get answered by hand every day, and price-shoppers eat the whole week.',
     outcome:
-      'The full day-by-day itinerary, inclusions and departure dates are public — so the enquiries that arrive are from people who have read them and are ready to talk dates.',
+      'The full day-by-day itinerary, inclusions and departure dates are public. People enquire with dates already in mind, and they have read them and are ready to talk dates.',
     metric: 'Trip enquiries with dates',
     before: 'The same itinerary retyped into chat all week',
     after: 'packages, day-by-day plans and departure dates are public, so enquiries arrive with dates',
@@ -226,9 +226,9 @@ export const solutions: Record<string, Solution> = {
     group: 'Property & Interiors',
     bestFor: 'Interior designers, architects and turnkey contractors',
     problem:
-      'The work only exists on Instagram, where a 3,000 sq ft project is nine squares — and every enquiry starts with “what do you charge?” from someone with no budget.',
+      'The work only exists on Instagram, where a 3,000 sq ft project is nine squares, and every enquiry starts with “what do you charge?” from someone with no budget.',
     outcome:
-      'Full project case studies with area, duration and cost, and published fee bands — so the enquiries that come through are budget-aware from the first message.',
+      'Full project case studies with area, duration and cost, and published fee bands. Enquiries arrive from people who already know the range and from the first message.',
     metric: 'Qualified project enquiries',
     before: 'Work shown as a folder of photos on a phone',
     after: 'finished projects with budgets and durations, and an enquiry that already states the brief',
@@ -278,7 +278,7 @@ export const solutions: Record<string, Solution> = {
     problem:
       'The whole catalogue lives in a WhatsApp broadcast. Customers ask “price?” under every Instagram post, and nobody knows what is still in stock.',
     outcome:
-      'A proper catalogue with prices, sizes and fabric detail, and an order that arrives on WhatsApp naming the exact piece and size — no more price-in-DM.',
+      'A proper catalogue with prices, sizes and fabric detail, and an order that arrives on WhatsApp naming the exact piece and size, instead of another price-in-DM thread.',
     metric: 'Product enquiries and orders',
     before: 'Orders negotiated one WhatsApp photo at a time',
     after: 'a catalogue with fabric, sizes and prices, and an order that starts with the piece already chosen',

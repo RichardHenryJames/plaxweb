@@ -9,7 +9,7 @@ const HOW = [
   ],
   [
     'The number moves with the work, not the industry',
-    'A ten-page school site costs more than a five-page salon site because it is more work — not because schools have bigger budgets.',
+    'A ten-page school site costs more than a five-page salon site because it is more work. The industry itself makes no difference to the number.',
   ],
   [
     'Running costs stay small',
@@ -30,7 +30,7 @@ export function Pricing() {
           <div className="min-w-0 lg:sticky lg:top-28 lg:self-start">
             <p className="font-mono text-[0.66rem] tracking-[0.2em] text-flame uppercase">What it costs</p>
             <h2 className="mt-4 font-display text-[clamp(1.9rem,4.4vw,3rem)] leading-[1.04] font-extrabold tracking-[-0.032em]">
-              Real numbers, before you call.
+              What each website starts at.
             </h2>
             <div className="mt-7 space-y-6">
               {HOW.map(([title, body]) => (
@@ -88,7 +88,7 @@ export function Pricing() {
 
             <p className="mt-6 max-w-2xl text-[0.88rem] leading-relaxed text-ink-3">
               Starting prices are for the solution as it stands, with your brand and content in place of ours. Extra
-              pages, a second language, online payments, a booking engine or a CRM connection are quoted on top — and
+              pages, a second language, online payments, a booking engine or a CRM connection are quoted on top, and
               we will tell you which of them you do not need yet.
             </p>
 

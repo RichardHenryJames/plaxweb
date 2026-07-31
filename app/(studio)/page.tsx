@@ -55,21 +55,23 @@ export default function PortfolioPage() {
 
       <Hero />
 
-      {/* Sets the rule of the page before the catalogue. */}
+      {/* Sets the rule of the page before the catalogue. Only the middle line
+          is a contrast: three negations in a row read as a formula rather than
+          as an argument. */}
       <section className="border-b border-rule bg-ink py-10 text-paper sm:py-12">
         <div className="mx-auto grid max-w-[84rem] gap-8 px-5 sm:px-8 md:grid-cols-3 md:gap-10">
           {[
             [
-              'Not screenshots — working sites',
-              'Every solution below is live. Open the menu, submit the form, tap WhatsApp, run the EMI calculator.',
+              'Everything below is live',
+              'Open a menu, submit a form, tap WhatsApp, run the EMI calculator. Nothing here is a picture of a website.',
             ],
             [
               'Sold as an outcome, not a page count',
               'A clinic buys appointments. A school buys admission enquiries. The website is how it happens.',
             ],
             [
-              'Yours, not a template with a new logo',
-              'The closest solution becomes the starting point. Your brand, services and photographs replace ours.',
+              'You get your own website',
+              'The closest one becomes the starting point. Your brand, services and photographs replace ours.',
             ],
           ].map(([title, body], i) => (
             <div key={title} className="flex gap-4">

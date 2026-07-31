@@ -1,19 +1,19 @@
 const QA = [
   {
     q: 'Can I just get one of these demo websites for my business?',
-    a: 'Yes — that is what they are for. We take the demo closest to your business, replace the fictional brand with yours, restructure whatever does not fit, and shoot or source the photography. It is faster and cheaper than starting from a blank page, and you already know what you are getting.',
+    a: 'Yes, that is what they are for. We take the demo closest to your business, replace the fictional brand with yours, restructure whatever does not fit, and shoot or source the photography. It is faster and cheaper than starting from a blank page, and you already know what you are getting.',
   },
   {
     q: 'Do I need to buy a domain and hosting separately?',
-    a: 'A domain is yours to own, so we ask you to buy it (about ₹900 a year on GoDaddy, Hostinger or BigRock) — or we buy it and transfer it to you. Hosting is included: these sites run on Vercel, which is free at small-business traffic and stays fast without a server to maintain.',
+    a: 'A domain is yours to own, so we ask you to buy it (about ₹900 a year on GoDaddy, Hostinger or BigRock), or we buy it and transfer it to you. Hosting is included: these sites run on Vercel, which is free at small-business traffic and stays fast without a server to maintain.',
   },
   {
     q: 'Will my website show up on Google?',
-    a: 'We handle the on-page part properly — titles, descriptions, structured data, a sitemap, fast loading and clean headings — and we set up or clean up your Google Business Profile, which is what actually drives local searches in India. Ranking for competitive terms takes months and usually needs ongoing work; we will tell you honestly what to expect.',
+    a: 'We handle the on-page part properly: titles, descriptions, structured data, a sitemap, fast loading and clean headings. We also set up or clean up your Google Business Profile, which is what actually drives local searches in India. Ranking for competitive terms takes months and usually needs ongoing work; we will tell you honestly what to expect.',
   },
   {
     q: 'Can my team update the content ourselves?',
-    a: 'For most Starter and Business sites, text and price changes are quick for us and included for the first 30 days, then charged in small blocks. If you need to publish regularly — offers, notices, blog posts, new products — we add a content manager so your team can edit without touching code.',
+    a: 'For most Starter and Business sites, text and price changes are quick for us and included for the first 30 days, then charged in small blocks. If you need to publish regularly, whether that is offers, notices or new products, we add a content manager so your team can edit without touching code.',
   },
   {
     q: 'How do enquiries reach me?',
@@ -29,7 +29,7 @@ const QA = [
   },
   {
     q: 'Do you work with businesses outside India?',
-    a: 'Yes. The demos lean Indian because that is most of our work — ₹ pricing, WhatsApp, admission and site-visit flows — but the same build quality applies anywhere. We quote in USD or AED on request.',
+    a: 'Yes. The demos lean Indian because that is most of our work: ₹ pricing, WhatsApp, admission and site-visit flows. But the same build quality applies anywhere. We quote in USD or AED on request.',
   },
 ];
 

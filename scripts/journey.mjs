@@ -78,7 +78,7 @@ async function journey(label, contextOptions) {
   await page.waitForTimeout(1600);
   await page.getByRole('button', { name: /Send enquiry/i }).click();
   await page.waitForTimeout(2500);
-  check(tag('enquiry sends'), await page.getByText('Thanks — we have got it.').isVisible());
+  check(tag('enquiry sends'), await page.getByRole('heading', { name: /Thanks/ }).isVisible());
 
   await ctx.close();
 }

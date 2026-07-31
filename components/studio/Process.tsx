@@ -28,7 +28,7 @@ export function Process() {
         <div className="max-w-2xl">
           <p className="font-mono text-[0.66rem] tracking-[0.2em] text-flame-lit uppercase">How a project runs</p>
           <h2 className="mt-4 font-display text-[clamp(2rem,5vw,3.2rem)] leading-[1.03] font-extrabold tracking-[-0.032em]">
-            Four steps. Two to four weeks. One fixed price.
+            What happens after you get in touch.
           </h2>
         </div>
 

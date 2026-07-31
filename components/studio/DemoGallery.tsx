@@ -31,11 +31,11 @@ export function DemoGallery() {
           <div className="max-w-2xl">
             <p className="font-mono text-[0.66rem] tracking-[0.2em] text-flame uppercase">The work</p>
             <h2 className="mt-4 font-display text-[clamp(1.9rem,4.4vw,3rem)] leading-[1.04] font-extrabold tracking-[-0.032em]">
-              Ten businesses. Ten different websites.
+              See what we can build for your business.
             </h2>
             <p className="mt-4 text-[1rem] leading-relaxed text-ink-2">
-              None of these are mockups. Open one and use it — read the menu, request a slot, run the EMI calculator —
-              on your phone or your laptop.
+              Every website here is finished and working. Check a menu, request a slot, run an EMI calculator or plan a
+              trip. Try them on your phone as well as your laptop.
             </p>
           </div>
           <p className="shrink-0 font-mono text-[0.7rem] text-ink-3 lg:text-right">

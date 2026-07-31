@@ -76,7 +76,7 @@ await page.locator('input[name="phone"]').fill('9876543210');
 await page.waitForTimeout(1500);
 await page.getByRole('button', { name: /Send enquiry/i }).click();
 await page.waitForTimeout(2500);
-check('valid submission succeeds', await page.getByText('Thanks — we have got it.').isVisible());
+check('valid submission succeeds', await page.getByRole('heading', { name: /Thanks/ }).isVisible());
 
 /* ------------------------------------------------------------ sitemap etc */
 for (const path of ['/sitemap.xml', '/robots.txt']) {

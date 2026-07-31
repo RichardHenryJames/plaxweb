@@ -82,10 +82,10 @@ export function LeadForm({
       <div className="rounded-[4px] border border-rule bg-white p-8 sm:p-10">
         <p className="font-mono text-[0.66rem] tracking-[0.2em] text-flame uppercase">Enquiry received</p>
         <h3 className="mt-4 font-display text-[1.9rem] leading-tight font-extrabold tracking-[-0.03em]">
-          Thanks — we have got it.
+          Thanks, we&apos;ve got it.
         </h3>
         <p className="mt-4 max-w-md text-[1rem] leading-relaxed text-ink-2">
-          A real person reads every enquiry. Expect a reply within one working day, usually on WhatsApp, with a few
+          Someone will read this and reply within one working day, usually on WhatsApp, with a few
           questions and a rough number.
         </p>
         <div className="mt-7 flex flex-wrap gap-3">
