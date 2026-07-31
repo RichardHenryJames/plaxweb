@@ -128,7 +128,7 @@ export function DemoChrome({ demo }: { demo: DemoEntry }) {
 
             <dl className="mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-lg bg-white/10">
               <div className="bg-[#100f0e] px-3 py-2.5">
-                <dt className="font-mono text-[0.56rem] tracking-[0.12em] text-white/40 uppercase">Solutions from</dt>
+                <dt className="font-mono text-[0.56rem] tracking-[0.12em] text-white/40 uppercase">Projects from</dt>
                 <dd className="mt-0.5 text-[0.92rem] font-medium">{s.priceFrom}</dd>
               </div>
               <div className="bg-[#100f0e] px-3 py-2.5">

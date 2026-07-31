@@ -23,7 +23,7 @@ export function DemoCredit({ slug, className }: { slug: string; className?: stri
       </p>
       <p className="flex flex-wrap items-center gap-x-4 gap-y-1">
         <Link href={quoteUrl(slug)} className="underline underline-offset-4 hover:no-underline">
-          Get a website like this
+          Build something like this
         </Link>
         <Link href={site.home} className="underline underline-offset-4 hover:no-underline">
           See other demos

@@ -26,7 +26,7 @@ async function journey(label, contextOptions) {
   check(tag('hero shows a real screenshot'), await page.locator('img[src*="previews"]').first().isVisible());
 
   // 2. Reach the catalogue and filter it.
-  await page.getByRole('link', { name: /Find your industry/ }).click();
+  await page.getByRole('link', { name: /Explore websites/ }).click();
   await page.waitForTimeout(500);
   await page.evaluate(() => document.querySelectorAll('[data-reveal]').forEach((n) => n.setAttribute('data-reveal', 'in')));
   const beauty = page.getByRole('button', { name: /Health & Wellness/ });

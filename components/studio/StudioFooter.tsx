@@ -13,9 +13,15 @@ export function StudioFooter() {
             <span className="font-display text-[1.6rem] leading-none font-extrabold tracking-[-0.03em]">
               Plax<span className="text-flame-lit">Web</span>
             </span>
-            <p className="mt-4 text-[0.95rem] leading-relaxed text-paper/65">
-              A web design and development studio inside PlaxLabs. We build websites for businesses that need customers,
-              not awards.
+            {/* The tagline lives here rather than in the hero, where the work
+                should do the talking. This is the line that travels — OG cards,
+                proposals, invoices, WhatsApp Business. */}
+            <p className="mt-4 font-display text-[1.15rem] leading-snug font-bold tracking-[-0.02em]">
+              Websites built to do business.
+            </p>
+            <p className="mt-2 text-[0.85rem] text-paper/55">A Plax Labs studio.</p>
+            <p className="mt-5 text-[0.95rem] leading-relaxed text-paper/65">
+              We design and build websites for businesses that need customers, not awards.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <a
