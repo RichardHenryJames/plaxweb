@@ -6,8 +6,8 @@ export const kesari = {
   phoneDisplay: '+91 80 4922 6161',
   phoneRaw: '918049226161',
   whatsappRaw: '919902334455',
-  address: ['Kesari House', '11, 12th Main, Indiranagar 1st Stage', 'Bengaluru 560038'],
-  mapQuery: 'Kesari House Indiranagar 12th Main Bengaluru',
+  address: ['Kesari House', '7, Aurobindo Place Market, Hauz Khas', 'New Delhi 110016'],
+  mapQuery: 'Kesari House Aurobindo Place Market Hauz Khas New Delhi',
   /** [openMinutes, closeMinutes] in IST, or null when shut. Index 0 = Sunday. */
   week: [
     { day: 'Sunday', label: '12:00 – 15:30 · 19:00 – 23:00', spans: [[720, 930], [1140, 1380]] },
@@ -126,7 +126,7 @@ export const story = [
 ];
 
 export const press = [
-  { quote: 'The best dal in Indiranagar, and it is not close.', source: 'Bangalore Times, 2025' },
+  { quote: 'The best dal in south Delhi, and it is not close.', source: 'Delhi Eats, 2025' },
   { quote: 'A kitchen that cooks like it has nothing to prove.', source: 'The Hindu MetroPlus' },
   { quote: 'Come for the biryani, stay because they refuse to rush you.', source: 'Conde Nast Traveller India' },
 ];

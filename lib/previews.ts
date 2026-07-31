@@ -42,16 +42,16 @@ export const previews: Record<string, DemoPreview> = {
   },
   "restaurant": {
     "desktop": {
-      "src": "/previews/restaurant-desktop.webp?v=ee06ade8",
+      "src": "/previews/restaurant-desktop.webp?v=0f7f9320",
       "width": 1120,
       "height": 1836,
-      "blurDataURL": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAADQAwCdASoOABcAPxl6slCsqCSisAgBkCMJZQC/OCPpsGy+zf0Gi5AA/uRHmOla/fnZpjkQNqXwWK+2JNqdfaU5Nt3REyfUR1F5YUqMz1cQ0dTdj1xHXD65ttRHSAfa9PxJsyOjnfb/Q7OyyWUXi7kE5Nw2NcjoAAA="
+      "blurDataURL": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAADQAwCdASoOABcAPxl4s1CspySisAgBkCMJZQC/OCPpsGy+zf0Gi5AA/uRHmOla/fnZpjkQNqXwWK+2JNqdfaU5Nt3REyfUR1F5YUqMz1cQ0dTdj1xHXD65ttRHSAfa9PxJsyOjnfb/Q7OyyWUXi7kE5Nw2NcjoAAA="
     },
     "mobile": {
-      "src": "/previews/restaurant-mobile.webp?v=3d6aebe7",
+      "src": "/previews/restaurant-mobile.webp?v=8f5fd6a0",
       "width": 430,
       "height": 1720,
-      "blurDataURL": "data:image/webp;base64,UklGRqIAAABXRUJQVlA4IJYAAABwBQCdASoOADgAPxl8tFKsp6UisBgIAZAjCUAWHYIqc9YWlvlpB7IJW+2My27GtRBmW/EAAP7NnflmDmROwah5EW08edn0DzohjpHdidDRuIi8m+7BogWqNrjn3TXMIgeDu1jz3WSA35IUirMAJ24nTFLsagW4+OMcHjtqtCitowyySND3J49egveyCvntzZ/DnQsjgAA="
+      "blurDataURL": "data:image/webp;base64,UklGRqIAAABXRUJQVlA4IJYAAABwBQCdASoOADgAPxl8tFKsp6UisBgIAZAjCUAWHYIqc9YWlvlpB7IJW+2B6Z+aPAAXQm2AAP7NnflmDmROwah5EW08edn0DzohjpHdidDRuIi8m+7BogWqNrjn3TXMIgeDu1jz29i6Spg1v/4AVOKcVHfyFAtx8cY4PK0nDBD0XELHet2K/pladbv7mPpwCRV6gOEOYAA="
     }
   },
   "clinic": {

@@ -83,7 +83,7 @@ export const demos: Demo[] = [
     slug: 'restaurant',
     brand: 'Kesari House',
     industry: 'Restaurant',
-    location: 'Indiranagar, Bengaluru',
+    location: 'Hauz Khas, New Delhi',
     blurb: 'A regional Indian kitchen where the menu is the website.',
     proves: 'A menu people can actually read on a phone, plus table reservations and live opening hours.',
     features: ['Full menu by course', 'Table reservation form', 'Live open/closed status', 'Directions & ordering links'],
@@ -93,7 +93,7 @@ export const demos: Demo[] = [
     accent: '#c0392b',
     onAccent: '#f6ead6',
     status: 'live',
-    metaTitle: 'Kesari House — Regional Indian Kitchen, Bengaluru | Demo by PlaxWeb',
+    metaTitle: 'Kesari House — Regional Indian Kitchen, New Delhi | Demo by PlaxWeb',
     metaDescription:
       'Demo restaurant website: full menu by course, table reservations, live opening hours, directions and delivery links. Built by PlaxWeb.',
   },

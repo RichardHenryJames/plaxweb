@@ -22,8 +22,8 @@ const schema = {
   acceptsReservations: 'True',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: '11, 12th Main, Indiranagar 1st Stage',
-    addressLocality: 'Bengaluru',
+    streetAddress: '7, Aurobindo Place Market, Hauz Khas',
+    addressLocality: 'New Delhi',
     addressRegion: 'Karnataka',
     postalCode: '560038',
     addressCountry: 'IN',
@@ -43,7 +43,7 @@ export default function RestaurantDemo() {
       {/* ------------------------------------------------- split hero */}
       <section className="grid lg:min-h-[92svh] lg:grid-cols-[1fr_1.1fr]">
         <div className="flex flex-col justify-center px-5 pt-10 pb-14 sm:px-10 lg:pt-24 lg:pb-20 xl:px-16">
-          <p className={eyebrow}>Indiranagar · Since 2019</p>
+          <p className={eyebrow}>Hauz Khas · Since 2019</p>
           <h1 className="mt-6 font-kesari-display text-[clamp(2.8rem,7vw,4.6rem)] leading-[0.98] font-semibold tracking-[-0.03em]">
             Regional Indian,
             <span className="block text-kesari-turmeric">cooked properly.</span>
@@ -71,7 +71,7 @@ export default function RestaurantDemo() {
           <div className="mt-11 border-t border-kesari-cream/12 pt-6">
             <OpenStatus className="text-[0.9rem] text-kesari-cream/80" />
             <p className="mt-2 text-[0.85rem] text-kesari-muted">
-              11, 12th Main, Indiranagar · Valet after 7pm · Closed Mondays
+              7, Aurobindo Place Market, Hauz Khas · Valet after 7pm · Closed Mondays
             </p>
           </div>
         </div>
@@ -208,7 +208,7 @@ export default function RestaurantDemo() {
         <div className="mx-auto grid max-w-[82rem] gap-12 px-5 sm:px-8 lg:grid-cols-2 lg:gap-16">
           <div>
             <p className={eyebrow}>Find us</p>
-            <h2 className={`mt-5 ${heading}`}>12th Main, Indiranagar</h2>
+            <h2 className={`mt-5 ${heading}`}>Aurobindo Place, Hauz Khas</h2>
             <address className="mt-7 text-[1.05rem] leading-relaxed text-kesari-cream/80 not-italic">
               {kesari.address.map((l) => (
                 <span key={l} className="block">
@@ -253,7 +253,7 @@ export default function RestaurantDemo() {
               {[
                 ['Order in', 'Available on Swiggy and Zomato between 12:30 and 22:30. Biryani travels best; breads do not.'],
                 ['Private dining', 'A 14-seat room with its own service. Minimum spend ₹18,000 on weekends.'],
-                ['Parking', 'Valet from 7pm. Street parking on 12th Main after 9pm is usually free.'],
+                ['Parking', 'Valet from 7pm. Market parking behind the block is usually free after 9pm.'],
                 ['Large orders', 'Office and house catering from 20 people. Two days’ notice for raan.'],
               ].map(([t, b]) => (
                 <div key={t} className="bg-kesari-char p-6">
@@ -274,7 +274,7 @@ export default function RestaurantDemo() {
               <p className="font-kesari-display text-[1.7rem] font-semibold">
                 Kesari House<span className="text-kesari-turmeric">.</span>
               </p>
-              <p className="mt-2 text-[0.85rem] text-kesari-muted">{kesari.sub} · Bengaluru</p>
+              <p className="mt-2 text-[0.85rem] text-kesari-muted">{kesari.sub} · New Delhi</p>
             </div>
             <div className="flex flex-wrap gap-x-8 gap-y-2 [&>a]:inline-flex [&>a]:min-h-[30px] [&>a]:items-center text-[0.88rem] text-kesari-cream/70">
               <a href={`tel:+${kesari.phoneRaw}`}>{kesari.phoneDisplay}</a>
