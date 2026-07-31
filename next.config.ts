@@ -45,11 +45,13 @@ const nextConfig: NextConfig = {
   // links and search rankings that already point at them. Safe to delete once
   // the old URLs no longer appear in Search Console.
   async redirects() {
-    return ['topics', 'samachar', 'profile'].map((p) => ({
-      source: `/${p}/:path*`,
-      destination: `/news/${p}/:path*`,
-      permanent: true,
-    }));
+    // Two rules per path rather than one `:path*`: that also matches nothing,
+    // which sent /topics to /news/topics/ and cost a second hop to strip the
+    // trailing slash. Chained redirects leak ranking and slow the hop.
+    return ['topics', 'samachar', 'profile'].flatMap((p) => [
+      { source: `/${p}`, destination: `/news/${p}`, permanent: true },
+      { source: `/${p}/:path+`, destination: `/news/${p}/:path+`, permanent: true },
+    ]);
   },
   async headers() {
     return [
