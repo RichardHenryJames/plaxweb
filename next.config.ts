@@ -35,11 +35,19 @@ const nextConfig: NextConfig = {
   // The news app is its own Next.js project mounted at /news. It sets
   // `basePath: '/news'`, so its pages *and* its /news/_next assets are both
   // covered by the second rule below — no separate asset prefix is needed.
+  //
+  // These must be `beforeFiles`. Next 16's segment cache sends prefetches with
+  // a `next-router-segment-prefetch` header; with an afterFiles rewrite this
+  // server resolves those against its own route tree first, finds nothing and
+  // returns 404, so every client-side navigation inside the news app loses its
+  // prefetch. beforeFiles runs ahead of that resolution.
   async rewrites() {
-    return [
-      { source: '/news', destination: `${NEWS_ZONE}/news` },
-      { source: '/news/:path+', destination: `${NEWS_ZONE}/news/:path+` },
-    ];
+    return {
+      beforeFiles: [
+        { source: '/news', destination: `${NEWS_ZONE}/news` },
+        { source: '/news/:path+', destination: `${NEWS_ZONE}/news/:path+` },
+      ],
+    };
   },
   // The news app used to own these paths at the domain root. Preserve the
   // links and search rankings that already point at them. Safe to delete once
