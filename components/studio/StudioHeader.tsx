@@ -35,11 +35,12 @@ export function StudioHeader() {
   }, [menu]);
 
   return (
-    <header
-      className={`sticky top-0 z-50 bg-paper/92 backdrop-blur-md transition-[border-color,box-shadow] duration-300 ${
-        scrolled ? 'border-b border-rule' : 'border-b border-transparent'
-      }`}
-    >
+    <>
+      <header
+        className={`sticky top-0 z-50 bg-paper/92 backdrop-blur-md transition-[border-color,box-shadow] duration-300 ${
+          scrolled ? 'border-b border-rule' : 'border-b border-transparent'
+        }`}
+      >
       <div className="mx-auto flex h-16 max-w-[84rem] items-center justify-between gap-6 px-5 sm:px-8">
         <Link href={site.home} className="group flex min-h-11 items-baseline gap-2 py-2" aria-label="PlaxWeb home">
           <span className="font-display text-[1.35rem] leading-none font-extrabold tracking-[-0.03em]">
@@ -85,9 +86,15 @@ export function StudioHeader() {
           </button>
         </div>
       </div>
+      </header>
 
+      {/* Deliberately a sibling of <header>, not a child. The header carries a
+          backdrop-filter, which makes it the containing block for any
+          position:fixed descendant — inset-0 then resolved against the 64px
+          header instead of the viewport, so the panel painted a 64px strip of
+          background and its links spilled over the page. */}
       {menu && (
-        <div className="fixed inset-0 z-50 flex flex-col bg-paper lg:hidden">
+        <div className="fixed inset-0 z-[60] flex flex-col bg-paper lg:hidden">
           <div className="flex h-16 items-center justify-between px-5 sm:px-8">
             <span className="font-display text-[1.35rem] leading-none font-extrabold tracking-[-0.03em]">
               Plax<span className="text-flame">Web</span>
@@ -128,6 +135,6 @@ export function StudioHeader() {
           </nav>
         </div>
       )}
-    </header>
+    </>
   );
 }
