@@ -306,3 +306,40 @@ Then `localhost:3000` is the studio and `localhost:3000/news` is the news app.
 - `plaxlabs.com/news` is styled and its logo loads
 - the contact form submits
 - `/topics` redirects to `/news/topics`
+
+---
+
+## Lead storage
+
+Enquiries are written to `plaxweb_leads` in the **same Supabase project the Plax
+news app uses**, so both products share one database, one bill and one
+keep-alive. That keep-alive is a daily Vercel cron in the `plax` repo hitting
+`/news/api/keep-alive`; it performs a real table read, which is what stops a
+free-tier project auto-pausing. plaxweb does not need its own.
+
+Apply `supabase-schema.sql` once (Supabase dashboard → SQL Editor) before the
+first enquiry, then set in Vercel:
+
+```
+NEXT_PUBLIC_SUPABASE_URL=…      # same value as the plax project
+SUPABASE_SERVICE_ROLE_KEY=…     # same value as the plax project
+```
+
+The table has row-level security enabled with **no policies**, so the anon key
+cannot read it. The server writes with the service role key, which bypasses RLS
+by design. Read leads in the dashboard → Table Editor → `plaxweb_leads`.
+
+Each row carries the attribution the portfolio collects, which is what makes the
+table worth having:
+
+| Column | Answers |
+| --- | --- |
+| `reference_demo` | Which demo produced the enquiry |
+| `preview_view` | Whether they were looking at desktop or mobile |
+| `solution` | Which productised solution they want |
+| `referer` | Which page they came from |
+| `status` | Your pipeline — `new`, `contacted`, `quoted`, `won`, `lost` |
+
+Storage never blocks the enquiry. If the database is unreachable the visitor
+still gets a success state, the email still sends, and the failure is logged
+with the lead body so nothing is lost.

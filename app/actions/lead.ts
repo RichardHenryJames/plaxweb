@@ -2,6 +2,7 @@
 
 import { headers } from 'next/headers';
 import { formatLead, leadSchema, type Lead, type LeadState } from '@/lib/lead';
+import { leadStore } from '@/lib/supabase';
 import { site } from '@/lib/site';
 
 /**
@@ -47,6 +48,34 @@ async function deliver(lead: Lead, body: string): Promise<void> {
   if (!res.ok) throw new Error(`mail provider responded ${res.status}`);
 }
 
+/**
+ * Persist the enquiry so there is a list to work from, not just an inbox.
+ *
+ * Deliberately never throws. An email that arrived is a lead we can still act
+ * on; a database hiccup must not be the reason a visitor is told their enquiry
+ * failed. Failures are logged loudly enough to notice, with the lead body so
+ * it can be recovered from the log.
+ */
+async function store(lead: Lead, referer: string | undefined): Promise<void> {
+  const db = leadStore();
+  if (!db) return; // Unconfigured locally; delivery still logs the lead.
+
+  const { error } = await db.from('plaxweb_leads').insert({
+    name: lead.name,
+    phone: lead.phone,
+    email: lead.email || null,
+    business: lead.business || null,
+    category: lead.category,
+    message: lead.message || null,
+    solution: lead.solution || null,
+    reference_demo: lead.referenceDemo && lead.referenceDemo !== 'none' ? lead.referenceDemo : null,
+    preview_view: lead.previewView || null,
+    referer: referer ?? null,
+  });
+
+  if (error) console.error('[plaxweb:lead] not stored:', error.message);
+}
+
 export async function submitLead(_prev: LeadState, formData: FormData): Promise<LeadState> {
   const raw = Object.fromEntries(formData) as Record<string, string>;
 
@@ -77,7 +106,11 @@ export async function submitLead(_prev: LeadState, formData: FormData): Promise<
     return { status: 'error', message: 'Too many submissions. Please try again in a minute.' };
   }
 
-  const body = formatLead(parsed.data, { referer: h.get('referer') ?? undefined, at: new Date() });
+  const referer = h.get('referer') ?? undefined;
+  const body = formatLead(parsed.data, { referer, at: new Date() });
+
+  // Store first: if the mail provider is down we still have the lead.
+  await store(parsed.data, referer);
 
   try {
     await deliver(parsed.data, body);

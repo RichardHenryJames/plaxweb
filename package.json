@@ -17,10 +17,12 @@
     "images:sheet": "node scripts/contact-sheet.mjs"
   },
   "dependencies": {
+    "@supabase/supabase-js": "2.110.8",
     "@vercel/analytics": "^1.6.0",
     "next": "16.2.11",
     "react": "19.2.8",
     "react-dom": "19.2.8",
+    "server-only": "0.0.1",
     "zod": "^4.1.12"
   },
   "devDependencies": {
