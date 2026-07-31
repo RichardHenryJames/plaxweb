@@ -41,7 +41,7 @@ export function Faq() {
           <div className="lg:sticky lg:top-28 lg:self-start">
             <p className="font-mono text-[0.66rem] tracking-[0.2em] text-flame uppercase">Before you ask</p>
             <h2 className="mt-4 font-display text-[clamp(2rem,5vw,3.2rem)] leading-[1.03] font-extrabold tracking-[-0.032em]">
-              The eight questions we get every week.
+              Before you ask.
             </h2>
           </div>
 

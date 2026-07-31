@@ -17,12 +17,12 @@ export function MobileProof() {
           <div>
             <p className="font-mono text-[0.66rem] tracking-[0.2em] text-flame uppercase">Designed twice, not squeezed</p>
             <h2 className="mt-4 font-display text-[clamp(1.9rem,4.4vw,3rem)] leading-[1.04] font-extrabold tracking-[-0.032em]">
-              Four in five of your customers will only ever see the phone version.
+              Most people will only ever see the phone version.
             </h2>
             <p className="mt-5 max-w-lg text-[1rem] leading-relaxed text-ink-2">
-              So the phone layout is designed on its own terms — not the desktop page stacked into one column. Call and
-              WhatsApp stay within thumb reach, menus and fee tables stay readable at 375px, and photographs are
-              cropped for a portrait screen rather than squeezed into it.
+              So it is designed on its own terms, not the desktop page stacked into one column. Call and WhatsApp stay
+              within thumb reach, menus and fee tables stay readable at 375px, and photographs are cropped for a
+              portrait screen rather than squeezed into it.
             </p>
 
             <ul className="mt-8 max-w-lg divide-y divide-rule border-y border-rule">

@@ -12,8 +12,8 @@ const HOW = [
     'A ten-page school site costs more than a five-page salon site because it is more work — not because schools have bigger budgets.',
   ],
   [
-    'Hosting is free at your scale',
-    'These sites run on Vercel, which costs nothing at small-business traffic. A domain is about ₹900 a year and stays in your name.',
+    'Running costs stay small',
+    'Most small-business sites sit inside the free tier of our hosting platform; heavier traffic or added services can change that, and we will say so before you commit. A domain is about ₹900 a year and stays in your name.',
   ],
 ];
 

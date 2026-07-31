@@ -21,7 +21,7 @@ export function StudioFooter() {
             </p>
             <p className="mt-2 text-[0.85rem] text-paper/55">A Plax Labs studio.</p>
             <p className="mt-5 text-[0.95rem] leading-relaxed text-paper/65">
-              We design and build websites for businesses that need customers, not awards.
+              We build websites to win business, not awards.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <a

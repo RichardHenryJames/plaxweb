@@ -16,20 +16,24 @@ export function ContactSection() {
               would change for your business.
             </p>
 
+            {/* Two routes, equally weighted. Plenty of owners will never fill
+                in a form but will happily send a message. */}
+            <a
+              href={whatsappUrl('Hi PlaxWeb, I saw your demo websites and want a quote for my business.')}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-7 inline-flex min-h-[50px] items-center justify-center gap-2 rounded-full border border-ink px-6 text-[0.92rem] font-medium transition-colors hover:bg-ink hover:text-paper"
+            >
+              Message us on WhatsApp
+            </a>
+            <p className="mt-3 text-[0.82rem] text-ink-3">Or fill in the form — it takes about twenty seconds.</p>
+
             <dl className="mt-9 space-y-5 border-t border-rule pt-7">
               <div>
                 <dt className="font-mono text-[0.62rem] tracking-[0.16em] text-ink-3 uppercase">Prefer to talk</dt>
-                <dd className="mt-1.5 flex flex-wrap items-center gap-x-5 gap-y-2">
+                <dd className="mt-1.5">
                   <a href={`tel:+${site.phoneRaw}`} className="text-[1.05rem] font-medium underline-offset-4 hover:underline">
                     {site.phoneDisplay}
-                  </a>
-                  <a
-                    href={whatsappUrl('Hi PlaxWeb, I saw your demo websites and want a quote for my business.')}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="rounded-full border border-ink/20 px-4 py-1.5 text-[0.82rem] transition-colors hover:border-ink"
-                  >
-                    WhatsApp
                   </a>
                 </dd>
               </div>

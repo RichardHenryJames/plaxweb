@@ -47,11 +47,14 @@ export function Hero() {
               </Link>
             </div>
 
+            {/* Proof, not price. A number before the visitor has seen anything
+                is just a barrier; the price lands under each solution instead,
+                where there is something to weigh it against. */}
             <dl className="mt-7 grid max-w-lg grid-cols-3 gap-px overflow-hidden rounded-[4px] border border-rule bg-rule sm:mt-8">
               {[
-                ['Projects from', '₹32,000'],
+                ['Live demos', '10, all open'],
                 ['Live in', '2–6 weeks'],
-                ['Designed for', 'Mobile first'],
+                ['Designed for', 'Desktop + mobile'],
               ].map(([label, value]) => (
                 <div key={label} className="bg-paper px-3 py-3.5 sm:px-4">
                   <dt className="font-mono text-[0.56rem] tracking-[0.12em] text-ink-3 uppercase sm:text-[0.58rem]">

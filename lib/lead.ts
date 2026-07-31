@@ -79,20 +79,25 @@ export type LeadState = {
 export function formatLead(lead: Lead, meta: { referer?: string; at: Date }): string {
   const rows: [string, string | undefined][] = [
     ['Name', lead.name],
-    ['Business', lead.business || '—'],
+    ['Business', lead.business],
     ['Phone / WhatsApp', lead.phone],
-    ['Email', lead.email || '—'],
+    ['Email', lead.email],
     ['Category', lead.category],
-    ['Solution', lead.solution || '—'],
-    ['Requirement', lead.requirement || '—'],
-    ['Reference demo', lead.referenceDemo && lead.referenceDemo !== 'none' ? lead.referenceDemo : '—'],
-    ['Previewed on', lead.previewView || '—'],
-    ['Budget', lead.budget || '—'],
-    ['Timeline', lead.timeline || '—'],
-    ['Came from', meta.referer || '—'],
+    ['Solution', lead.solution],
+    ['Requirement', lead.requirement],
+    ['Reference demo', lead.referenceDemo !== 'none' ? lead.referenceDemo : undefined],
+    ['Previewed on', lead.previewView],
+    ['Budget', lead.budget],
+    ['Timeline', lead.timeline],
+    ['Came from', meta.referer],
     ['Received', meta.at.toISOString()],
   ];
 
-  const table = rows.map(([k, v]) => `${k.padEnd(18)}: ${v ?? '—'}`).join('\n');
+  // Only what was actually answered. The form asks for far less than the schema
+  // allows, so printing every field would bury the real content under blanks.
+  const table = rows
+    .filter(([, v]) => v)
+    .map(([k, v]) => `${k.padEnd(18)}: ${v}`)
+    .join('\n');
   return `New PlaxWeb enquiry\n\n${table}\n\nMessage\n-------\n${lead.message || '—'}\n`;
 }

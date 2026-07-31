@@ -1,67 +1,54 @@
-const ITEMS = [
-  {
-    title: 'Business websites',
-    body: 'The five to twelve pages a real business needs — services, pricing, proof, team, location, contact. Written to be read on a phone in ninety seconds.',
-  },
-  {
-    title: 'Enquiry & booking flows',
-    body: 'Appointment requests, admission enquiries, site-visit bookings, table reservations. Fields chosen so your team can act on the lead without a follow-up call.',
-  },
-  {
-    title: 'Menus, catalogues & tariffs',
-    body: 'Menus that load instantly instead of a PDF nobody can pinch-zoom. Product and package catalogues with prices, sizes and a WhatsApp order button.',
-  },
-  {
-    title: 'WhatsApp & call routing',
-    body: 'Every enquiry route ends where Indian customers actually are. Pre-filled WhatsApp messages, click-to-call, and a lead copy in your inbox.',
-  },
-  {
-    title: 'Local SEO groundwork',
-    body: 'Titles, descriptions, structured data, sitemap, image alt text and a Google Business Profile checklist so you show up when someone searches your area.',
-  },
-  {
-    title: 'Speed & Core Web Vitals',
-    body: 'Images sized and re-encoded per device, fonts self-hosted, almost no JavaScript. Pages open before your customer decides to leave.',
-  },
+/**
+ * Confirmation, not persuasion.
+ *
+ * By the time a visitor reaches this point they have already opened a menu, a
+ * fee table and a booking flow in the demos above. Six paragraphs re-arguing
+ * that is repetition, so this is now a checklist that can be scanned in a few
+ * seconds — the portfolio sells, this only confirms scope.
+ */
+const ITEMS: [string, string][] = [
+  ['Business websites', 'The five to twelve pages a real business needs, readable on a phone in ninety seconds.'],
+  ['Enquiry & booking flows', 'Appointments, admissions, site visits, tables — with the fields your team needs to act.'],
+  ['Menus, catalogues & tariffs', 'Prices, sizes and packages that load instantly instead of a PDF nobody can pinch-zoom.'],
+  ['WhatsApp & call routing', 'Pre-filled WhatsApp, click-to-call, and a copy of every lead in your inbox.'],
+  ['Local SEO groundwork', 'Titles, structured data, sitemap and a Google Business Profile checklist.'],
+  ['Speed & Core Web Vitals', 'Images sized per device, fonts self-hosted, almost no JavaScript.'],
 ];
 
 export function Capabilities() {
   return (
-    <section id="build" className="scroll-mt-20 border-b border-rule py-20 sm:py-28">
+    <section id="build" className="scroll-mt-20 border-b border-rule py-16 sm:py-20">
       <div className="mx-auto max-w-[84rem] px-5 sm:px-8">
-        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
-          <div className="lg:sticky lg:top-28 lg:self-start">
+        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
             <p className="font-mono text-[0.66rem] tracking-[0.2em] text-flame uppercase">What we build</p>
-            <h2 className="mt-4 font-display text-[clamp(2rem,5vw,3.2rem)] leading-[1.03] font-extrabold tracking-[-0.032em]">
-              We build the six things a business site has to do.
+            <h2 className="mt-4 font-display text-[clamp(1.8rem,4vw,2.6rem)] leading-[1.05] font-extrabold tracking-[-0.032em]">
+              What is in every build.
             </h2>
-            <p className="mt-5 max-w-md text-[1rem] leading-relaxed text-ink-2">
-              Everything else is decoration. If a section on your website does not help someone decide, understand or
-              get in touch, we will argue against building it.
-            </p>
           </div>
+          <p className="max-w-sm text-[0.95rem] leading-relaxed text-ink-3">
+            If a section does not help someone decide, understand or get in touch, we will argue against building it.
+          </p>
+        </div>
 
-          <ul>
-            {ITEMS.map((item, i) => (
-              <li
-                key={item.title}
-                data-reveal
-                style={{ ['--reveal-delay' as string]: `${i * 60}ms` }}
-                className="grid grid-cols-[2.2rem_1fr] gap-x-4 border-t border-rule py-7 first:border-t-0 first:pt-0 sm:grid-cols-[3rem_1fr] sm:gap-x-6"
-              >
-                <span className="pt-1 font-mono text-[0.68rem] tracking-widest text-flame">
+        <ul className="mt-10 grid gap-x-10 border-t border-rule sm:grid-cols-2 lg:grid-cols-3">
+          {ITEMS.map(([title, body], i) => (
+            <li
+              key={title}
+              data-reveal
+              style={{ ['--reveal-delay' as string]: `${(i % 3) * 60}ms` }}
+              className="border-b border-rule py-6"
+            >
+              <h3 className="flex items-baseline gap-3 font-display text-[1.05rem] leading-snug font-bold tracking-[-0.02em]">
+                <span className="font-mono text-[0.62rem] font-normal tracking-widest text-flame">
                   {String(i + 1).padStart(2, '0')}
                 </span>
-                <div>
-                  <h3 className="font-display text-[1.28rem] leading-snug font-semibold tracking-[-0.02em] sm:text-[1.4rem]">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2.5 max-w-2xl text-[0.98rem] leading-relaxed text-ink-2">{item.body}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
+                {title}
+              </h3>
+              <p className="mt-2 text-[0.92rem] leading-relaxed text-ink-3">{body}</p>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

@@ -2,7 +2,7 @@
 
 import { useActionState, useEffect, useId, useRef, useState, useSyncExternalStore } from 'react';
 import { submitLead } from '@/app/actions/lead';
-import { BUDGETS, CATEGORIES, REQUIREMENTS, TIMELINES, type LeadState } from '@/lib/lead';
+import { CATEGORIES, type LeadState } from '@/lib/lead';
 import { catalogue, getDemo } from '@/lib/demos';
 import { getSourceDemo, track } from '@/lib/analytics';
 import { site, whatsappUrl } from '@/lib/site';
@@ -143,18 +143,6 @@ export function LeadForm({
             )}
           </div>
           <div>
-            <Label htmlFor={id('business')} optional>
-              Business name
-            </Label>
-            <input
-              id={id('business')}
-              name="business"
-              autoComplete="organization"
-              placeholder="Aria Hair & Skin"
-              className={fieldClass}
-            />
-          </div>
-          <div>
             <Label htmlFor={id('phone')}>Phone / WhatsApp</Label>
             <input
               id={id('phone')}
@@ -199,7 +187,7 @@ export function LeadForm({
 
       <fieldset className="mt-8 border-0 p-0">
         <legend className="mb-5 font-mono text-[0.64rem] tracking-[0.18em] text-ink-3 uppercase">
-          About the project
+          Your business
         </legend>
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
@@ -223,20 +211,8 @@ export function LeadForm({
             </select>
           </div>
           <div>
-            <Label htmlFor={id('requirement')} optional>
-              What you need
-            </Label>
-            <select id={id('requirement')} name="requirement" defaultValue={REQUIREMENTS[0]} className={fieldClass}>
-              {REQUIREMENTS.map((r) => (
-                <option key={r} value={r}>
-                  {r}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
             <Label htmlFor={id('demo')} optional>
-              Closest solution
+              Which demo did you like?
             </Label>
             <select
               id={id('demo')}
@@ -256,33 +232,9 @@ export function LeadForm({
               ))}
             </select>
           </div>
-          <div>
-            <Label htmlFor={id('budget')} optional>
-              Budget
-            </Label>
-            <select id={id('budget')} name="budget" defaultValue={BUDGETS[0]} className={fieldClass}>
-              {BUDGETS.map((b) => (
-                <option key={b} value={b}>
-                  {b}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className={compact ? 'sm:col-span-2' : ''}>
-            <Label htmlFor={id('timeline')} optional>
-              Timeline
-            </Label>
-            <select id={id('timeline')} name="timeline" defaultValue={TIMELINES[1]} className={fieldClass}>
-              {TIMELINES.map((t) => (
-                <option key={t} value={t}>
-                  {t}
-                </option>
-              ))}
-            </select>
-          </div>
           <div className="sm:col-span-2">
             <Label htmlFor={id('message')} optional>
-              Anything else we should know
+              Anything we should know?
             </Label>
             <textarea
               id={id('message')}

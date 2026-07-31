@@ -38,7 +38,10 @@ export function HeroDevice() {
       onMouseLeave={() => setPaused(false)}
       onFocusCapture={() => setPaused(true)}
     >
-      <div className="flex items-center justify-between gap-4">
+      {/* The toggle takes roughly half the width on a small phone, leaving the
+          solution name to wrap over three lines beside it. Below 400px the two
+          stack instead. */}
+      <div className="flex flex-col items-start gap-2 min-[400px]:flex-row min-[400px]:items-center min-[400px]:justify-between min-[400px]:gap-4">
         <p aria-live="polite" className="min-w-0 text-[0.82rem] text-ink-3">
           <span className="font-medium text-ink">{demo.solution.name}</span>
           <span className="mx-2 text-rule">·</span>
