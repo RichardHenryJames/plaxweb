@@ -5,12 +5,17 @@ import { useEffect, useState } from 'react';
 import { track } from '@/lib/analytics';
 import { site } from '@/lib/site';
 
+/**
+ * Root-relative, not bare fragments. These sections only exist on the home
+ * page, so `#demos` did nothing at all on /contact — it just rewrote the hash
+ * and left the visitor where they were.
+ */
 const NAV = [
-  { href: '#demos', label: 'Demos' },
-  { href: '#build', label: 'What we build' },
-  { href: '#process', label: 'Process' },
-  { href: '#pricing', label: 'Pricing' },
-  { href: '#faq', label: 'FAQ' },
+  { href: '/#demos', label: 'Demos' },
+  { href: '/#build', label: 'What we build' },
+  { href: '/#process', label: 'Process' },
+  { href: '/#pricing', label: 'Pricing' },
+  { href: '/#faq', label: 'FAQ' },
 ];
 
 export function StudioHeader() {
