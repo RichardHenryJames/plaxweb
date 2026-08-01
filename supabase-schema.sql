@@ -25,6 +25,15 @@ create table if not exists public.plaxweb_leads (
   preview_view    text,
   referer         text,
 
+  -- Everything the request itself told us: device, browser, operating system,
+  -- city, region, country, time zone, language and IP. Nothing here is asked
+  -- for on the form.
+  --
+  -- The IP is personal data in most markets this site sells into. It is kept
+  -- because it is what identifies duplicate and fraudulent submissions, and
+  -- for nothing else. If a privacy page is ever added, this belongs on it.
+  meta         jsonb,
+
   -- Sales pipeline. Updated by hand in the dashboard.
   status       text not null default 'new'
     check (status in ('new', 'contacted', 'quoted', 'won', 'lost')),
@@ -44,6 +53,11 @@ create index if not exists plaxweb_leads_reference_demo_idx
 -- anon and authenticated roles outright. The server writes with the service
 -- role key, which bypasses RLS by design, and you read them in the dashboard.
 alter table public.plaxweb_leads enable row level security;
+
+-- ---------------------------------------------------------------------------
+-- Migration for tables created before the meta column existed. Safe to run on
+-- a fresh database too: the create above already includes it.
+alter table public.plaxweb_leads add column if not exists meta jsonb;
 
 -- Verify after applying:
 --   select count(*) from public.plaxweb_leads;                 -- as service role: works

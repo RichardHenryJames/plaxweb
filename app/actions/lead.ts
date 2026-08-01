@@ -3,6 +3,8 @@
 import { headers } from 'next/headers';
 import { formatLead, leadPhone, leadSchema, type Lead, type LeadState } from '@/lib/lead';
 import { leadStore } from '@/lib/supabase';
+import { countryOf } from '@/lib/countries';
+import { formatVisitor, readVisitor, type Visitor } from '@/lib/visitor';
 import { site, whatsappUrl } from '@/lib/site';
 
 /**
@@ -94,9 +96,13 @@ async function deliver(lead: Lead, body: string): Promise<void> {
   }
 
   // The copy that matters. If this throws, the visitor is told to call.
+  //
+  // The category is in the subject because mail clients thread on subject
+  // alone: three enquiries from the same person collapsed into one
+  // conversation, and the two underneath were easy to miss entirely.
   await send(key, {
     to: inbox,
-    subject: `Website enquiry — ${lead.name}${lead.business ? ` (${lead.business})` : ''}`,
+    subject: `Website enquiry — ${lead.name}${lead.business ? ` (${lead.business})` : ''} · ${lead.category}`,
     text: body,
     replyTo: lead.email || undefined,
   });
@@ -125,11 +131,11 @@ async function deliver(lead: Lead, body: string): Promise<void> {
  * failed. Failures are logged loudly enough to notice, with the lead body so
  * it can be recovered from the log.
  */
-async function store(lead: Lead, referer: string | undefined): Promise<void> {
+async function store(lead: Lead, visitor: Visitor): Promise<void> {
   const db = leadStore();
   if (!db) return; // Unconfigured locally; delivery still logs the lead.
 
-  const { error } = await db.from('plaxweb_leads').insert({
+  const row = {
     name: lead.name,
     // Stored in full international form so it is dialable straight from the
     // table, whichever country the enquiry came from.
@@ -141,8 +147,20 @@ async function store(lead: Lead, referer: string | undefined): Promise<void> {
     solution: lead.solution || null,
     reference_demo: lead.referenceDemo && lead.referenceDemo !== 'none' ? lead.referenceDemo : null,
     preview_view: lead.previewView || null,
-    referer: referer ?? null,
-  });
+    referer: visitor.referer ?? null,
+  };
+
+  const { error } = await db.from('plaxweb_leads').insert({ ...row, meta: visitor });
+
+  // The meta column arrived after the table did. Rather than lose enquiries on
+  // any deployment where the migration has not been run yet, fall back to the
+  // row without it — the detail is in the email regardless.
+  if (error?.message.includes('meta')) {
+    console.warn('[plaxweb:lead] no meta column yet; run the ALTER in supabase-schema.sql');
+    const retry = await db.from('plaxweb_leads').insert(row);
+    if (retry.error) console.error('[plaxweb:lead] not stored:', retry.error.message);
+    return;
+  }
 
   if (error) console.error('[plaxweb:lead] not stored:', error.message);
 }
@@ -172,16 +190,19 @@ export async function submitLead(_prev: LeadState, formData: FormData): Promise<
   }
 
   const h = await headers();
-  const ip = (h.get('x-forwarded-for') ?? 'local').split(',')[0].trim();
-  if (rateLimited(ip)) {
+  const visitor = readVisitor(h);
+  if (rateLimited(visitor.ip ?? 'local')) {
     return { status: 'error', message: 'Too many submissions. Please try again in a minute.' };
   }
 
-  const referer = h.get('referer') ?? undefined;
-  const body = formatLead(parsed.data, { referer, at: new Date() });
+  const body =
+    formatLead(parsed.data, { referer: visitor.referer, at: new Date() }) +
+    '\nWhere this came from\n--------------------\n' +
+    formatVisitor(visitor, visitor.country ? countryOf(visitor.country).name : undefined) +
+    '\n';
 
   // Store first: if the mail provider is down we still have the lead.
-  await store(parsed.data, referer);
+  await store(parsed.data, visitor);
 
   try {
     await deliver(parsed.data, body);
