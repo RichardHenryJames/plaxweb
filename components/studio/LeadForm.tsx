@@ -112,18 +112,18 @@ export function LeadForm({
           Thanks, we&apos;ve got it.
         </h3>
         <p className="mt-4 max-w-md text-[1rem] leading-relaxed text-ink-2">
-          A copy is on its way to your inbox. Someone will read this and reply within one working day, usually on
-          WhatsApp, with a few questions and a rough number.
+          A copy is on its way to your inbox, and someone will reply within one working day. If you would rather not
+          wait, carry on below and we will pick it up straight away.
         </p>
         <div className="mt-7 flex flex-wrap gap-3">
           <a
-            href={whatsappUrl('Hi PlaxWeb, I just submitted an enquiry on your website.')}
+            href={state.whatsapp ?? whatsappUrl('Hi PlaxWeb, I just sent an enquiry on your website.')}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => track('whatsapp_click', { from: 'lead_success' })}
-            className="rounded-full bg-ink px-6 py-3 text-[0.9rem] font-medium text-paper transition-colors hover:bg-flame"
+            className="rounded-full bg-flame px-6 py-3 text-[0.9rem] font-medium text-white transition-colors hover:bg-ink"
           >
-            Message us now instead
+            Continue on WhatsApp →
           </a>
           <a
             href={`tel:+${site.phoneRaw}`}

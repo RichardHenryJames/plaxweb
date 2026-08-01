@@ -112,6 +112,16 @@ export type LeadState = {
   status: 'idle' | 'success' | 'error';
   message?: string;
   fieldErrors?: Partial<Record<keyof Lead, string>>;
+  /**
+   * A wa.me link pre-filled as if the enquirer wrote it, built on the server
+   * where the whole lead is known.
+   *
+   * This is the free path, and the reason it points that way round: Meta
+   * charges a business to start a conversation, but once the customer sends
+   * the first message, every reply for the next 24 hours costs nothing. One
+   * tap here turns a paid outbound message into a free inbound one.
+   */
+  whatsapp?: string;
 };
 
 /** Plain-text body. Text-only sidesteps HTML injection in the inbox entirely. */

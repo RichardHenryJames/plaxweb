@@ -236,5 +236,17 @@ export async function submitLead(_prev: LeadState, formData: FormData): Promise<
   // this must not delay or endanger it.
   await notifyOnWhatsApp(parsed.data);
 
-  return { status: 'success' };
+  // Written in the enquirer's voice, because they are the one who will send
+  // it. Their name and what they asked about are already in it, so the reply
+  // can be specific without a round of questions first.
+  const looking = parsed.data.solution
+    ? ` about a ${parsed.data.solution.toLowerCase()}`
+    : ` about a ${parsed.data.category.split(' / ')[0].toLowerCase()} website`;
+
+  return {
+    status: 'success',
+    whatsapp: whatsappUrl(
+      `Hi PlaxWeb, this is ${parsed.data.name}. I just sent an enquiry${looking} and would like to carry on here.`
+    ),
+  };
 }

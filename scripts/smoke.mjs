@@ -126,6 +126,14 @@ if (LOCAL) {
   await page.getByRole('button', { name: /Send enquiry/i }).click();
   await page.waitForTimeout(2500);
   check('valid submission succeeds', await page.getByRole('heading', { name: /Thanks/ }).isVisible());
+
+  // The free path: the enquirer opens the conversation, which makes every
+  // reply for the next 24 hours cost nothing. It only works if the link
+  // arrives pre-written, so this asserts the context is actually in it.
+  const wa = await page.getByRole('link', { name: /Continue on WhatsApp/ }).getAttribute('href');
+  const text = decodeURIComponent(wa ?? '');
+  check('WhatsApp hand-off is pre-filled with the enquirer', text.includes('Deepa Sharma'));
+  check('…and with what they asked about', /travel/i.test(text));
 } else {
   console.log('SKIP  valid submission — would write a real lead to a live inbox');
 }
