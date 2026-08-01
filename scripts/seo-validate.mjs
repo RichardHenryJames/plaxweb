@@ -9,9 +9,27 @@
 import { chromium } from 'playwright';
 
 const BASE = process.env.QA_BASE ?? 'http://localhost:3000';
+
+// The pages that are meant to rank. Demos are noindex by design and are
+// checked separately, since a missing description on a noindex page is not a
+// defect.
 const ROUTES = [
   '/',
   '/contact',
+  '/restaurant-website-design',
+  '/salon-website-design',
+  '/dental-clinic-website-design',
+  '/school-website-design',
+  '/real-estate-website-design',
+  '/travel-agency-website-design',
+  '/gym-website-design',
+  '/interior-design-website',
+  '/hotel-website-design',
+  '/boutique-website-design',
+];
+
+/** Demos must stay out of the index, or they compete with the pages above. */
+const NOINDEX_ROUTES = [
   '/salon',
   '/restaurant',
   '/clinic',
@@ -49,6 +67,7 @@ for (const route of ROUTES) {
       ogTitle: meta('meta[property="og:title"]'),
       viewport: Boolean(document.querySelector('meta[name=viewport]')),
       h1: document.querySelectorAll('h1').length,
+      robots: document.querySelector('meta[name=robots]')?.getAttribute('content') ?? '',
       blocks,
     };
   });
@@ -64,6 +83,7 @@ for (const route of ROUTES) {
   if (!d.ogTitle) errs.push('no og:title');
   if (!d.viewport) errs.push('no viewport');
   if (d.h1 !== 1) errs.push(`${d.h1} h1 tags`);
+  if (d.robots.includes('noindex')) errs.push('noindex on a page meant to rank');
 
   for (const b of d.blocks) {
     if (b.__bad) errs.push('JSON-LD does not parse');
@@ -80,11 +100,27 @@ for (const route of ROUTES) {
   const types = d.blocks.map((b) => b['@type']).filter(Boolean).join(', ') || 'none';
   if (errs.length) {
     failures++;
-    console.log(`${route.padEnd(13)} FAIL  ${errs.join(' | ')}`);
+    console.log(`${route.padEnd(30)} FAIL  ${errs.join(' | ')}`);
   } else {
-    console.log(`${route.padEnd(13)} ok    ${types}`);
+    console.log(`${route.padEnd(30)} ok    ${types}`);
+  }
+}
+
+// The demos must stay noindex. If one slips back into the index it starts
+// competing with the service page written to answer the same search.
+for (const route of NOINDEX_ROUTES) {
+  await page.goto(`${BASE}${route}`, { waitUntil: 'domcontentloaded', timeout: 60_000 });
+  const robots = await page.evaluate(
+    () => document.querySelector('meta[name=robots]')?.getAttribute('content') ?? ''
+  );
+  if (robots.includes('noindex')) {
+    console.log(`${route.padEnd(30)} ok    noindex`);
+  } else {
+    failures++;
+    console.log(`${route.padEnd(30)} FAIL  demo is indexable (robots: ${robots || 'none'})`);
   }
 }
 
 await browser.close();
-console.log(failures ? `\n${failures} page(s) with issues` : `\nall ${ROUTES.length} pages valid`);
+const total = ROUTES.length + NOINDEX_ROUTES.length;
+console.log(failures ? `\n${failures} page(s) with issues` : `\nall ${total} pages valid`);

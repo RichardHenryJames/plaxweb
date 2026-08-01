@@ -5,6 +5,7 @@ import { Capabilities } from '@/components/studio/Capabilities';
 import { Process } from '@/components/studio/Process';
 import { MobileProof } from '@/components/studio/MobileProof';
 import { WhyNotATemplate } from '@/components/studio/WhyNotATemplate';
+import { ServiceIndex } from '@/components/studio/ServiceIndex';
 import { Pricing } from '@/components/studio/Pricing';
 import { Faq, faqSchema } from '@/components/studio/Faq';
 import { ContactSection } from '@/components/studio/ContactSection';
@@ -12,9 +13,10 @@ import { TrackView } from '@/components/ui/TrackView';
 import { jsonLd, pageMetadata } from '@/lib/metadata';
 import { origin, site } from '@/lib/site';
 import { demos } from '@/lib/demos';
+import { services } from '@/lib/services';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'PlaxWeb — Websites built for real businesses',
+  title: 'Website Design & Development Company | PlaxWeb',
   description: site.description,
   path: site.home,
   image: demos[0].cover.src,
@@ -46,16 +48,35 @@ const orgSchema = {
     postalCode: '560008',
     addressCountry: 'IN',
   },
-  makesOffer: demos.map((d) => ({
+  // Points at the service pages rather than the demos: these are the URLs
+  // that describe what is actually for sale.
+  makesOffer: services.map((s) => ({
     '@type': 'Offer',
-    itemOffered: { '@type': 'Service', name: `${d.industry} website design`, description: d.proves },
+    itemOffered: {
+      '@type': 'Service',
+      name: s.primary,
+      description: s.intent,
+      url: `${origin()}${site.basePath}/${s.slug}`,
+    },
   })),
+};
+
+/** Ties the domain to the brand name so both resolve to one entity. */
+const siteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${origin()}${site.basePath}#website`,
+  url: `${origin()}${site.home}`,
+  name: site.name,
+  publisher: { '@id': `${origin()}${site.basePath}#plaxweb` },
+  inLanguage: 'en',
 };
 
 export default function PortfolioPage() {
   return (
     <>
       <script {...jsonLd(orgSchema)} />
+      <script {...jsonLd(siteSchema)} />
       <script {...jsonLd(faqSchema)} />
       <TrackView event="portfolio_view" />
 
@@ -94,6 +115,7 @@ export default function PortfolioPage() {
       </section>
 
       <DemoGallery />
+      <ServiceIndex />
       <WhyNotATemplate />
       <Capabilities />
       <Process />

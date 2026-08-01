@@ -237,10 +237,10 @@ export function SolutionCard({ demo, index, priority }: { demo: DemoEntry; index
 
       <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-rule pt-4 text-[0.82rem] text-ink-3">
         <span>
-          From <span className="font-medium text-ink">{s.priceFrom}</span>
+          Live in <span className="font-medium text-ink">{s.timeline}</span>
         </span>
         <span aria-hidden className="h-3 w-px bg-rule" />
-        <span>{s.timeline}</span>
+        <span>Fixed-price proposal</span>
         <Link
           href={`${site.basePath}/contact?demo=${demo.slug}&view=${view}`}
           onClick={() => track('demo_cta_click', { demo: demo.slug, cta: 'showcase_quote', view })}
@@ -321,10 +321,10 @@ export function FeatureRow({ demo, index, priority }: { demo: DemoEntry; index: 
 
         <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-rule pt-5 text-[0.85rem] text-ink-3">
           <span>
-            From <span className="font-medium text-ink">{s.priceFrom}</span>
+            Live in <span className="font-medium text-ink">{s.timeline}</span>
           </span>
           <span aria-hidden className="h-3 w-px bg-rule" />
-          <span>{s.timeline}</span>
+          <span>Fixed-price proposal</span>
           <Link
             href={`${site.basePath}/contact?demo=${demo.slug}&view=${view}`}
             onClick={() => track('demo_cta_click', { demo: demo.slug, cta: 'featured_quote', view })}
@@ -363,7 +363,7 @@ export function CompactCard({ demo, index }: { demo: DemoEntry; index: number })
       </Link>
       <p className="mt-2 text-[0.88rem] leading-relaxed text-ink-3">{s.after}</p>
       <p className="mt-3 text-[0.8rem] text-ink-3">
-        From <span className="font-medium text-ink">{s.priceFrom}</span>
+        Live in <span className="font-medium text-ink">{s.timeline}</span>
       </p>
     </article>
   );

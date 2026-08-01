@@ -9,12 +9,11 @@
  * villa enquiry is worth far more to a builder than a haircut booking is to a
  * salon, and the buying process is longer.
  *
- * Two currencies are published rather than one. A starting price in ₹ alone
- * tells a buyer in Dubai or London that they are not the customer, and a price
- * in $ alone prices us out of the market we know best. The USD figure is a
- * standing rate, not a live conversion: quotes are held for the length of a
- * project, so a number that moves with the exchange rate would be a worse
- * promise than one that does not.
+ * Starting prices are deliberately not published. A number shown before the
+ * visitor understands the work is an objection, not information: it gets
+ * compared against a template price it has nothing in common with, and the
+ * visitor leaves before seeing why the two differ. Scope decides the number,
+ * so the number arrives with the scope, in a written proposal.
  */
 
 export type SolutionGroup =
@@ -48,9 +47,6 @@ export type Solution = {
   /** Sensible additions. Never pushed on the portfolio itself. */
   optional: string[];
   timeline: string;
-  priceFrom: string;
-  /** Same starting price for buyers outside India. Held, not converted live. */
-  priceFromUsd: string;
 };
 
 export const solutions: Record<string, Solution> = {
@@ -76,8 +72,6 @@ export const solutions: Record<string, Solution> = {
     ],
     optional: ['Online payment for deposits', 'Salon software / calendar integration', 'Offers and festival campaign pages'],
     timeline: '2–3 weeks',
-    priceFrom: '₹32,000',
-    priceFromUsd: '$399',
   },
 
   restaurant: {
@@ -102,8 +96,6 @@ export const solutions: Record<string, Solution> = {
     ],
     optional: ['Direct online ordering with payments', 'Loyalty and offers', 'Multi-outlet pages', 'Table-QR menu'],
     timeline: '2–4 weeks',
-    priceFrom: '₹45,000',
-    priceFromUsd: '$549',
   },
 
   clinic: {
@@ -128,8 +120,6 @@ export const solutions: Record<string, Solution> = {
     ],
     optional: ['Payment for consultation deposits', 'Practice-management software integration', 'Multi-branch pages', 'Health blog'],
     timeline: '3–4 weeks',
-    priceFrom: '₹48,000',
-    priceFromUsd: '$579',
   },
 
   school: {
@@ -154,8 +144,6 @@ export const solutions: Record<string, Solution> = {
     ],
     optional: ['Online registration with fee payment', 'Parent portal / ERP link', 'Alumni section', 'Regional-language version'],
     timeline: '4–6 weeks',
-    priceFrom: '₹85,000',
-    priceFromUsd: '$999',
   },
 
   realestate: {
@@ -180,8 +168,6 @@ export const solutions: Record<string, Solution> = {
     ],
     optional: ['CRM integration (Salesforce, Zoho, LeadSquared)', 'Virtual tour / 360°', 'Channel-partner portal', 'Multi-project microsites'],
     timeline: '4–6 weeks',
-    priceFrom: '₹1,10,000',
-    priceFromUsd: '$1,299',
   },
 
   travel: {
@@ -206,8 +192,6 @@ export const solutions: Record<string, Solution> = {
     ],
     optional: ['Online booking with advance payment', 'Custom itinerary builder', 'B2B agent login', 'Multi-currency pricing'],
     timeline: '3–5 weeks',
-    priceFrom: '₹65,000',
-    priceFromUsd: '$779',
   },
 
   fitness: {
@@ -232,8 +216,6 @@ export const solutions: Record<string, Solution> = {
     ],
     optional: ['Class booking with capacity limits', 'Membership payments and renewals', 'Member app integration', 'Corporate wellness page'],
     timeline: '2–3 weeks',
-    priceFrom: '₹38,000',
-    priceFromUsd: '$459',
   },
 
   interior: {
@@ -258,8 +240,6 @@ export const solutions: Record<string, Solution> = {
     ],
     optional: ['3D walkthrough embeds', 'Client project portal', 'Before/after sliders', 'Product sourcing catalogue'],
     timeline: '3–4 weeks',
-    priceFrom: '₹58,000',
-    priceFromUsd: '$699',
   },
 
   resort: {
@@ -284,8 +264,6 @@ export const solutions: Record<string, Solution> = {
     ],
     optional: ['Booking engine with payments', 'Channel-manager integration', 'Gift vouchers', 'Weddings and events enquiry'],
     timeline: '3–5 weeks',
-    priceFrom: '₹78,000',
-    priceFromUsd: '$929',
   },
 
   boutique: {
@@ -310,8 +288,6 @@ export const solutions: Record<string, Solution> = {
     ],
     optional: ['Full online store with payments', 'Inventory sync', 'Instagram shop feed', 'Loyalty and repeat-customer offers'],
     timeline: '2–4 weeks',
-    priceFrom: '₹42,000',
-    priceFromUsd: '$499',
   },
 };
 

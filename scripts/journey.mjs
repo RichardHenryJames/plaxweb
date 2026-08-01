@@ -39,7 +39,9 @@ async function journey(label, contextOptions) {
   const card = page.locator('#demos article').first();
   await card.scrollIntoViewIfNeeded();
   check(tag('card names a solution'), (await card.locator('h3').innerText()).includes('Website'));
-  check(tag('card shows a starting price'), (await card.innerText()).includes('From ₹'));
+  // Prices were removed from the journey on purpose. What the card must still
+  // commit to is a delivery time.
+  check(tag('card commits to a delivery time'), /\d\s*–\s*\d\s*weeks/.test(await card.innerText()));
 
   // 4. Switch to mobile preview.
   await card.getByRole('button', { name: 'Mobile' }).click();
@@ -60,7 +62,7 @@ async function journey(label, contextOptions) {
   await badge.getByRole('button', { name: /PlaxWeb panel/ }).click();
   const panel = badge.getByRole('dialog');
   check(tag('panel names the solution'), (await panel.innerText()).includes('Salon Booking Website'));
-  check(tag('panel states price and timeline'), (await panel.innerText()).includes('₹32,000'));
+  check(tag('panel commits to a timeline'), (await panel.innerText()).includes('2–3 weeks'));
   check(tag('panel offers both device views'), await panel.getByRole('button', { name: 'Mobile' }).isVisible());
 
   // 7. Ask for it.

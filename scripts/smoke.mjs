@@ -83,7 +83,13 @@ for (const path of ['/sitemap.xml', '/robots.txt']) {
   const res = await page.request.get(`${BASE}${path}`);
   const body = await res.text();
   check(`${path} responds`, res.ok());
-  if (path === '/sitemap.xml') check('sitemap lists all ten demos', (body.match(/<loc>/g) ?? []).length === 12);
+  // Home + ten service pages + contact. Demos are noindex and deliberately
+  // absent: listing a noindexed URL in a sitemap is a contradiction.
+  if (path === '/sitemap.xml') {
+    const locs = body.match(/<loc>/g) ?? [];
+    check('sitemap lists the twelve indexable pages', locs.length === 12);
+    check('sitemap excludes the demos', !/<loc>[^<]*\/salon<\/loc>/.test(body));
+  }
 }
 
 await browser.close();

@@ -31,6 +31,16 @@ const ROUTES = {
   interior: '/interior',
   resort: '/resort',
   boutique: '/boutique',
+  'svc-restaurant': '/restaurant-website-design',
+  'svc-salon': '/salon-website-design',
+  'svc-clinic': '/dental-clinic-website-design',
+  'svc-school': '/school-website-design',
+  'svc-realestate': '/real-estate-website-design',
+  'svc-travel': '/travel-agency-website-design',
+  'svc-fitness': '/gym-website-design',
+  'svc-interior': '/interior-design-website',
+  'svc-resort': '/hotel-website-design',
+  'svc-boutique': '/boutique-website-design',
 };
 
 const args = process.argv.slice(2);

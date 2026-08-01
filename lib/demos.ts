@@ -75,9 +75,9 @@ export const demos: Demo[] = [
     accent: '#c39b48',
     onAccent: '#201814',
     status: 'live',
-    metaTitle: 'Salon Website Design with Online Booking | PlaxWeb',
+    metaTitle: 'Maison Aria — Salon Website Demo | PlaxWeb',
     metaDescription:
-      'A working salon website you can open and use: service menu with prices, stylist profiles and booking that opens WhatsApp. From ₹32,000 / $399.',
+      'A working salon website you can open and use: service menu with prices, stylist profiles and booking that opens WhatsApp.',
   },
   {
     slug: 'restaurant',
@@ -93,9 +93,9 @@ export const demos: Demo[] = [
     accent: '#c0392b',
     onAccent: '#f6ead6',
     status: 'live',
-    metaTitle: 'Restaurant Website Design with Online Ordering | PlaxWeb',
+    metaTitle: 'Restaurant Website Demo — Menu & Reservations | PlaxWeb',
     metaDescription:
-      'A working restaurant website you can open and use: a menu that reads on a phone, live open/closed status and table reservations. From ₹45,000 / $549.',
+      'A working restaurant website you can open and use: a menu that reads on a phone, live open/closed status and table reservations.',
   },
   {
     slug: 'realestate',
@@ -111,9 +111,9 @@ export const demos: Demo[] = [
     accent: '#a97f36',
     onAccent: '#0a231d',
     status: 'live',
-    metaTitle: 'Real Estate Website Development for Builders | PlaxWeb',
+    metaTitle: 'Property Website Demo — Plans & Site Visits | PlaxWeb',
     metaDescription:
-      'A working property website you can open and use: villa configurations, floor plans, an EMI calculator and site-visit booking. From ₹1,10,000 / $1,299.',
+      'A working property website you can open and use: villa configurations, floor plans, an EMI calculator and site-visit booking.',
   },
   {
     slug: 'school',
@@ -129,9 +129,9 @@ export const demos: Demo[] = [
     accent: '#10294a',
     onAccent: '#fbf8f2',
     status: 'live',
-    metaTitle: 'School Website Design for Admission Enquiries | PlaxWeb',
+    metaTitle: 'School Website Demo — Admissions & Results | PlaxWeb',
     metaDescription:
-      'A working school website you can open and use: an admission enquiry funnel, results, fee structure and transport routes. From ₹85,000 / $999.',
+      'A working school website you can open and use: an admission enquiry funnel, results, fee structure and transport routes.',
   },
   {
     slug: 'clinic',
@@ -147,9 +147,9 @@ export const demos: Demo[] = [
     accent: '#0d7c76',
     onAccent: '#ffffff',
     status: 'live',
-    metaTitle: 'Dental Clinic Website Design & Appointments | PlaxWeb',
+    metaTitle: 'Dental Clinic Website Demo — Appointments | PlaxWeb',
     metaDescription:
-      'A working dental clinic website you can open and use: treatments with honest price bands, doctor credentials and appointments. From ₹48,000 / $579.',
+      'A working dental clinic website you can open and use: treatments with honest price bands, doctor credentials and appointments.',
   },
   {
     slug: 'travel',
@@ -165,9 +165,9 @@ export const demos: Demo[] = [
     accent: '#dd6b34',
     onAccent: '#071c23',
     status: 'live',
-    metaTitle: 'Travel Website Design for Tour Operators | PlaxWeb',
+    metaTitle: 'Travel Website Demo — Itineraries & Departures | PlaxWeb',
     metaDescription:
-      'A working travel website you can open and use: filterable packages, day-by-day itineraries, fixed departures and dated enquiries. From ₹65,000 / $779.',
+      'A working travel website you can open and use: filterable packages, day-by-day itineraries, fixed departures and dated enquiries.',
   },
   {
     slug: 'fitness',
@@ -183,9 +183,9 @@ export const demos: Demo[] = [
     accent: '#d7ff3e',
     onAccent: '#0a0a0b',
     status: 'live',
-    metaTitle: 'Gym Website Design with Free-Trial Booking | PlaxWeb',
+    metaTitle: 'Gym Website Demo — Timetable & Free Trial | PlaxWeb',
     metaDescription:
-      'A working gym website you can open and use: a weekly class timetable, coach profiles, membership pricing and free-trial booking. From ₹38,000 / $459.',
+      'A working gym website you can open and use: a weekly class timetable, coach profiles, membership pricing and free-trial booking.',
   },
   {
     slug: 'interior',
@@ -201,9 +201,9 @@ export const demos: Demo[] = [
     accent: '#b06f4c',
     onAccent: '#f2eee7',
     status: 'live',
-    metaTitle: 'Interior Designer Website Design & Portfolio | PlaxWeb',
+    metaTitle: 'Interior Design Website Demo — Case Studies | PlaxWeb',
     metaDescription:
-      'A working interior design website you can open and use: case studies with real budgets and durations, and a qualified enquiry form. From ₹58,000 / $699.',
+      'A working interior design website you can open and use: case studies with real budgets and durations, and a qualified enquiry form.',
   },
   {
     slug: 'resort',
@@ -219,9 +219,9 @@ export const demos: Demo[] = [
     accent: '#d9714f',
     onAccent: '#0b232b',
     status: 'live',
-    metaTitle: 'Hotel & Resort Website Design, Direct Booking | PlaxWeb',
+    metaTitle: 'Resort Website Demo — Rooms & Direct Booking | PlaxWeb',
     metaDescription:
-      'A working hotel website you can open and use: room types with tariffs, experiences and a date-based enquiry that books direct. From ₹78,000 / $929.',
+      'A working hotel website you can open and use: room types with tariffs, experiences and a date-based enquiry that books direct.',
   },
   {
     slug: 'boutique',
@@ -237,9 +237,9 @@ export const demos: Demo[] = [
     accent: '#6f1d3b',
     onAccent: '#faf6f0',
     status: 'live',
-    metaTitle: 'Boutique Website Design with WhatsApp Orders | PlaxWeb',
+    metaTitle: 'Boutique Website Demo — Catalogue & Orders | PlaxWeb',
     metaDescription:
-      'A working boutique website you can open and use: a catalogue with fabric, sizes and prices, plus WhatsApp ordering. From ₹42,000 / $499.',
+      'A working boutique website you can open and use: a catalogue with fabric, sizes and prices, plus WhatsApp ordering.',
   },
 ];
 
