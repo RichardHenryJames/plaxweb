@@ -95,6 +95,27 @@ check('server rejects invalid input', await page.getByText('Please check the hig
   await page.goto(`${BASE}/contact?demo=travel`, { waitUntil: 'networkidle' });
 }
 
+// React empties an uncontrolled form once its action resolves, whether it
+// succeeded or not. So a rejected submit used to hand back "check the
+// highlighted fields" with every one of those fields already blank.
+{
+  await page.waitForTimeout(1400);
+  await page.locator('input[name="name"]').fill('Ananya Rao');
+  await page.locator('input[name="phone"]').fill('9812345678');
+  await page.locator('textarea[name="message"]').fill('We need online booking.');
+  await page.getByRole('button', { name: /Send enquiry/i }).click();
+  await page.waitForTimeout(2000);
+
+  const kept = await page.evaluate(() => ({
+    name: document.querySelector('input[name=name]')?.value,
+    phone: document.querySelector('input[name=phone]')?.value,
+    message: document.querySelector('textarea[name=message]')?.value,
+  }));
+  check('a rejected submit keeps the name', kept.name === 'Ananya Rao', kept.name);
+  check('…the phone number', kept.phone === '9812345678', kept.phone);
+  check('…and the message', kept.message === 'We need online booking.', kept.message);
+}
+
 /* ------------------------------------------------------- phone country code */
 const dialBtn = page.getByRole('button', { name: /^Country code:/ });
 check('phone field offers a country picker', await dialBtn.isVisible());

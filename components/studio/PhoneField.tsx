@@ -35,12 +35,15 @@ export const FIELD_BASE =
 export function PhoneField({
   id,
   detected,
+  defaultNumber,
   error,
   onEdit,
   describedBy,
 }: {
   id: (n: string) => string;
   detected?: string;
+  /** Handed back after a rejected submit, so the number is not retyped. */
+  defaultNumber?: string;
   error?: string;
   onEdit: () => void;
   describedBy?: string;
@@ -97,6 +100,7 @@ export function PhoneField({
           // in a single-column grid made every sibling 406px wide at a 390px
           // viewport. It stretches to fill the row anyway.
           size={10}
+          defaultValue={defaultNumber ?? ''}
           // The placeholder carries the expected length, which is why there is
           // no separate "10 digits" label: the field can say it itself.
           placeholder={country.nsn ? '9'.repeat(Math.min(country.nsn, 12)) : '9876543210'}

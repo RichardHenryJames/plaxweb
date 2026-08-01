@@ -122,6 +122,16 @@ export type LeadState = {
    * tap here turns a paid outbound message into a free inbound one.
    */
   whatsapp?: string;
+  /**
+   * What they typed, handed back so a rejected submit does not empty the form.
+   *
+   * React resets an uncontrolled form once its action resolves, and it does
+   * that whether the action succeeded or not. So without this, being told
+   * "check the highlighted fields" came with every one of those fields already
+   * blank — the two dropdowns survived only because they are React state
+   * rather than DOM values.
+   */
+  values?: Partial<Record<'name' | 'phone' | 'email' | 'message' | 'business', string>>;
 };
 
 /** Plain-text body. Text-only sidesteps HTML injection in the inbox entirely. */

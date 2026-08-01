@@ -177,6 +177,7 @@ export function LeadForm({
               required
               autoComplete="name"
               placeholder="Ananya Rao"
+              defaultValue={state.values?.name ?? ''}
               className={fieldClass}
               onInput={clearOnEdit('name')}
               aria-invalid={Boolean(errorFor('name'))}
@@ -192,6 +193,7 @@ export function LeadForm({
             <PhoneField
               id={id}
               detected={detectedCountry}
+              defaultNumber={state.values?.phone}
               error={errorFor('phone')}
               onEdit={clearOnEdit('phone')}
               describedBy={errorFor('phone') ? id('phone-err') : undefined}
@@ -206,6 +208,7 @@ export function LeadForm({
               required
               autoComplete="email"
               placeholder="you@business.com"
+              defaultValue={state.values?.email ?? ''}
               className={fieldClass}
               onInput={clearOnEdit('email')}
               aria-invalid={Boolean(errorFor('email'))}
@@ -287,6 +290,7 @@ export function LeadForm({
               rows={compact ? 3 : 4}
               maxLength={2000}
               placeholder="Pages you need, what you dislike about your current site, a link to a competitor you like…"
+              defaultValue={state.values?.message ?? ''}
               className={`${fieldClass} resize-y`}
             />
           </div>

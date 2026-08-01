@@ -186,6 +186,17 @@ async function store(lead: Lead, visitor: Visitor): Promise<void> {
 export async function submitLead(_prev: LeadState, formData: FormData): Promise<LeadState> {
   const raw = Object.fromEntries(formData) as Record<string, string>;
 
+  // Handed back on every failure path, because React empties an uncontrolled
+  // form once its action resolves — success or not. Never includes the
+  // honeypot, which is the one field that must stay empty.
+  const values = {
+    name: raw.name ?? '',
+    phone: raw.phone ?? '',
+    email: raw.email ?? '',
+    message: raw.message ?? '',
+    business: raw.business ?? '',
+  };
+
   // Honeypot: a bot fills every field it finds.
   if (raw.website) return { status: 'success' };
 
@@ -194,7 +205,7 @@ export async function submitLead(_prev: LeadState, formData: FormData): Promise<
   // enquiry costs far more than letting one bot through to the honeypot.
   const started = Number(raw.startedAt);
   if (Number.isFinite(started) && started > 0 && Date.now() - started < 1200) {
-    return { status: 'error', message: 'That was quick — please press send once more.' };
+    return { status: 'error', message: 'That was quick — please press send once more.', values };
   }
 
   const parsed = leadSchema.safeParse(raw);
@@ -204,13 +215,13 @@ export async function submitLead(_prev: LeadState, formData: FormData): Promise<
       const field = issue.path[0] as keyof Lead | undefined;
       if (field && !fieldErrors[field]) fieldErrors[field] = issue.message;
     }
-    return { status: 'error', message: 'Please check the highlighted fields.', fieldErrors };
+    return { status: 'error', message: 'Please check the highlighted fields.', fieldErrors, values };
   }
 
   const h = await headers();
   const visitor = readVisitor(h);
   if (rateLimited(visitor.ip ?? 'local')) {
-    return { status: 'error', message: 'Too many submissions. Please try again in a minute.' };
+    return { status: 'error', message: 'Too many submissions. Please try again in a minute.', values };
   }
 
   const body =
@@ -229,6 +240,7 @@ export async function submitLead(_prev: LeadState, formData: FormData): Promise<
     return {
       status: 'error',
       message: `We could not send that. Please WhatsApp or call us on ${site.phoneDisplay} and we will pick it up.`,
+      values,
     };
   }
 
