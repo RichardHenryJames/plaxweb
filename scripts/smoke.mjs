@@ -87,7 +87,7 @@ await page.getByRole('textbox', { name: 'Search countries' }).fill('971');
 const uae = page.getByRole('option', { name: /United Arab Emirates/ });
 check('search finds a country by dialling code', await uae.isVisible());
 await uae.click();
-check('prefix follows the country', await page.getByText('We add +971 for United Arab Emirates').isVisible());
+check('prefix follows the country', await page.getByRole('button', { name: /United Arab Emirates, plus 971/ }).isVisible());
 
 await page.locator('input[name="phone"]').fill('501234567');
 await page.getByRole('button', { name: /Send enquiry/i }).click();

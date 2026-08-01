@@ -66,16 +66,12 @@ export function PhoneField({
   }, [detected, chosen]);
 
   const country = countryOf(iso);
-  const hint = country.nsn ? `${country.nsn} digits` : 'National number';
 
   return (
     <div>
-      <div className="flex items-baseline justify-between gap-2">
-        <label htmlFor={id('phone')} className="mb-1.5 text-[0.8rem] font-medium text-ink-2">
-          Phone / WhatsApp
-        </label>
-        <span className="mb-1.5 font-mono text-[0.6rem] tracking-[0.1em] text-ink-3 uppercase">{hint}</span>
-      </div>
+      <label htmlFor={id('phone')} className="mb-1.5 block text-[0.8rem] font-medium text-ink-2">
+        Phone / WhatsApp
+      </label>
 
       <div className="flex">
         <CountrySelect
@@ -101,6 +97,8 @@ export function PhoneField({
           // in a single-column grid made every sibling 406px wide at a 390px
           // viewport. It stretches to fill the row anyway.
           size={10}
+          // The placeholder carries the expected length, which is why there is
+          // no separate "10 digits" label: the field can say it itself.
           placeholder={country.nsn ? '9'.repeat(Math.min(country.nsn, 12)) : '9876543210'}
           className={`${FIELD_BASE} min-w-0 flex-1 rounded-l-none`}
           onInput={onEdit}
@@ -109,12 +107,8 @@ export function PhoneField({
         />
       </div>
 
-      <p className="mt-1.5 text-[0.78rem] text-ink-3">
-        Just the local number. We add +{country.dial} for {country.name}.
-      </p>
-
       {error && (
-        <p id={describedBy} className="mt-1 text-[0.8rem] text-flame">
+        <p id={describedBy} className="mt-1.5 text-[0.8rem] text-flame">
           {error}
         </p>
       )}

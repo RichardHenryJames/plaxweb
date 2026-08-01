@@ -149,11 +149,16 @@ export function CountrySelect({
         aria-expanded={open}
         aria-controls={open ? listId : undefined}
         aria-label={`Country code: ${selected.name}, plus ${selected.dial}. Change`}
-        className="flex h-[46px] min-h-[46px] w-[6.9rem] items-center gap-1.5 rounded-[3px] rounded-r-none border border-r-0 border-rule bg-white pr-1.5 pl-3 text-left transition-colors hover:bg-paper-2 focus:border-ink focus:outline-none"
+        // Sized to its contents rather than to the longest dialling code in the
+        // list. Reserving room for +1868 left visible slack after the caret on
+        // the +91 and +44 codes almost everyone actually sees. The trade is
+        // that the field beside it shifts slightly when a longer code is
+        // picked, which only happens on a deliberate action.
+        className="flex h-[46px] min-h-[46px] shrink-0 items-center gap-1.5 rounded-[3px] rounded-r-none border border-r-0 border-rule bg-white pr-2.5 pl-3 text-left transition-colors hover:bg-paper-2 focus:border-ink focus:outline-none"
       >
         <Flag iso={selected.iso} />
-        <span className="min-w-0 flex-1 truncate font-mono text-[0.86rem] text-ink">+{selected.dial}</span>
-        <span aria-hidden className="text-[0.6rem] text-ink-3">
+        <span className="font-mono text-[0.86rem] text-ink">+{selected.dial}</span>
+        <span aria-hidden className="text-[0.55rem] text-ink-3">
           ▾
         </span>
       </button>
