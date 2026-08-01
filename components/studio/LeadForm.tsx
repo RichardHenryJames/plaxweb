@@ -112,8 +112,8 @@ export function LeadForm({
           Thanks, we&apos;ve got it.
         </h3>
         <p className="mt-4 max-w-md text-[1rem] leading-relaxed text-ink-2">
-          Someone will read this and reply within one working day, usually on WhatsApp, with a few
-          questions and a rough number.
+          A copy is on its way to your inbox. Someone will read this and reply within one working day, usually on
+          WhatsApp, with a few questions and a rough number.
         </p>
         <div className="mt-7 flex flex-wrap gap-3">
           <a
@@ -180,13 +180,12 @@ export function LeadForm({
             />
           </div>
           <div>
-            <Label htmlFor={id('email')} optional>
-              Email
-            </Label>
+            <Label htmlFor={id('email')}>Email</Label>
             <input
               id={id('email')}
               name="email"
               type="email"
+              required
               autoComplete="email"
               placeholder="you@business.com"
               className={fieldClass}

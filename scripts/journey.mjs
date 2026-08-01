@@ -79,6 +79,7 @@ async function journey(label, contextOptions) {
   if (/^https?:\/\/(localhost|127\.0\.0\.1)(:|\/|$)/.test(BASE)) {
     await page.locator('input[name="name"]').fill('Meera Joshi');
     await page.locator('input[name="phone"]').fill('9876500011');
+    await page.locator('input[name="email"]').fill('meera@example.com');
     await page.waitForTimeout(1600);
     await page.getByRole('button', { name: /Send enquiry/i }).click();
     await page.waitForTimeout(2500);

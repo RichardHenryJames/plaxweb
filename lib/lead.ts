@@ -62,7 +62,15 @@ export const leadSchema = z
           .max(14)
           .regex(/^[0-9]+$/, 'Digits only — leave out the country code')
       ),
-    email: z.string().transform(clean).pipe(z.email('Check this email address').max(160)).optional().or(z.literal('')),
+    /**
+     * Required, so every enquiry can be acknowledged. It is the one field
+     * that pays the visitor back for filling in the form: without it they
+     * send their details into silence and have no record it worked.
+     */
+    email: z
+      .string()
+      .transform(clean)
+      .pipe(z.email('Enter an email so we can send you a copy').max(160)),
     category: z.enum(CATEGORIES),
     requirement: z.enum(REQUIREMENTS).optional(),
     referenceDemo: z

@@ -104,22 +104,20 @@ async function deliver(lead: Lead, body: string): Promise<void> {
     to: inbox,
     subject: `Website enquiry — ${lead.name}${lead.business ? ` (${lead.business})` : ''} · ${lead.category}`,
     text: body,
-    replyTo: lead.email || undefined,
+    replyTo: lead.email,
   });
 
-  // Courtesy copy. Only possible when an email was given, and a failure here
-  // must never cost us the enquiry — we already hold the lead.
-  if (lead.email) {
-    try {
-      await send(key, {
-        to: lead.email,
-        subject: `We have your enquiry — ${site.name}`,
-        text: acknowledgement(lead),
-        replyTo: inbox,
-      });
-    } catch (err) {
-      console.error('[plaxweb:lead] acknowledgement not sent', err);
-    }
+  // Courtesy copy. A failure here must never cost us the enquiry — we already
+  // hold the lead and the inbox already has it.
+  try {
+    await send(key, {
+      to: lead.email,
+      subject: `We have your enquiry — ${site.name}`,
+      text: acknowledgement(lead),
+      replyTo: inbox,
+    });
+  } catch (err) {
+    console.error('[plaxweb:lead] acknowledgement not sent', err);
   }
 }
 
@@ -140,7 +138,7 @@ async function store(lead: Lead, visitor: Visitor): Promise<void> {
     // Stored in full international form so it is dialable straight from the
     // table, whichever country the enquiry came from.
     phone: leadPhone(lead),
-    email: lead.email || null,
+    email: lead.email,
     business: lead.business || null,
     category: lead.category,
     message: lead.message || null,

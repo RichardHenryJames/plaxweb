@@ -102,6 +102,15 @@ await page.getByRole('button', { name: /Send enquiry/i }).click();
 await page.waitForTimeout(1500);
 check('a short Indian number is caught', await page.getByText(/India numbers are 10 digits/).isVisible());
 
+// Email is required so that every enquirer gets an acknowledgement. If this
+// ever silently becomes optional again, people submit into silence.
+await page.locator('input[name="name"]').fill('Deepa Sharma');
+await page.locator('input[name="phone"]').fill('9876543210');
+await page.locator('input[name="email"]').fill('');
+await page.getByRole('button', { name: /Send enquiry/i }).click();
+await page.waitForTimeout(1500);
+check('email is required', await page.getByText(/Enter an email so we can send you a copy/).isVisible());
+
 /**
  * A successful submission is a real enquiry: it writes a row and emails the
  * inbox. Running this suite against production put three "Deepa Sharma" leads
@@ -112,6 +121,7 @@ const LOCAL = /^https?:\/\/(localhost|127\.0\.0\.1)(:|\/|$)/.test(BASE);
 if (LOCAL) {
   await page.locator('input[name="name"]').fill('Deepa Sharma');
   await page.locator('input[name="phone"]').fill('9876543210');
+  await page.locator('input[name="email"]').fill('deepa@example.com');
   await page.waitForTimeout(1500);
   await page.getByRole('button', { name: /Send enquiry/i }).click();
   await page.waitForTimeout(2500);
