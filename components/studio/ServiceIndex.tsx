@@ -44,8 +44,13 @@ export function ServiceIndex() {
 
         <nav aria-label="Website design services" className="mt-10">
           <div className="grid gap-x-10 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
-            {grouped.map(({ group, items }) => (
-              <div key={group} className="min-w-0">
+            {grouped.map(({ group, items }, i) => (
+              <div
+                key={group}
+                className="min-w-0"
+                data-reveal
+                style={{ ['--reveal-delay' as string]: `${(i % 3) * 80}ms` }}
+              >
                 <h3 className="border-b border-rule pb-2 font-mono text-[0.62rem] tracking-[0.16em] text-ink-3 uppercase">
                   {group}
                 </h3>

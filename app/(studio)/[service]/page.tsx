@@ -111,7 +111,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
           <section aria-labelledby="proof" className="border-b border-rule py-14 sm:py-20">
             <div className="mx-auto max-w-[84rem] px-5 sm:px-8">
               <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-14">
-                <figure className="min-w-0">
+                <figure className="min-w-0" data-reveal>
                   <div className="overflow-hidden rounded-lg border border-rule bg-white">
                     <Image
                       src={demo.preview.desktop.src}
@@ -175,7 +175,12 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
               <div className="min-w-0">
                 <ol className="space-y-8">
                   {service.requirements.map(([title, body], i) => (
-                    <li key={title} className="grid grid-cols-[2rem_1fr] gap-4 sm:grid-cols-[2.5rem_1fr]">
+                    <li
+                      key={title}
+                      className="grid grid-cols-[2rem_1fr] gap-4 sm:grid-cols-[2.5rem_1fr]"
+                      data-reveal
+                      style={{ ['--reveal-delay' as string]: `${i * 70}ms` }}
+                    >
                       <span
                         aria-hidden
                         className="font-mono text-[0.75rem] leading-7 tracking-[0.1em] text-ink-3 tabular-nums"
@@ -291,8 +296,8 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
             </h2>
             <nav aria-label="Related services" className="mt-7">
               <ul className="grid gap-px overflow-hidden rounded-lg border border-rule bg-rule sm:grid-cols-3">
-                {related.map((r) => (
-                  <li key={r.slug} className="bg-paper">
+                {related.map((r, i) => (
+                  <li key={r.slug} className="bg-paper" data-reveal style={{ ['--reveal-delay' as string]: `${i * 80}ms` }}>
                     <Link href={`${site.basePath}/${r.slug}`} className="block h-full p-5 transition-colors hover:bg-white">
                       <span className="font-mono text-[0.6rem] tracking-[0.14em] text-ink-3 uppercase">
                         {solutionFor(r).group}
