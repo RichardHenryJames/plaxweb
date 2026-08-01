@@ -129,7 +129,10 @@ export function DemoChrome({ demo }: { demo: DemoEntry }) {
             <dl className="mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-lg bg-white/10">
               <div className="bg-[#100f0e] px-3 py-2.5">
                 <dt className="font-mono text-[0.56rem] tracking-[0.12em] text-white/40 uppercase">Projects from</dt>
-                <dd className="mt-0.5 text-[0.92rem] font-medium">{s.priceFrom}</dd>
+                <dd className="mt-0.5 text-[0.92rem] font-medium">
+                  {s.priceFrom}
+                  <span className="block text-[0.78rem] font-normal text-white/50">{s.priceFromUsd}</span>
+                </dd>
               </div>
               <div className="bg-[#100f0e] px-3 py-2.5">
                 <dt className="font-mono text-[0.56rem] tracking-[0.12em] text-white/40 uppercase">Live in</dt>
@@ -182,9 +185,10 @@ export function DemoChrome({ demo }: { demo: DemoEntry }) {
               >
                 Get this for my business
               </Link>
-              {/* Most Indian SMB owners would rather start on WhatsApp than fill
-                  a form, so it carries the solution name and the demo they were
-                  looking at — the conversation opens already in context. */}
+              {/* In most of the markets we sell into, an owner would rather
+                  start on WhatsApp than fill a form, so it carries the solution
+                  name and the demo they were looking at — the conversation
+                  opens already in context. */}
               <a
                 href={whatsappUrl(
                   `Hi PlaxWeb, I was looking at the ${demo.brand} demo on your site. I run a business in ${demo.industry.toLowerCase()} and I'd like a ${demo.solution.name.toLowerCase()}.`

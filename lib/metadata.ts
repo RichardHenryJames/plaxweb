@@ -83,18 +83,28 @@ export function serviceSchema(demo: DemoEntry) {
       url: `${origin()}${site.home}`,
       parentOrganization: { '@type': 'Organization', name: site.parent },
     },
-    areaServed: { '@type': 'Country', name: 'India' },
+    areaServed: { '@type': 'Place', name: 'Worldwide' },
     audience: { '@type': 'BusinessAudience', audienceType: s.bestFor },
     offers: {
       '@type': 'Offer',
-      priceCurrency: 'INR',
-      price: s.priceFrom.replace(/[^0-9]/g, ''),
-      priceSpecification: {
-        '@type': 'PriceSpecification',
-        priceCurrency: 'INR',
-        minPrice: s.priceFrom.replace(/[^0-9]/g, ''),
-        valueAddedTaxIncluded: false,
-      },
+      priceCurrency: 'USD',
+      price: s.priceFromUsd.replace(/[^0-9]/g, ''),
+      // Both published starting prices, so a crawler sees the same two numbers
+      // a buyer does rather than assuming the studio only sells in one market.
+      priceSpecification: [
+        {
+          '@type': 'PriceSpecification',
+          priceCurrency: 'USD',
+          minPrice: s.priceFromUsd.replace(/[^0-9]/g, ''),
+          valueAddedTaxIncluded: false,
+        },
+        {
+          '@type': 'PriceSpecification',
+          priceCurrency: 'INR',
+          minPrice: s.priceFrom.replace(/[^0-9]/g, ''),
+          valueAddedTaxIncluded: false,
+        },
+      ],
       availability: 'https://schema.org/InStock',
       url: `${origin()}${site.basePath}/contact?demo=${demo.slug}`,
     },

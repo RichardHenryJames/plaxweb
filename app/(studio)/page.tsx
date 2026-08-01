@@ -32,8 +32,12 @@ const orgSchema = {
   // No email here on purpose: the domain has no MX records, so publishing one
   // to search engines invites mail that silently bounces. Add it back when a
   // mailbox exists.
-  areaServed: 'IN',
-  priceRange: '₹₹',
+  // The studio is based in India but sells everywhere, so the address stays
+  // (hiding it reads as evasive) while the service area does not inherit it.
+  areaServed: { '@type': 'Place', name: 'Worldwide' },
+  currenciesAccepted: site.currencies.join(', '),
+  availableLanguage: { '@type': 'Language', name: 'English' },
+  priceRange: '$$',
   address: {
     '@type': 'PostalAddress',
     streetAddress: site.addressLines.slice(1).join(', '),

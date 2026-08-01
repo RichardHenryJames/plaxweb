@@ -1,7 +1,7 @@
 /**
  * The objection nobody says out loud.
  *
- * Every owner being sold a website has already seen a ₹2,000 theme. Ignoring
+ * Every owner being sold a website has already seen a $40 theme. Ignoring
  * that makes our price look arbitrary. Conceding the cases where a template is
  * genuinely the right call is what makes the rest of it believable — this is
  * not an argument against templates, it is a line between two different jobs.
@@ -21,7 +21,7 @@ export function WhyNotATemplate() {
           <div className="min-w-0">
             <p className="font-mono text-[0.66rem] tracking-[0.2em] text-flame uppercase">The fair question</p>
             <h2 className="mt-4 font-display text-[clamp(1.8rem,4vw,2.7rem)] leading-[1.06] font-extrabold tracking-[-0.03em]">
-              Why not just buy a&nbsp;₹2,000 template?
+              Why not just buy a&nbsp;$40 template?
             </h2>
             <p className="mt-5 text-[1rem] leading-relaxed text-ink-2">
               If you need your name, address, phone number and a few photographs, buy one. It will be live this week

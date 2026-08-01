@@ -49,12 +49,14 @@ export function Hero() {
 
             {/* Proof, not price. A number before the visitor has seen anything
                 is just a barrier; the price lands under each solution instead,
-                where there is something to weigh it against. */}
+                where there is something to weigh it against. The currency line
+                is the exception: it is not a price, it is the fastest way to
+                tell a visitor outside India that they are the customer too. */}
             <dl className="mt-7 grid max-w-lg grid-cols-3 gap-px overflow-hidden rounded-[4px] border border-rule bg-rule sm:mt-8">
               {[
                 ['Live demos', '10, all open'],
                 ['Live in', '2–6 weeks'],
-                ['Designed for', 'Desktop + mobile'],
+                ['Quoted in', '₹ $ AED £ €'],
               ].map(([label, value]) => (
                 <div key={label} className="bg-paper px-3 py-3.5 sm:px-4">
                   <dt className="font-mono text-[0.56rem] tracking-[0.12em] text-ink-3 uppercase sm:text-[0.58rem]">

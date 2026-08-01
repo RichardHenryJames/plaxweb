@@ -5,11 +5,11 @@ const QA = [
   },
   {
     q: 'Do I need to buy a domain and hosting separately?',
-    a: 'A domain is yours to own, so we ask you to buy it (about ₹900 a year on GoDaddy, Hostinger or BigRock), or we buy it and transfer it to you. Hosting is included: these sites run on Vercel, which is free at small-business traffic and stays fast without a server to maintain.',
+    a: 'A domain is yours to own, so we ask you to buy it (about $12 or ₹900 a year from any registrar — Cloudflare, Namecheap, GoDaddy), or we buy it and transfer it to you. Hosting is included: these sites run on Vercel, which is free at small-business traffic and stays fast without a server to maintain.',
   },
   {
     q: 'Will my website show up on Google?',
-    a: 'We handle the on-page part properly: titles, descriptions, structured data, a sitemap, fast loading and clean headings. We also set up or clean up your Google Business Profile, which is what actually drives local searches in India. Ranking for competitive terms takes months and usually needs ongoing work; we will tell you honestly what to expect.',
+    a: 'We handle the on-page part properly: titles, descriptions, structured data, a sitemap, fast loading and clean headings. We also set up or clean up your Google Business Profile, which is what actually drives local searches in any city. Ranking for competitive terms takes months and usually needs ongoing work; we will tell you honestly what to expect.',
   },
   {
     q: 'Can my team update the content ourselves?',
@@ -17,7 +17,7 @@ const QA = [
   },
   {
     q: 'How do enquiries reach me?',
-    a: 'Every form emails you instantly and can also drop into a WhatsApp number or a Google Sheet. The buttons on the site are pre-filled WhatsApp messages and click-to-call, because that is how most Indian customers prefer to start a conversation.',
+    a: 'Every form emails you instantly and can also drop into WhatsApp, Slack or a Google Sheet. Where WhatsApp is how your customers already talk to businesses, the buttons are pre-filled WhatsApp messages and click-to-call. Where it is not, the same buttons become SMS, iMessage or a booking link. We set this to your market, not ours.',
   },
   {
     q: 'What do you need from me to start?',
@@ -25,11 +25,11 @@ const QA = [
   },
   {
     q: 'What are the payment terms?',
-    a: '40% to start, 40% when the design is approved, 20% before launch. GST invoice for every payment. If you cancel before the design stage, the first instalment covers the work done and nothing more is owed.',
+    a: '40% to start, 40% when the design is approved, 20% before launch. A proper invoice for every payment, with GST where it applies. We take bank transfer, card and international payment links, and we quote in your currency. If you cancel before the design stage, the first instalment covers the work done and nothing more is owed.',
   },
   {
-    q: 'Do you work with businesses outside India?',
-    a: 'Yes. The demos lean Indian because that is most of our work: ₹ pricing, WhatsApp, admission and site-visit flows. But the same build quality applies anywhere. We quote in USD or AED on request.',
+    q: 'Where are your clients based?',
+    a: 'The studio works in English with businesses anywhere, and our published prices are shown in ₹ and $ for that reason — we also quote in AED, GBP and EUR. Several demos are set in Indian cities because that is where a lot of our work has been, but nothing about the build is specific to one country: currency, language, payment methods, booking flows and the way customers get in touch are all set to your market. Calls are scheduled around your time zone, not ours.',
   },
 ];
 

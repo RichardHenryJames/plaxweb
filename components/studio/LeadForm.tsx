@@ -173,7 +173,7 @@ export function LeadForm({
               required
               inputMode="tel"
               autoComplete="tel"
-              placeholder="+91 98765 43210"
+              placeholder="+91 98765 43210 or +971 50 123 4567"
               className={fieldClass}
               onInput={clearOnEdit('phone')}
               aria-invalid={Boolean(errorFor('phone'))}

@@ -76,7 +76,8 @@ export default async function ContactPage({
                           {view && <span className="text-ink-3"> · {view} view</span>}
                         </p>
                         <p className="mt-1 text-[0.82rem] text-ink-3">
-                          From {demo.solution.priceFrom} · live in {demo.solution.timeline}
+                          From {demo.solution.priceFrom} / {demo.solution.priceFromUsd} · live in{' '}
+                          {demo.solution.timeline}
                         </p>
                         <Link
                           href={`${site.basePath}/${demo.slug}`}

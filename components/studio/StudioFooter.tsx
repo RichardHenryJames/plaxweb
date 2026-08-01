@@ -19,7 +19,7 @@ export function StudioFooter() {
             <p className="mt-4 font-display text-[1.15rem] leading-snug font-bold tracking-[-0.02em]">
               Websites built to do business.
             </p>
-            <p className="mt-2 text-[0.85rem] text-paper/55">A Plax Labs studio.</p>
+            <p className="mt-2 text-[0.85rem] text-paper/55">A Plax Labs studio. {site.serves}.</p>
             <p className="mt-5 text-[0.95rem] leading-relaxed text-paper/65">
               We build websites to win business, not awards.
             </p>

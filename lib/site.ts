@@ -17,7 +17,7 @@ export const site = {
   domain: 'plaxlabs.com',
   tagline: 'Websites built for real businesses.',
   description:
-    'PlaxWeb designs and builds websites for Indian businesses that need bookings, orders and enquiries. Open any demo and use it on your phone or laptop.',
+    'PlaxWeb designs and builds websites for businesses that need bookings, orders and enquiries. Ten working demos you can open and use on your phone or laptop.',
   /**
    * Where enquiries are delivered. Deliberately NOT shown on the site: the
    * domain has no MX records, so mail sent here bounces silently. Set
@@ -29,7 +29,15 @@ export const site = {
   phoneRaw: '919876543210',
   city: 'Bengaluru, India',
   addressLines: ['PlaxLabs', '2nd Floor, Cambridge Layout', 'Halasuru, Bengaluru 560008'],
-  hours: 'Mon–Sat, 10am – 7pm IST',
+  /**
+   * The studio is based in India and says so — a hidden location reads as
+   * evasive, not international. What makes it global is who it builds for, so
+   * that is stated separately and used in copy and schema.
+   */
+  serves: 'Working with businesses worldwide',
+  hours: 'Mon–Sat, 10am – 7pm IST, with calls scheduled across time zones',
+  /** Published starting prices are quoted in these. Used in copy and schema. */
+  currencies: ['INR', 'USD', 'AED', 'GBP', 'EUR'],
 } as const;
 
 /** Absolute origin. Vercel sets VERCEL_PROJECT_PRODUCTION_URL automatically. */

@@ -13,7 +13,7 @@ const HOW = [
   ],
   [
     'Running costs stay small',
-    'Most small-business sites sit inside the free tier of our hosting platform; heavier traffic or added services can change that, and we will say so before you commit. A domain is about ₹900 a year and stays in your name.',
+    'Most small-business sites sit inside the free tier of our hosting platform; heavier traffic or added services can change that, and we will say so before you commit. A domain is about $12 a year and stays in your name.',
   ],
 ];
 
@@ -58,7 +58,7 @@ export function Pricing() {
                       Live in
                     </th>
                     <th scope="col" className="py-3 text-right font-mono text-[0.6rem] tracking-[0.14em] text-ink-3 uppercase">
-                      From
+                      From (₹ / $)
                     </th>
                   </tr>
                 </thead>
@@ -79,6 +79,7 @@ export function Pricing() {
                       </td>
                       <td className="py-3.5 text-right text-[0.95rem] font-medium whitespace-nowrap">
                         {d.solution.priceFrom}
+                        <span className="block text-[0.8rem] font-normal text-ink-3">{d.solution.priceFromUsd}</span>
                       </td>
                     </tr>
                   ))}
@@ -100,7 +101,7 @@ export function Pricing() {
                 Get a fixed quote
               </Link>
               <p className="text-[0.86rem] text-ink-3">
-                40% to start · 40% on design approval · 20% before launch. GST invoice every time.
+                40% to start · 40% on design approval · 20% before launch. Quoted in ₹, $, AED, £ or €.
               </p>
             </div>
           </div>
