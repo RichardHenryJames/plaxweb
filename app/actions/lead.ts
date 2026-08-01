@@ -5,6 +5,7 @@ import { formatLead, leadPhone, leadSchema, type Lead, type LeadState } from '@/
 import { leadStore } from '@/lib/supabase';
 import { countryOf } from '@/lib/countries';
 import { formatVisitor, readVisitor, type Visitor } from '@/lib/visitor';
+import { sendWhatsAppTemplate } from '@/lib/whatsapp';
 import { site, whatsappUrl } from '@/lib/site';
 
 /**
@@ -122,6 +123,25 @@ async function deliver(lead: Lead, body: string): Promise<void> {
 }
 
 /**
+ * The same acknowledgement, on the channel most of these people actually read.
+ *
+ * The wording lives in the approved Meta template, not here. Only the two
+ * variable parts are sent: the first name, and what they were looking at.
+ *
+ * Best effort by design. WhatsApp fails for reasons that have nothing to do
+ * with the enquiry — a template pending review, a number not on the platform,
+ * a landline in the phone field — and none of them should reach the visitor.
+ */
+async function notifyOnWhatsApp(lead: Lead): Promise<void> {
+  try {
+    const looking = lead.solution || `${lead.category.split(' / ')[0].toLowerCase()} website`;
+    await sendWhatsAppTemplate(leadPhone(lead), [lead.name.split(' ')[0], looking]);
+  } catch (err) {
+    console.error('[plaxweb:lead] whatsapp not sent', err);
+  }
+}
+
+/**
  * Persist the enquiry so there is a list to work from, not just an inbox.
  *
  * Deliberately never throws. An email that arrived is a lead we can still act
@@ -211,6 +231,10 @@ export async function submitLead(_prev: LeadState, formData: FormData): Promise<
       message: `We could not send that. Please WhatsApp or call us on ${site.phoneDisplay} and we will pick it up.`,
     };
   }
+
+  // After delivery, never before: the email is the record that matters, and
+  // this must not delay or endanger it.
+  await notifyOnWhatsApp(parsed.data);
 
   return { status: 'success' };
 }

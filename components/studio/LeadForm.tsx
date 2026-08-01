@@ -282,7 +282,10 @@ export function LeadForm({
           {!pending && <span aria-hidden>→</span>}
         </button>
         <p className="max-w-xs text-[0.78rem] leading-relaxed text-ink-3">
-          No newsletter, no sales sequence. We reply once, from a real person.
+          {/* Says WhatsApp will be used before it is. Meta scores a sender on
+              how people react to unexpected messages, and this is the sentence
+              that stops the first one being a surprise. */}
+          We reply once, by email and on WhatsApp. No newsletter, no sales sequence.
         </p>
       </div>
     </form>
