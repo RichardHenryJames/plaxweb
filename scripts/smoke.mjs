@@ -116,6 +116,26 @@ check('server rejects invalid input', await page.getByText('Please check the hig
   check('…and the message', kept.message === 'We need online booking.', kept.message);
 }
 
+// Plenty of people fill in half the form and then decide messaging is quicker.
+// The link has to carry whatever they had already typed, or the enquiry
+// arrives anonymous and everything they told us is thrown away.
+{
+  await page.goto(`${BASE}/contact?demo=salon`, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(1200);
+  const skip = page.locator('#main').getByRole('link', { name: /WhatsApp us/ });
+  const text = async () => decodeURIComponent(((await skip.getAttribute('href')) ?? '').split('text=')[1] ?? '');
+
+  check('skip link starts generic', !(await text()).includes('this is'), await text());
+  await page.locator('input[name="name"]').fill('Parimal Kumar');
+  await page.waitForTimeout(400);
+  check('…and picks up the name as it is typed', (await text()).includes('this is Parimal Kumar'), await text());
+  check('…while keeping the demo they came from', /Salon Booking Website/.test(await text()));
+
+  // Back to where the rest of this file expects to be: later checks assert the
+  // travel solution, and this block navigated away from it.
+  await page.goto(`${BASE}/contact?demo=travel`, { waitUntil: 'networkidle' });
+}
+
 /* ------------------------------------------------------- phone country code */
 const dialBtn = page.getByRole('button', { name: /^Country code:/ });
 check('phone field offers a country picker', await dialBtn.isVisible());

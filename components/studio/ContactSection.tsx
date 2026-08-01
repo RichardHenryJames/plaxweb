@@ -1,5 +1,6 @@
 import { LeadForm } from './LeadForm';
-import { site, whatsappUrl } from '@/lib/site';
+import { WhatsAppSkip } from './WhatsAppSkip';
+import { site } from '@/lib/site';
 
 export function ContactSection() {
   return (
@@ -18,14 +19,9 @@ export function ContactSection() {
 
             {/* Two routes, equally weighted. Plenty of owners will never fill
                 in a form but will happily send a message. */}
-            <a
-              href={whatsappUrl('Hi PlaxWeb, I saw your demo websites and want a quote for my business.')}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-7 inline-flex min-h-[50px] items-center justify-center gap-2 rounded-full border border-ink px-6 text-[0.92rem] font-medium transition-colors hover:bg-ink hover:text-paper"
-            >
+            <WhatsAppSkip className="mt-7 inline-flex min-h-[50px] items-center justify-center gap-2 rounded-full border border-ink px-6 text-[0.92rem] font-medium transition-colors hover:bg-ink hover:text-paper">
               Message us on WhatsApp
-            </a>
+            </WhatsAppSkip>
             <p className="mt-3 text-[0.82rem] text-ink-3">Or fill in the form. It takes about twenty seconds.</p>
 
             <dl className="mt-9 space-y-5 border-t border-rule pt-7">

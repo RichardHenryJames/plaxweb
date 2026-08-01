@@ -3,10 +3,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { headers } from 'next/headers';
 import { LeadForm } from '@/components/studio/LeadForm';
+import { WhatsAppSkip } from '@/components/studio/WhatsAppSkip';
 import { TrackView } from '@/components/ui/TrackView';
 import { pageMetadata } from '@/lib/metadata';
 import { demoSlugs, featured, getDemo } from '@/lib/demos';
-import { origin, site, whatsappUrl } from '@/lib/site';
+import { origin, site } from '@/lib/site';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Get a quote — PlaxWeb',
@@ -129,18 +130,13 @@ export default async function ContactPage({
                     Rather skip the form
                   </dt>
                   <dd className="mt-2 flex flex-wrap gap-3">
-                    <a
-                      href={whatsappUrl(
-                        demo
-                          ? `Hi PlaxWeb, I would like a ${demo.solution.name} for my business (saw the ${demo.brand} demo).`
-                          : 'Hi PlaxWeb, I would like a quote for a website.'
-                      )}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <WhatsAppSkip
+                      solution={demo?.solution.name}
+                      brand={demo?.brand}
                       className="inline-flex min-h-[44px] items-center rounded-full bg-ink px-5 text-[0.85rem] font-medium text-paper transition-colors hover:bg-flame"
                     >
                       WhatsApp us
-                    </a>
+                    </WhatsAppSkip>
                     <a
                       href={`tel:+${site.phoneRaw}`}
                       className="inline-flex min-h-[44px] items-center rounded-full border border-ink/20 px-5 text-[0.85rem] font-medium transition-colors hover:border-ink"
