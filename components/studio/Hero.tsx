@@ -51,10 +51,15 @@ export function Hero() {
                 is just a barrier; the price lands under each solution instead,
                 where there is something to weigh it against. The currency line
                 is the exception: it is not a price, it is the fastest way to
-                tell a visitor outside India that they are the customer too. */}
+                tell a visitor outside India that they are the customer too.
+
+                None of these count anything. How many demos exist is our fact,
+                not the visitor's — and a count invites the reader to decide
+                whether it is impressive, which is not the question we want
+                them asking. */}
             <dl className="mt-7 grid max-w-lg grid-cols-3 gap-px overflow-hidden rounded-[4px] border border-rule bg-rule sm:mt-8">
               {[
-                ['Live demos', '10, all open'],
+                ['Every demo', 'Live, not a mockup'],
                 ['Live in', '2–6 weeks'],
                 ['Quoted in', '₹ $ AED £ €'],
               ].map(([label, value]) => (

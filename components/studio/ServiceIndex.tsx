@@ -33,11 +33,12 @@ export function ServiceIndex() {
         <div className="max-w-3xl">
           <p className="font-mono text-[0.66rem] tracking-[0.2em] text-flame uppercase">What we build</p>
           <h2 className="mt-4 font-display text-[clamp(1.9rem,4.4vw,3rem)] leading-[1.04] font-extrabold tracking-[-0.032em]">
-            Find the page written for your business.
+            How we think about each industry.
           </h2>
           <p className="mt-5 text-[1rem] leading-relaxed text-ink-2">
-            Each one covers what a website in that industry has to get right, what we include, and the questions
-            owners ask us before hiring. Written to be useful whether or not you end up working with us.
+            Every industry sells differently, so every website has to work differently. These pages set out what we
+            think a website in each one has to get right, and why. Written to be useful whether or not you end up
+            working with us.
           </p>
         </div>
 

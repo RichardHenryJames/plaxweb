@@ -21,7 +21,7 @@ export function Capabilities() {
       <div className="mx-auto max-w-[84rem] px-5 sm:px-8">
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="font-mono text-[0.66rem] tracking-[0.2em] text-flame uppercase">What we build</p>
+            <p className="font-mono text-[0.66rem] tracking-[0.2em] text-flame uppercase">Standard scope</p>
             <h2 className="mt-4 font-display text-[clamp(1.8rem,4vw,2.6rem)] leading-[1.05] font-extrabold tracking-[-0.032em]">
               In every build.
             </h2>

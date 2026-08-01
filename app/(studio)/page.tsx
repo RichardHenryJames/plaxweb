@@ -90,15 +90,15 @@ export default function PortfolioPage() {
           {[
             [
               'Everything below is live',
-              'Open a menu, submit a form, tap WhatsApp, run the EMI calculator. Nothing here is a picture of a website.',
+              'Open a menu, submit a form, tap WhatsApp, run a repayment calculator. Nothing here is a picture of a website.',
             ],
             [
               'Sold as an outcome, not a page count',
               'A clinic buys appointments. A school buys admission enquiries. The website is how it happens.',
             ],
             [
-              'You get your own website',
-              'The closest one becomes the starting point. Your brand, services and photographs replace ours.',
+              'Each one is its own design',
+              'Different typography, palette and structure, because each was drawn from a different business. Yours would be too.',
             ],
           ].map(([title, body], i) => (
             <div key={title} className="flex gap-4">

@@ -11,12 +11,18 @@ const ALL = 'All';
  * The portfolio.
  *
  * Unfiltered, this curates: three projects get real room, the rest are shown
- * small. Ten identical cards made the page read as a product list and buried
- * the work under repeated feature lists — what a solution includes belongs on
- * the demo and the enquiry page, not ten times over here.
+ * small. Identical cards in a row made the page read as a product list and
+ * buried the work under repeated feature lists — what a solution includes
+ * belongs on the demo and the enquiry page, not repeated here.
  *
  * Picking a sector switches to a plain grid: at that point the visitor has
  * said what they want, and hierarchy would only get in the way.
+ *
+ * Nothing here counts anything. It used to show "10 of 10" and a tally on
+ * every sector chip, which answered a question the visitor was not asking and
+ * quietly drew attention to how small the catalogue is. The job of this
+ * section is to get someone to their own industry, not to be impressive about
+ * its size.
  */
 export function DemoGallery() {
   const [filter, setFilter] = useState<string>(ALL);
@@ -31,17 +37,16 @@ export function DemoGallery() {
           <div className="max-w-2xl">
             <p className="font-mono text-[0.66rem] tracking-[0.2em] text-flame uppercase">The work</p>
             <h2 className="mt-4 font-display text-[clamp(1.9rem,4.4vw,3rem)] leading-[1.04] font-extrabold tracking-[-0.032em]">
-              See what we can build for your business.
+              Find the one closest to your business.
             </h2>
             <p className="mt-4 text-[1rem] leading-relaxed text-ink-2">
-              Every website here is finished and working. Check a menu, request a slot, run an EMI calculator or plan a
-              trip. Try them on your phone as well as your laptop.
+              Each of these was designed for a different business with a different problem to solve, so they look and
+              behave nothing alike. They are finished, working websites: check a menu, request a slot, run a repayment
+              calculator, plan a trip. Open them on your phone as well as your laptop.
             </p>
           </div>
-          <p className="shrink-0 font-mono text-[0.7rem] text-ink-3 lg:text-right">
-            {curated ? catalogue.length : filtered.length} of {catalogue.length}
-            <span className="mx-2 text-rule">/</span>
-            all live
+          <p className="shrink-0 font-mono text-[0.7rem] tracking-[0.14em] text-ink-3 uppercase lg:text-right">
+            Jump to your sector <span aria-hidden>↓</span>
           </p>
         </div>
 
@@ -49,7 +54,6 @@ export function DemoGallery() {
           <div role="group" aria-label="Filter by sector" className="flex w-max gap-2 pb-1 lg:w-auto lg:flex-wrap">
             {options.map((opt) => {
               const active = opt === filter;
-              const count = opt === ALL ? catalogue.length : catalogue.filter((d) => d.solution.group === opt).length;
               return (
                 <button
                   key={opt}
@@ -64,7 +68,6 @@ export function DemoGallery() {
                   }`}
                 >
                   {opt}
-                  <span className={active ? 'text-paper/55' : 'text-ink-3'}>{count}</span>
                 </button>
               );
             })}
@@ -80,7 +83,7 @@ export function DemoGallery() {
             </div>
 
             <div className="mt-16 border-t border-rule pt-10 lg:mt-24 lg:pt-14">
-              <h3 className="font-mono text-[0.66rem] tracking-[0.2em] text-ink-3 uppercase">Also built</h3>
+              <h3 className="font-mono text-[0.66rem] tracking-[0.2em] text-ink-3 uppercase">Other industries</h3>
               <div className="mt-8 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:mt-10 lg:grid-cols-3 lg:gap-x-10">
                 {alsoBuilt.map((demo, i) => (
                   <CompactCard key={demo.slug} demo={demo} index={i} />
