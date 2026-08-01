@@ -75,9 +75,9 @@ export const demos: Demo[] = [
     accent: '#c39b48',
     onAccent: '#201814',
     status: 'live',
-    metaTitle: 'Maison Aria — Hair & Skin Studio, Indiranagar | Demo by PlaxWeb',
+    metaTitle: 'Salon Website Design with Online Booking | PlaxWeb',
     metaDescription:
-      'Demo salon website: service menu with prices, stylist profiles, memberships and an appointment request flow that finishes on WhatsApp. Built by PlaxWeb.',
+      'A working salon website you can open and use: service menu with prices, stylist profiles and a booking request that opens WhatsApp pre-filled. From ₹32,000.',
   },
   {
     slug: 'restaurant',
@@ -93,9 +93,9 @@ export const demos: Demo[] = [
     accent: '#c0392b',
     onAccent: '#f6ead6',
     status: 'live',
-    metaTitle: 'Kesari House — Regional Indian Kitchen, New Delhi | Demo by PlaxWeb',
+    metaTitle: 'Restaurant Website Design with Online Ordering | PlaxWeb',
     metaDescription:
-      'Demo restaurant website: full menu by course, table reservations, live opening hours, directions and delivery links. Built by PlaxWeb.',
+      'A working restaurant website you can open and use: a menu that reads on a phone, live open/closed status and table reservations. From ₹45,000.',
   },
   {
     slug: 'realestate',
@@ -111,9 +111,9 @@ export const demos: Demo[] = [
     accent: '#a97f36',
     onAccent: '#0a231d',
     status: 'live',
-    metaTitle: 'Aashray Grove — Garden Villas, Sarjapur Road | Demo by PlaxWeb',
+    metaTitle: 'Real Estate Website Development for Builders | PlaxWeb',
     metaDescription:
-      'Demo real estate website: villa configurations, floor plans, amenities, EMI calculator, location map and site-visit lead capture. Built by PlaxWeb.',
+      'A working property website you can open and use: villa configurations, floor plans, an EMI calculator and site-visit booking. From ₹1,10,000.',
   },
   {
     slug: 'school',
@@ -129,9 +129,9 @@ export const demos: Demo[] = [
     accent: '#10294a',
     onAccent: '#fbf8f2',
     status: 'live',
-    metaTitle: 'Rosewood International School, Nashik | Demo by PlaxWeb',
+    metaTitle: 'School Website Design for Admission Enquiries | PlaxWeb',
     metaDescription:
-      'Demo school website: admissions enquiry funnel, board results, faculty, facilities, circulars and fee structure. Built by PlaxWeb.',
+      'A working school website you can open and use: an admission enquiry funnel, board results, fee structure and transport routes. From ₹85,000.',
   },
   {
     slug: 'clinic',
@@ -147,9 +147,9 @@ export const demos: Demo[] = [
     accent: '#0d7c76',
     onAccent: '#ffffff',
     status: 'live',
-    metaTitle: 'Aarogya Dental Studio, Koramangala | Demo by PlaxWeb',
+    metaTitle: 'Dental Clinic Website Design & Appointments | PlaxWeb',
     metaDescription:
-      'Demo dental clinic website: treatments with transparent price bands, doctor profiles, appointment requests and emergency contact. Built by PlaxWeb.',
+      'A working dental clinic website you can open and use: treatments with honest price bands, doctor credentials and appointment requests. From ₹48,000.',
   },
   {
     slug: 'travel',
@@ -165,9 +165,9 @@ export const demos: Demo[] = [
     accent: '#dd6b34',
     onAccent: '#071c23',
     status: 'live',
-    metaTitle: 'Wayfare Journeys — India Tour Operator, Goa | Demo by PlaxWeb',
+    metaTitle: 'Travel Website Design for Tour Operators | PlaxWeb',
     metaDescription:
-      'Demo travel website: filterable tour packages, day-by-day itineraries, fixed departures, pricing and a trip enquiry form. Built by PlaxWeb.',
+      'A working travel website you can open and use: filterable packages, day-by-day itineraries, fixed departures and dated enquiries. From ₹65,000.',
   },
   {
     slug: 'fitness',
@@ -183,9 +183,9 @@ export const demos: Demo[] = [
     accent: '#d7ff3e',
     onAccent: '#0a0a0b',
     status: 'live',
-    metaTitle: 'Ironhouse Strength Club, Hyderabad | Demo by PlaxWeb',
+    metaTitle: 'Gym Website Design with Free-Trial Booking | PlaxWeb',
     metaDescription:
-      'Demo gym website: weekly class timetable, coach profiles, membership plans and free-trial booking. Built by PlaxWeb.',
+      'A working gym website you can open and use: a weekly class timetable, coach profiles, membership pricing and free-trial booking. From ₹38,000.',
   },
   {
     slug: 'interior',
@@ -201,9 +201,9 @@ export const demos: Demo[] = [
     accent: '#b06f4c',
     onAccent: '#f2eee7',
     status: 'live',
-    metaTitle: 'Studio Mitti — Interior Design, Bengaluru | Demo by PlaxWeb',
+    metaTitle: 'Interior Designer Website Design & Portfolio | PlaxWeb',
     metaDescription:
-      'Demo interior design website: project case studies, materials, process, budget bands and a qualified project enquiry. Built by PlaxWeb.',
+      'A working interior design website you can open and use: project case studies with real budgets and durations, and a qualified enquiry. From ₹58,000.',
   },
   {
     slug: 'resort',
@@ -219,9 +219,9 @@ export const demos: Demo[] = [
     accent: '#d9714f',
     onAccent: '#0b232b',
     status: 'live',
-    metaTitle: 'Tamara Backwaters — Boutique Resort, Kumarakom | Demo by PlaxWeb',
+    metaTitle: 'Hotel & Resort Website Design, Direct Booking | PlaxWeb',
     metaDescription:
-      'Demo resort website: villa types with tariffs, date-based availability enquiry, experiences, dining and direct-booking offers. Built by PlaxWeb.',
+      'A working hotel website you can open and use: room types with tariffs, experiences and a date-based enquiry that books direct. From ₹78,000.',
   },
   {
     slug: 'boutique',
@@ -237,9 +237,9 @@ export const demos: Demo[] = [
     accent: '#6f1d3b',
     onAccent: '#faf6f0',
     status: 'live',
-    metaTitle: 'Kaanchi — Handloom & Occasion Wear, Chennai | Demo by PlaxWeb',
+    metaTitle: 'Boutique Website Design with WhatsApp Orders | PlaxWeb',
     metaDescription:
-      'Demo fashion label website: nine-piece catalogue with sizes and prices, WhatsApp ordering and made-to-measure appointments. Built by PlaxWeb.',
+      'A working boutique website you can open and use: a catalogue with fabric, sizes and prices, plus WhatsApp ordering. From ₹42,000.',
   },
 ];
 
