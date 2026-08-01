@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { DEFAULT_COUNTRY, countries, countryOf, flagOf, isCountry, PRIORITY_ISO } from '@/lib/countries';
+import { DEFAULT_COUNTRY, countryOf, isCountry } from '@/lib/countries';
+import { CountrySelect } from './CountrySelect';
 
 /**
  * Phone entry, split into the country and the number.
@@ -19,16 +20,13 @@ import { DEFAULT_COUNTRY, countries, countryOf, flagOf, isCountry, PRIORITY_ISO 
  * `detected` is the country resolved from the request on the server, where the
  * page had access to it. When it is absent — on the statically rendered home
  * page — the component asks the geo endpoint once, after mount. Either way the
- * select is a real, working control before any of that resolves, so a failed
- * lookup costs the visitor a scroll rather than the ability to enquire.
+ * picker is a real, working control before any of that resolves, so a failed
+ * lookup costs the visitor a couple of taps rather than the ability to enquire.
  */
-
-const priority = PRIORITY_ISO.map((iso) => countryOf(iso));
-const rest = countries.filter((c) => !PRIORITY_ISO.includes(c.iso));
 
 /**
  * Shared field styling without a width. The two controls here size themselves
- * — the select to a fixed width, the input to whatever is left — so they
+ * — the picker to a fixed width, the input to whatever is left — so they
  * cannot inherit the full-width rule the other fields use.
  */
 export const FIELD_BASE =
@@ -80,50 +78,15 @@ export function PhoneField({
       </div>
 
       <div className="flex">
-        {/* Two controls, one visual field: the seam between them is a single
-            rule rather than two adjacent borders. */}
-        <div className="relative shrink-0">
-          <select
-            name="phoneCountry"
-            aria-label="Country dialling code"
-            value={iso}
-            onChange={(e) => {
-              setChosen(true);
-              setIso(e.target.value);
-              onEdit();
-            }}
-            // Fixed width, not content width: a native select sizes itself to
-            // its widest option, and "Central African Republic +236" would
-            // leave no room for the number on a phone.
-            className={`${FIELD_BASE} w-[7.25rem] shrink-0 appearance-none rounded-r-none border-r-0 pr-7 pl-3 font-mono text-[0.86rem]`}
-          >
-            <optgroup label="Common">
-              {priority.map((c) => (
-                <option key={c.iso} value={c.iso}>
-                  {/* Flag then code, and nothing else. Windows has no flag
-                      glyphs and falls back to the two regional-indicator
-                      letters, which is the country code — so this reads as
-                      "IN +91" there and "🇮🇳 +91" everywhere else. Adding the
-                      ISO code as well produced "IN IN +91" on Windows. */}
-                  {flagOf(c.iso)} +{c.dial}
-                </option>
-              ))}
-            </optgroup>
-            <optgroup label="All countries">
-              {rest.map((c) => (
-                <option key={c.iso} value={c.iso}>
-                  {flagOf(c.iso)} {c.name} +{c.dial}
-                </option>
-              ))}
-            </optgroup>
-          </select>
-          <span
-            aria-hidden
-            className="pointer-events-none absolute top-1/2 right-2.5 -translate-y-1/2 text-[0.65rem] text-ink-3"
-          >
-            ▾
-          </span>
-        </div>
+        <CountrySelect
+          name="phoneCountry"
+          value={iso}
+          onChange={(next) => {
+            setChosen(true);
+            setIso(next);
+            onEdit();
+          }}
+        />
 
         <input
           id={id('phone')}

@@ -72,20 +72,31 @@ await page.waitForTimeout(1500);
 check('server rejects invalid input', await page.getByText('Please check the highlighted fields.').isVisible());
 
 /* ------------------------------------------------------- phone country code */
-const dial = page.locator('select[name="phoneCountry"]');
-check('phone field offers a country code', await dial.isVisible());
-check('country defaults to a real country', /^[A-Z]{2}$/.test(await dial.inputValue()));
+const dialBtn = page.getByRole('button', { name: /^Country code:/ });
+check('phone field offers a country picker', await dialBtn.isVisible());
+check('picker shows a real flag image', await page.locator('button[aria-haspopup="listbox"] img').isVisible());
+check(
+  'flag svg is served, not hotlinked',
+  (await page.request.get(`${BASE}/flags/in.svg`)).ok()
+);
 
-// The national-number rule has to follow the country, or an Emirati number
-// gets rejected for not being ten digits long.
-await dial.selectOption('AE');
+// Search is the reason this is not a native select: 182 countries is too many
+// to scroll on a phone.
+await dialBtn.click();
+await page.getByRole('textbox', { name: 'Search countries' }).fill('971');
+const uae = page.getByRole('option', { name: /United Arab Emirates/ });
+check('search finds a country by dialling code', await uae.isVisible());
+await uae.click();
 check('prefix follows the country', await page.getByText('We add +971 for United Arab Emirates').isVisible());
+
 await page.locator('input[name="phone"]').fill('501234567');
 await page.getByRole('button', { name: /Send enquiry/i }).click();
 await page.waitForTimeout(1200);
 check('a nine-digit UAE number is accepted', !(await page.getByText(/numbers are 10 digits/).isVisible()));
 
-await dial.selectOption('IN');
+await dialBtn.click();
+await page.getByRole('textbox', { name: 'Search countries' }).fill('India');
+await page.getByRole('option', { name: /India/ }).first().click();
 await page.locator('input[name="phone"]').fill('98765');
 await page.getByRole('button', { name: /Send enquiry/i }).click();
 await page.waitForTimeout(1500);

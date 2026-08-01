@@ -30,6 +30,7 @@
     "@types/node": "^24",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "country-flag-icons": "^1.6.20",
     "eslint": "^9",
     "eslint-config-next": "16.2.11",
     "playwright": "^1.63.0-alpha-2026-07-24",

@@ -231,18 +231,17 @@ export function isCountry(iso: string): boolean {
 }
 
 /**
- * Flag as an emoji built from the ISO code's regional indicator letters, so
- * there are no flag images to ship, resize or keep in sync. Windows renders
- * these as letter pairs rather than flags, which is why the country name and
- * dialling code are always shown as well and never replaced by the flag.
+ * Flag as a self-hosted SVG.
+ *
+ * Emoji flags were the obvious choice and had to be abandoned: Windows ships
+ * no flag glyphs at all, so every flag rendered as the two regional-indicator
+ * letters instead. Those files come from country-flag-icons via
+ * scripts/flags.mjs and are served from our own origin, because an enquiry
+ * form should not depend on a flag CDN being reachable, and should not tell
+ * one that this visitor is filling it in.
  */
-export function flagOf(iso: string): string {
-  return iso
-    .toUpperCase()
-    .replace(/[^A-Z]/g, '')
-    .split('')
-    .map((c) => String.fromCodePoint(127397 + c.charCodeAt(0)))
-    .join('');
+export function flagSrc(iso: string): string {
+  return `/flags/${iso.toLowerCase()}.svg`;
 }
 
 /** Markets we sell into most, lifted to the top of the list. */
