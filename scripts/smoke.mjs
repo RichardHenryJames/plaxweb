@@ -131,6 +131,18 @@ check('server rejects invalid input', await page.getByText('Please check the hig
   check('…and picks up the name as it is typed', (await text()).includes('this is Parimal Kumar'), await text());
   check('…while keeping the demo they came from', /Salon Booking Website/.test(await text()));
 
+  // The demo and category can arrive from the URL or from the dropdowns. Only
+  // reading the URL meant someone who chose for themselves got a message that
+  // said nothing about their business.
+  await page.goto(`${BASE}/contact`, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(1200);
+  await page.locator('select[name="category"]').selectOption('Real estate / Builder');
+  await page.waitForTimeout(400);
+  check('a category chosen by hand reaches the message', /real estate business/.test(await text()), await text());
+  await page.locator('select[name="referenceDemo"]').selectOption('realestate');
+  await page.waitForTimeout(400);
+  check('…and a demo chosen by hand beats it', /Property Enquiry Website/.test(await text()), await text());
+
   // Back to where the rest of this file expects to be: later checks assert the
   // travel solution, and this block navigated away from it.
   await page.goto(`${BASE}/contact?demo=travel`, { waitUntil: 'networkidle' });
