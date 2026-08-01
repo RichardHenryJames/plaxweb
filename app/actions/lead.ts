@@ -23,9 +23,51 @@ function rateLimited(key: string): boolean {
   return recent.length > MAX_PER_WINDOW;
 }
 
+type Mail = { to: string; subject: string; text: string; replyTo?: string };
+
+async function send(key: string, mail: Mail): Promise<void> {
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      from: process.env.LEAD_FROM ?? 'PlaxWeb <onboarding@resend.dev>',
+      to: [mail.to],
+      reply_to: mail.replyTo,
+      subject: mail.subject,
+      text: mail.text,
+    }),
+  });
+  if (!res.ok) throw new Error(`mail provider responded ${res.status}`);
+}
+
+/**
+ * What the person who enquired gets back.
+ *
+ * Short, and it repeats what they asked about so the reply is recognisable in
+ * a crowded inbox. Replies go to a monitored address rather than the no-reply
+ * sender, because someone answering this email is a good sign, not a mistake.
+ */
+function acknowledgement(lead: Lead): string {
+  const about = lead.solution ? `You asked about a ${lead.solution.toLowerCase()}.` : '';
+  return [
+    `Hi ${lead.name.split(' ')[0]},`,
+    '',
+    `Thanks for getting in touch with ${site.name}. ${about}`.trim(),
+    '',
+    'Someone will reply within one working day with a fixed price, a delivery date, and an honest note on what your business actually needs. If it is quicker for you, reply here or message us on WhatsApp.',
+    '',
+    `${site.phoneDisplay}`,
+    `${site.email}`,
+    '',
+    `${site.name}, a PlaxLabs studio`,
+    site.domain,
+    '',
+  ].join('\n');
+}
+
 async function deliver(lead: Lead, body: string): Promise<void> {
   const key = process.env.RESEND_API_KEY;
-  const to = process.env.LEAD_INBOX ?? site.email;
+  const inbox = process.env.LEAD_INBOX ?? site.email;
 
   if (!key) {
     // No provider configured (local dev / preview): log so nothing is lost.
@@ -33,19 +75,28 @@ async function deliver(lead: Lead, body: string): Promise<void> {
     return;
   }
 
-  const res = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      from: process.env.LEAD_FROM ?? 'PlaxWeb <onboarding@resend.dev>',
-      to: [to],
-      reply_to: lead.email || undefined,
-      subject: `Website enquiry — ${lead.name}${lead.business ? ` (${lead.business})` : ''}`,
-      text: body,
-    }),
+  // The copy that matters. If this throws, the visitor is told to call.
+  await send(key, {
+    to: inbox,
+    subject: `Website enquiry — ${lead.name}${lead.business ? ` (${lead.business})` : ''}`,
+    text: body,
+    replyTo: lead.email || undefined,
   });
 
-  if (!res.ok) throw new Error(`mail provider responded ${res.status}`);
+  // Courtesy copy. Only possible when an email was given, and a failure here
+  // must never cost us the enquiry — we already hold the lead.
+  if (lead.email) {
+    try {
+      await send(key, {
+        to: lead.email,
+        subject: `We have your enquiry — ${site.name}`,
+        text: acknowledgement(lead),
+        replyTo: inbox,
+      });
+    } catch (err) {
+      console.error('[plaxweb:lead] acknowledgement not sent', err);
+    }
+  }
 }
 
 /**
