@@ -3,7 +3,7 @@
 import { headers } from 'next/headers';
 import { formatLead, leadSchema, type Lead, type LeadState } from '@/lib/lead';
 import { leadStore } from '@/lib/supabase';
-import { site } from '@/lib/site';
+import { site, whatsappUrl } from '@/lib/site';
 
 /**
  * Naive per-instance rate limit. On serverless this is per warm instance, so
@@ -56,12 +56,21 @@ async function send(key: string, mail: Mail): Promise<void> {
  */
 function acknowledgement(lead: Lead): string {
   const about = lead.solution ? `You asked about a ${lead.solution.toLowerCase()}.` : '';
+  // Carries the same context the form captured, so the chat opens knowing what
+  // it is about rather than with a bare "Hi".
+  const chat = whatsappUrl(
+    `Hi PlaxWeb, I enquired on your website${lead.solution ? ` about a ${lead.solution.toLowerCase()}` : ''}.`
+  );
+
   return [
     `Hi ${lead.name.split(' ')[0]},`,
     '',
     `Thanks for getting in touch with ${site.name}. ${about}`.trim(),
     '',
-    'Someone will reply within one working day with a fixed price, a delivery date, and an honest note on what your business actually needs. If it is quicker for you, reply to this email or message us on WhatsApp.',
+    'Someone will reply within one working day with a fixed price, a delivery date, and an honest note on what your business actually needs.',
+    '',
+    'If WhatsApp is quicker for you, start there and we will pick it up:',
+    chat,
     '',
     // No email address in the signature: the domain has no inbox yet, so
     // printing one would invite a reply that bounces. Reply-to on this message
