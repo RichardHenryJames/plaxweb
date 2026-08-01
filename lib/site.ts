@@ -18,6 +18,12 @@ export const site = {
   tagline: 'Websites built for real businesses.',
   description:
     'PlaxWeb builds websites for Indian businesses — salons, restaurants, clinics, schools, builders and more. Ten finished demo websites you can open and use right now.',
+  /**
+   * Where enquiries are delivered. Deliberately NOT shown on the site: the
+   * domain has no MX records, so mail sent here bounces silently. Set
+   * LEAD_INBOX in the environment to override. Publish it again only once a
+   * mailbox actually exists.
+   */
   email: 'hello@plaxlabs.com',
   phoneDisplay: '+91 98765 43210',
   phoneRaw: '919876543210',

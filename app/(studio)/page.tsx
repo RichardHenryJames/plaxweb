@@ -29,7 +29,9 @@ const orgSchema = {
   description: site.description,
   url: `${origin()}${site.basePath}`,
   telephone: `+${site.phoneRaw}`,
-  email: site.email,
+  // No email here on purpose: the domain has no MX records, so publishing one
+  // to search engines invites mail that silently bounces. Add it back when a
+  // mailbox exists.
   areaServed: 'IN',
   priceRange: '₹₹',
   address: {

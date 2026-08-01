@@ -66,8 +66,13 @@ export function StudioFooter() {
                 </Link>
               </li>
               <li>
-                <a href={`mailto:${site.email}`} className="transition-colors hover:text-paper">
-                  {site.email}
+                <a
+                  href={whatsappUrl('Hi PlaxWeb, I would like to talk about a website for my business.')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-paper"
+                >
+                  WhatsApp us
                 </a>
               </li>
               <li className="pt-3 text-paper/45">{site.hours}</li>

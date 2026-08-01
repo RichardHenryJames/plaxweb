@@ -38,14 +38,6 @@ export function ContactSection() {
                 </dd>
               </div>
               <div>
-                <dt className="font-mono text-[0.62rem] tracking-[0.16em] text-ink-3 uppercase">Email</dt>
-                <dd className="mt-1.5">
-                  <a href={`mailto:${site.email}`} className="text-[1.05rem] font-medium underline-offset-4 hover:underline">
-                    {site.email}
-                  </a>
-                </dd>
-              </div>
-              <div>
                 <dt className="font-mono text-[0.62rem] tracking-[0.16em] text-ink-3 uppercase">Studio hours</dt>
                 <dd className="mt-1.5 text-[0.95rem] text-ink-2">{site.hours}</dd>
               </div>
