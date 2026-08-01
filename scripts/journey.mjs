@@ -74,13 +74,18 @@ async function journey(label, contextOptions) {
   check(tag('reference prefilled'), (await page.locator('select[name="referenceDemo"]').inputValue()) === 'salon');
   check(tag('category prefilled'), (await page.locator('select[name="category"]').inputValue()) === 'Salon / Spa');
 
-  // 8. Send it.
-  await page.locator('input[name="name"]').fill('Meera Joshi');
-  await page.locator('input[name="phone"]').fill('9876500011');
-  await page.waitForTimeout(1600);
-  await page.getByRole('button', { name: /Send enquiry/i }).click();
-  await page.waitForTimeout(2500);
-  check(tag('enquiry sends'), await page.getByRole('heading', { name: /Thanks/ }).isVisible());
+  // 8. Send it — but only against a local server. A successful submission is a
+  // real enquiry: it writes a row to the leads table and emails the inbox.
+  if (/^https?:\/\/(localhost|127\.0\.0\.1)(:|\/|$)/.test(BASE)) {
+    await page.locator('input[name="name"]').fill('Meera Joshi');
+    await page.locator('input[name="phone"]').fill('9876500011');
+    await page.waitForTimeout(1600);
+    await page.getByRole('button', { name: /Send enquiry/i }).click();
+    await page.waitForTimeout(2500);
+    check(tag('enquiry sends'), await page.getByRole('heading', { name: /Thanks/ }).isVisible());
+  } else {
+    console.log(`SKIP  ${tag('enquiry sends')} — would write a real lead to a live inbox`);
+  }
 
   await ctx.close();
 }

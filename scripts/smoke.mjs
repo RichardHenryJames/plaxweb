@@ -102,12 +102,23 @@ await page.getByRole('button', { name: /Send enquiry/i }).click();
 await page.waitForTimeout(1500);
 check('a short Indian number is caught', await page.getByText(/India numbers are 10 digits/).isVisible());
 
-await page.locator('input[name="name"]').fill('Deepa Sharma');
-await page.locator('input[name="phone"]').fill('9876543210');
-await page.waitForTimeout(1500);
-await page.getByRole('button', { name: /Send enquiry/i }).click();
-await page.waitForTimeout(2500);
-check('valid submission succeeds', await page.getByRole('heading', { name: /Thanks/ }).isVisible());
+/**
+ * A successful submission is a real enquiry: it writes a row and emails the
+ * inbox. Running this suite against production put three "Deepa Sharma" leads
+ * in the table before anyone noticed, so the happy path is local-only. Every
+ * check above rejects, and rejections persist nothing.
+ */
+const LOCAL = /^https?:\/\/(localhost|127\.0\.0\.1)(:|\/|$)/.test(BASE);
+if (LOCAL) {
+  await page.locator('input[name="name"]').fill('Deepa Sharma');
+  await page.locator('input[name="phone"]').fill('9876543210');
+  await page.waitForTimeout(1500);
+  await page.getByRole('button', { name: /Send enquiry/i }).click();
+  await page.waitForTimeout(2500);
+  check('valid submission succeeds', await page.getByRole('heading', { name: /Thanks/ }).isVisible());
+} else {
+  console.log('SKIP  valid submission — would write a real lead to a live inbox');
+}
 
 /* ------------------------------------------------------------ sitemap etc */
 {
