@@ -17,7 +17,7 @@ export const site = {
   domain: 'plaxlabs.com',
   tagline: 'Websites built for real businesses.',
   description:
-    'PlaxWeb builds websites for Indian businesses — salons, restaurants, clinics, schools, builders and more. Ten finished demo websites you can open and use right now.',
+    'PlaxWeb designs and builds websites for Indian businesses that need bookings, orders and enquiries. Open any demo and use it on your phone or laptop.',
   /**
    * Where enquiries are delivered. Deliberately NOT shown on the site: the
    * domain has no MX records, so mail sent here bounces silently. Set

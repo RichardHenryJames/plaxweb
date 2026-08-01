@@ -4,14 +4,18 @@ import Image from 'next/image';
 import { LeadForm } from '@/components/studio/LeadForm';
 import { TrackView } from '@/components/ui/TrackView';
 import { pageMetadata } from '@/lib/metadata';
-import { demoSlugs, getDemo } from '@/lib/demos';
-import { site, whatsappUrl } from '@/lib/site';
+import { demoSlugs, featured, getDemo } from '@/lib/demos';
+import { origin, site, whatsappUrl } from '@/lib/site';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Get a quote — PlaxWeb',
   description:
     'Tell us which solution is closest to your business and we will reply with a fixed price, a delivery date and what we would change for you.',
   path: `${site.basePath}/contact`,
+  // This is the link a salesperson actually sends. Without an image WhatsApp
+  // and LinkedIn render a bare grey box, so it borrows the lead demo's
+  // screenshot — real work rather than a logo.
+  image: featured[0].preview ? `${origin()}${featured[0].preview.desktop.src}` : undefined,
 });
 
 export default async function ContactPage({
