@@ -71,7 +71,7 @@ export const leadSchema = z
       .string()
       .transform(clean)
       .pipe(z.email('Enter an email so we can send you a copy').max(160)),
-    category: z.enum(CATEGORIES),
+    category: z.enum(CATEGORIES, { error: 'Choose the closest category' }),
     requirement: z.enum(REQUIREMENTS).optional(),
     referenceDemo: z
       .string()

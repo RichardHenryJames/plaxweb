@@ -71,6 +71,30 @@ await page.getByRole('button', { name: /Send enquiry/i }).click();
 await page.waitForTimeout(1500);
 check('server rejects invalid input', await page.getByText('Please check the highlighted fields.').isVisible());
 
+// On a bare /contact nothing is prefilled, so category is genuinely empty —
+// it had no error message at all, which left the visitor hunting for what was
+// wrong. Checked here rather than above, where ?demo= fills it in for us.
+{
+  await page.goto(`${BASE}/contact`, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(1400);
+  await page.getByRole('button', { name: /Send enquiry/i }).click();
+  await page.waitForTimeout(1800);
+
+  const errs = await page.locator('form .text-flame').allInnerTexts();
+  const invalid = await page
+    .locator('form [aria-invalid=true]')
+    .evaluateAll((e) => e.map((n) => n.getAttribute('name')));
+
+  check('every empty required field says what is wrong', errs.length === 4, errs.join(' | '));
+  check('…including the category', invalid.includes('category'), invalid.join(','));
+  check(
+    'focus lands on the first problem',
+    (await page.evaluate(() => document.activeElement?.getAttribute('name'))) === 'name'
+  );
+
+  await page.goto(`${BASE}/contact?demo=travel`, { waitUntil: 'networkidle' });
+}
+
 /* ------------------------------------------------------- phone country code */
 const dialBtn = page.getByRole('button', { name: /^Country code:/ });
 check('phone field offers a country picker', await dialBtn.isVisible());

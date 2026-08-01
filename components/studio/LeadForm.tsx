@@ -33,7 +33,10 @@ function Label({ htmlFor, children, optional }: { htmlFor: string; children: Rea
   );
 }
 
-const fieldClass = `w-full ${FIELD_BASE}`;
+// aria-invalid already marks the broken fields for assistive tech. The red
+// border makes the same thing true for everyone else — the error banner says
+// "check the highlighted fields", and until now nothing was highlighted.
+const fieldClass = `w-full aria-invalid:border-flame aria-invalid:bg-flame-soft/25 ${FIELD_BASE}`;
 
 /** sessionStorage never changes mid-page, so this subscription is a no-op. */
 const noopSubscribe = () => () => {};
@@ -92,11 +95,26 @@ export function LeadForm({
     setAnsweredFor(state);
     setFixed({});
   }
-  const errorFor = (field: 'name' | 'phone' | 'email') =>
+  const errorFor = (field: 'name' | 'phone' | 'email' | 'category') =>
     fixed[field] ? undefined : state.fieldErrors?.[field];
   const clearOnEdit = (field: string) => () => {
     if (!fixed[field]) setFixed((p) => ({ ...p, [field]: true }));
   };
+
+  /**
+   * Send focus to the first field the server rejected.
+   *
+   * On a phone the form is taller than the screen, so the error banner can sit
+   * well below whatever is actually wrong. Without this the visitor is told
+   * something failed and left to hunt for it.
+   */
+  const formRef = useRef<HTMLFormElement>(null);
+  useEffect(() => {
+    if (state.status !== 'error') return;
+    const first = formRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]');
+    first?.focus({ preventScroll: true });
+    first?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  }, [state]);
 
   useEffect(() => {
     if (state.status === 'success') track('lead_submit', { demo: demo || 'none', category });
@@ -138,7 +156,7 @@ export function LeadForm({
   }
 
   return (
-    <form action={formAction} className="rounded-[4px] border border-rule bg-white p-6 sm:p-8" noValidate>
+    <form ref={formRef} action={formAction} className="rounded-[4px] border border-rule bg-white p-6 sm:p-8" noValidate>
       <input ref={startedRef} type="hidden" name="startedAt" defaultValue="" />
       <input type="hidden" name="solution" value={solutionName} />
       <input type="hidden" name="previewView" value={view} />
@@ -214,8 +232,13 @@ export function LeadForm({
               name="category"
               required
               value={category}
-              onChange={(e) => setCategoryChoice(e.target.value)}
+              onChange={(e) => {
+                setCategoryChoice(e.target.value);
+                clearOnEdit('category')();
+              }}
               className={fieldClass}
+              aria-invalid={Boolean(errorFor('category'))}
+              aria-describedby={errorFor('category') ? id('category-err') : undefined}
             >
               <option value="" disabled>
                 Choose one
@@ -226,6 +249,11 @@ export function LeadForm({
                 </option>
               ))}
             </select>
+            {errorFor('category') && (
+              <p id={id('category-err')} className="mt-1.5 text-[0.8rem] text-flame">
+                {errorFor('category')}
+              </p>
+            )}
           </div>
           <div>
             <Label htmlFor={id('demo')} optional>

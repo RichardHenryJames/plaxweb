@@ -100,7 +100,7 @@ export function PhoneField({
           // The placeholder carries the expected length, which is why there is
           // no separate "10 digits" label: the field can say it itself.
           placeholder={country.nsn ? '9'.repeat(Math.min(country.nsn, 12)) : '9876543210'}
-          className={`${FIELD_BASE} min-w-0 flex-1 rounded-l-none`}
+          className={`${FIELD_BASE} min-w-0 flex-1 rounded-l-none aria-invalid:border-flame aria-invalid:bg-flame-soft/25`}
           onInput={onEdit}
           aria-invalid={Boolean(error)}
           aria-describedby={describedBy}
