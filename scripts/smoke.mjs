@@ -71,6 +71,26 @@ await page.getByRole('button', { name: /Send enquiry/i }).click();
 await page.waitForTimeout(1500);
 check('server rejects invalid input', await page.getByText('Please check the highlighted fields.').isVisible());
 
+/* ------------------------------------------------------- phone country code */
+const dial = page.locator('select[name="phoneCountry"]');
+check('phone field offers a country code', await dial.isVisible());
+check('country defaults to a real country', /^[A-Z]{2}$/.test(await dial.inputValue()));
+
+// The national-number rule has to follow the country, or an Emirati number
+// gets rejected for not being ten digits long.
+await dial.selectOption('AE');
+check('prefix follows the country', await page.getByText('We add +971 for United Arab Emirates').isVisible());
+await page.locator('input[name="phone"]').fill('501234567');
+await page.getByRole('button', { name: /Send enquiry/i }).click();
+await page.waitForTimeout(1200);
+check('a nine-digit UAE number is accepted', !(await page.getByText(/numbers are 10 digits/).isVisible()));
+
+await dial.selectOption('IN');
+await page.locator('input[name="phone"]').fill('98765');
+await page.getByRole('button', { name: /Send enquiry/i }).click();
+await page.waitForTimeout(1500);
+check('a short Indian number is caught', await page.getByText(/India numbers are 10 digits/).isVisible());
+
 await page.locator('input[name="name"]').fill('Deepa Sharma');
 await page.locator('input[name="phone"]').fill('9876543210');
 await page.waitForTimeout(1500);
@@ -79,6 +99,13 @@ await page.waitForTimeout(2500);
 check('valid submission succeeds', await page.getByRole('heading', { name: /Thanks/ }).isVisible());
 
 /* ------------------------------------------------------------ sitemap etc */
+{
+  const res = await page.request.get(`${BASE}/api/geo`);
+  const body = await res.json().catch(() => ({}));
+  check('/api/geo returns a country code', res.ok() && /^[A-Z]{2}$/.test(body.country ?? ''));
+  check('/api/geo is not shared-cached', (res.headers()['cache-control'] ?? '').includes('no-store'));
+}
+
 for (const path of ['/sitemap.xml', '/robots.txt']) {
   const res = await page.request.get(`${BASE}${path}`);
   const body = await res.text();

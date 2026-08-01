@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
+import { headers } from 'next/headers';
 import { LeadForm } from '@/components/studio/LeadForm';
 import { TrackView } from '@/components/ui/TrackView';
 import { pageMetadata } from '@/lib/metadata';
@@ -28,6 +29,11 @@ export default async function ContactPage({
   const demo = slug ? getDemo(slug) : undefined;
   const view = params.view === 'mobile' ? 'mobile' : params.view === 'desktop' ? 'desktop' : '';
   const shot = demo?.preview ? (view === 'mobile' ? demo.preview.mobile : demo.preview.desktop) : undefined;
+
+  // This page is already dynamic, so the country comes straight off the request
+  // and the phone field is right on first paint — no fetch, no flicker. Only
+  // the country code is read; the IP itself is neither used nor stored.
+  const detectedCountry = (await headers()).get('x-vercel-ip-country') ?? undefined;
 
   return (
     <>
@@ -154,7 +160,7 @@ export default async function ContactPage({
               </dl>
             </div>
 
-            <LeadForm defaultDemo={slug} view={view} />
+            <LeadForm defaultDemo={slug} view={view} detectedCountry={detectedCountry} />
           </div>
         </div>
       </div>

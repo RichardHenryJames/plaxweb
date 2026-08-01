@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { demoSlugs } from './demos';
+import { countryOf, isCountry, toE164 } from './countries';
 
 /** Strip control characters — nothing legitimate needs them. */
 const clean = (s: string) => s.replace(/[\u0000-\u001f\u007f]/g, '').trim();
@@ -36,38 +37,68 @@ export const CATEGORIES = [
   'Something else',
 ] as const;
 
-export const leadSchema = z.object({
-  name: z.string().transform(clean).pipe(z.string().min(2, 'Please enter your name').max(80)),
-  business: z.string().transform(clean).pipe(z.string().max(120)).optional().or(z.literal('')),
-  phone: z
-    .string()
-    .transform((s) => clean(s).replace(/[\s-]/g, ''))
-    .pipe(
-      z
-        .string()
-        .min(8, 'Enter a phone number we can reach you on')
-        .max(20)
-        .regex(/^\+?[0-9]+$/, 'Digits only, with an optional country code')
-    ),
-  email: z.string().transform(clean).pipe(z.email('Check this email address').max(160)).optional().or(z.literal('')),
-  category: z.enum(CATEGORIES),
-  requirement: z.enum(REQUIREMENTS).optional(),
-  referenceDemo: z
-    .string()
-    .transform(clean)
-    .refine((v) => v === '' || v === 'none' || demoSlugs.includes(v), 'Unknown demo')
-    .optional(),
-  budget: z.enum(BUDGETS).optional(),
-  timeline: z.enum(TIMELINES).optional(),
-  message: z.string().transform(clean).pipe(z.string().max(2000)).optional().or(z.literal('')),
-  /** Context carried from the demo the visitor came from. */
-  solution: z.string().transform(clean).pipe(z.string().max(80)).optional().or(z.literal('')),
-  previewView: z.enum(['desktop', 'mobile']).optional().or(z.literal('')),
-  /** Honeypot — must stay empty. */
-  website: z.string().max(0).optional().or(z.literal('')),
-});
+export const leadSchema = z
+  .object({
+    name: z.string().transform(clean).pipe(z.string().min(2, 'Please enter your name').max(80)),
+    business: z.string().transform(clean).pipe(z.string().max(120)).optional().or(z.literal('')),
+    /**
+     * ISO country code, not a dialling code. Dialling codes are not unique
+     * (+1 is the US and Canada), and taking the prefix from a submitted field
+     * would let a tampered request pair any country with any prefix. The
+     * server looks the prefix up from this instead.
+     */
+    phoneCountry: z
+      .string()
+      .transform((s) => clean(s).toUpperCase())
+      .pipe(z.string().refine(isCountry, 'Choose a country')),
+    /** The national number only — what the visitor would give a local. */
+    phone: z
+      .string()
+      .transform((s) => clean(s).replace(/[\s\-().]/g, '').replace(/^0+/, ''))
+      .pipe(
+        z
+          .string()
+          .min(4, 'Enter a phone number we can reach you on')
+          .max(14)
+          .regex(/^[0-9]+$/, 'Digits only — leave out the country code')
+      ),
+    email: z.string().transform(clean).pipe(z.email('Check this email address').max(160)).optional().or(z.literal('')),
+    category: z.enum(CATEGORIES),
+    requirement: z.enum(REQUIREMENTS).optional(),
+    referenceDemo: z
+      .string()
+      .transform(clean)
+      .refine((v) => v === '' || v === 'none' || demoSlugs.includes(v), 'Unknown demo')
+      .optional(),
+    budget: z.enum(BUDGETS).optional(),
+    timeline: z.enum(TIMELINES).optional(),
+    message: z.string().transform(clean).pipe(z.string().max(2000)).optional().or(z.literal('')),
+    /** Context carried from the demo the visitor came from. */
+    solution: z.string().transform(clean).pipe(z.string().max(80)).optional().or(z.literal('')),
+    previewView: z.enum(['desktop', 'mobile']).optional().or(z.literal('')),
+    /** Honeypot — must stay empty. */
+    website: z.string().max(0).optional().or(z.literal('')),
+  })
+  // Only checked where the country has a genuinely fixed length. Guessing for
+  // countries with variable numbering would reject valid numbers, which loses
+  // the enquiry outright — a much worse outcome than accepting a typo.
+  .superRefine((v, ctx) => {
+    const c = countryOf(v.phoneCountry);
+    if (c.nsn && v.phone.length !== c.nsn) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['phone'],
+        message: `${c.name} numbers are ${c.nsn} digits. You entered ${v.phone.length}.`,
+      });
+    }
+  });
 
 export type Lead = z.infer<typeof leadSchema>;
+
+/** The dialable number, assembled server-side from the country and the digits. */
+export function leadPhone(lead: Lead): string {
+  return toE164(lead.phoneCountry, lead.phone);
+}
 
 export type LeadState = {
   status: 'idle' | 'success' | 'error';
@@ -80,7 +111,7 @@ export function formatLead(lead: Lead, meta: { referer?: string; at: Date }): st
   const rows: [string, string | undefined][] = [
     ['Name', lead.name],
     ['Business', lead.business],
-    ['Phone / WhatsApp', lead.phone],
+    ['Phone / WhatsApp', `${leadPhone(lead)}  (${countryOf(lead.phoneCountry).name})`],
     ['Email', lead.email],
     ['Category', lead.category],
     ['Solution', lead.solution],

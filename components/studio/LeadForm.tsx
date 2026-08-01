@@ -6,6 +6,7 @@ import { CATEGORIES, type LeadState } from '@/lib/lead';
 import { catalogue, getDemo } from '@/lib/demos';
 import { getSourceDemo, track } from '@/lib/analytics';
 import { site, whatsappUrl } from '@/lib/site';
+import { PhoneField, FIELD_BASE } from './PhoneField';
 
 const INITIAL: LeadState = { status: 'idle' };
 
@@ -32,8 +33,7 @@ function Label({ htmlFor, children, optional }: { htmlFor: string; children: Rea
   );
 }
 
-const fieldClass =
-  'w-full min-h-[46px] rounded-[3px] border border-rule bg-white px-3.5 py-3 text-[0.95rem] text-ink transition-colors placeholder:text-ink-3/60 focus:border-ink focus:outline-none';
+const fieldClass = `w-full ${FIELD_BASE}`;
 
 /** sessionStorage never changes mid-page, so this subscription is a no-op. */
 const noopSubscribe = () => () => {};
@@ -42,10 +42,16 @@ export function LeadForm({
   defaultDemo = '',
   view = '',
   compact = false,
+  detectedCountry,
 }: {
   defaultDemo?: string;
   view?: string;
   compact?: boolean;
+  /**
+   * Resolved from the request on pages that are already dynamic. Left absent
+   * on the static home page, where the field asks the geo endpoint itself.
+   */
+  detectedCountry?: string;
 }) {
   const [state, formAction, pending] = useActionState(submitLead, INITIAL);
 
@@ -165,25 +171,13 @@ export function LeadForm({
             )}
           </div>
           <div>
-            <Label htmlFor={id('phone')}>Phone / WhatsApp</Label>
-            <input
-              id={id('phone')}
-              name="phone"
-              type="tel"
-              required
-              inputMode="tel"
-              autoComplete="tel"
-              placeholder="+91 98765 43210 or +971 50 123 4567"
-              className={fieldClass}
-              onInput={clearOnEdit('phone')}
-              aria-invalid={Boolean(errorFor('phone'))}
-              aria-describedby={errorFor('phone') ? id('phone-err') : undefined}
+            <PhoneField
+              id={id}
+              detected={detectedCountry}
+              error={errorFor('phone')}
+              onEdit={clearOnEdit('phone')}
+              describedBy={errorFor('phone') ? id('phone-err') : undefined}
             />
-            {errorFor('phone') && (
-              <p id={id('phone-err')} className="mt-1.5 text-[0.8rem] text-flame">
-                {errorFor('phone')}
-              </p>
-            )}
           </div>
           <div>
             <Label htmlFor={id('email')} optional>

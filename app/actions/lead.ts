@@ -1,7 +1,7 @@
 'use server';
 
 import { headers } from 'next/headers';
-import { formatLead, leadSchema, type Lead, type LeadState } from '@/lib/lead';
+import { formatLead, leadPhone, leadSchema, type Lead, type LeadState } from '@/lib/lead';
 import { leadStore } from '@/lib/supabase';
 import { site, whatsappUrl } from '@/lib/site';
 
@@ -131,7 +131,9 @@ async function store(lead: Lead, referer: string | undefined): Promise<void> {
 
   const { error } = await db.from('plaxweb_leads').insert({
     name: lead.name,
-    phone: lead.phone,
+    // Stored in full international form so it is dialable straight from the
+    // table, whichever country the enquiry came from.
+    phone: leadPhone(lead),
     email: lead.email || null,
     business: lead.business || null,
     category: lead.category,
