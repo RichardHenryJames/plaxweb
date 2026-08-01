@@ -305,7 +305,7 @@ export default function SalonDemo() {
                 Colour and bridal need a consultation first. Ask for one in the notes and we will book it free.
               </p>
               <p>
-                <a href={`tel:+${salon.phoneDisplay}`} className="text-salon-brass">
+                <a href={`tel:+${salon.phoneRaw}`} className="text-salon-brass">
                   {salon.phoneDisplay}
                 </a>
               </p>

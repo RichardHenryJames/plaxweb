@@ -130,6 +130,29 @@ if (LOCAL) {
   console.log('SKIP  valid submission — would write a real lead to a live inbox');
 }
 
+/* ------------------------------------------------------------ dialability */
+// A tel: link built from a display number rather than the raw one produces
+// "tel:++91 80 4123 7788", which silently does nothing when tapped. That
+// shipped on the salon demo, so every page is checked now.
+{
+  const routes = ['/', '/contact', '/salon', '/restaurant', '/clinic', '/school',
+    '/realestate', '/travel', '/fitness', '/interior', '/resort', '/boutique'];
+  const bad = [];
+  for (const r of routes) {
+    await page.goto(`${BASE}${r}`, { waitUntil: 'domcontentloaded' });
+    const hrefs = await page
+      .locator('a[href^="tel:"], a[href*="wa.me"]')
+      .evaluateAll((els) => els.map((e) => e.getAttribute('href')));
+    for (const h of hrefs) {
+      const ok = h.startsWith('tel:')
+        ? /^tel:\+[0-9]+$/.test(h)
+        : /^https:\/\/wa\.me\/[0-9]+(\?|$)/.test(h);
+      if (!ok) bad.push(`${r} ${h.split('?')[0]}`);
+    }
+  }
+  check('every tel: and wa.me link is dialable', bad.length === 0, bad.join(' | '));
+}
+
 /* ------------------------------------------------------------ sitemap etc */
 {
   const res = await page.request.get(`${BASE}/api/geo`);

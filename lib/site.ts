@@ -25,8 +25,8 @@ export const site = {
    * mailbox actually exists.
    */
   email: 'hello@plaxlabs.com',
-  phoneDisplay: '+91 98765 43210',
-  phoneRaw: '919876543210',
+  phoneDisplay: '+91 96937 08642',
+  phoneRaw: '919693708642',
   city: 'Bengaluru, India',
   addressLines: ['PlaxLabs', '2nd Floor, Cambridge Layout', 'Halasuru, Bengaluru 560008'],
   /**
