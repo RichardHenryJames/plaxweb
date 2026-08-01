@@ -25,19 +25,26 @@ function rateLimited(key: string): boolean {
 
 type Mail = { to: string; subject: string; text: string; replyTo?: string };
 
+/**
+ * plaxlabs.com is verified in Resend (DKIM, SPF and the bounce MX are live),
+ * so this needs no environment variable. Override with LEAD_FROM only if the
+ * sending domain changes.
+ */
+const FROM = process.env.LEAD_FROM ?? 'PlaxWeb <noreply@plaxlabs.com>';
+
 async function send(key: string, mail: Mail): Promise<void> {
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      from: process.env.LEAD_FROM ?? 'PlaxWeb <onboarding@resend.dev>',
+      from: FROM,
       to: [mail.to],
       reply_to: mail.replyTo,
       subject: mail.subject,
       text: mail.text,
     }),
   });
-  if (!res.ok) throw new Error(`mail provider responded ${res.status}`);
+  if (!res.ok) throw new Error(`mail provider responded ${res.status}: ${await res.text()}`);
 }
 
 /**
@@ -54,10 +61,12 @@ function acknowledgement(lead: Lead): string {
     '',
     `Thanks for getting in touch with ${site.name}. ${about}`.trim(),
     '',
-    'Someone will reply within one working day with a fixed price, a delivery date, and an honest note on what your business actually needs. If it is quicker for you, reply here or message us on WhatsApp.',
+    'Someone will reply within one working day with a fixed price, a delivery date, and an honest note on what your business actually needs. If it is quicker for you, reply to this email or message us on WhatsApp.',
     '',
+    // No email address in the signature: the domain has no inbox yet, so
+    // printing one would invite a reply that bounces. Reply-to on this message
+    // already points somewhere monitored.
     `${site.phoneDisplay}`,
-    `${site.email}`,
     '',
     `${site.name}, a PlaxLabs studio`,
     site.domain,
