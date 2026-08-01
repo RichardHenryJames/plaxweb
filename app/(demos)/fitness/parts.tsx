@@ -31,6 +31,7 @@ export function IronNav() {
   }, [open]);
 
   return (
+    <>
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
         solid ? 'border-b border-iron-steel bg-iron-black/96 backdrop-blur-md' : ''
@@ -74,8 +75,15 @@ export function IronNav() {
         </div>
       </div>
 
+    </header>
+
+      {/* A sibling of <header>, not a child. A header with a z-index or a
+          backdrop-filter creates a stacking context its descendants cannot
+          escape: the panel painted under the demo's own bottom bar, and
+          where the header was blurred it collapsed to a 72px strip because
+          inset-0 resolved against the header rather than the viewport. */}
       {open && (
-        <div className="fixed inset-0 z-[60] flex flex-col bg-iron-black lg:hidden">
+        <div className="fixed inset-0 z-[80] flex flex-col bg-iron-black lg:hidden">
           <div className="flex h-[68px] items-center justify-between px-5">
             <span className="font-iron-display text-[1.35rem] text-white uppercase">
               Iron<span className="text-iron-volt">house</span>
@@ -103,7 +111,7 @@ export function IronNav() {
           </nav>
         </div>
       )}
-    </header>
+    </>
   );
 }
 

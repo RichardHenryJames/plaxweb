@@ -31,6 +31,7 @@ export function WayfareNav() {
   }, [open]);
 
   return (
+    <>
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${
         solid ? 'border-b border-way-sand/15 bg-way-deep/95 backdrop-blur-md' : ''
@@ -70,8 +71,15 @@ export function WayfareNav() {
         </div>
       </div>
 
+    </header>
+
+      {/* A sibling of <header>, not a child. A header with a z-index or a
+          backdrop-filter creates a stacking context its descendants cannot
+          escape: the panel painted under the demo's own bottom bar, and
+          where the header was blurred it collapsed to a 72px strip because
+          inset-0 resolved against the header rather than the viewport. */}
       {open && (
-        <div className="fixed inset-0 z-[60] flex flex-col bg-way-deep md:hidden">
+        <div className="fixed inset-0 z-[80] flex flex-col bg-way-deep md:hidden">
           <div className="flex h-[72px] items-center justify-between px-5">
             <span className="font-way-display text-[1.5rem] text-way-sand">Wayfare</span>
             <button
@@ -97,7 +105,7 @@ export function WayfareNav() {
           </nav>
         </div>
       )}
-    </header>
+    </>
   );
 }
 

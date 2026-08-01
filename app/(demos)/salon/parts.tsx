@@ -34,6 +34,7 @@ export function SalonNav() {
   }, [open]);
 
   return (
+    <>
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${
         solid ? 'border-b border-salon-bone/12 bg-salon-deep/95 backdrop-blur-md' : 'bg-transparent'
@@ -80,8 +81,15 @@ export function SalonNav() {
         </button>
       </div>
 
+    </header>
+
+      {/* A sibling of <header>, not a child. A header with a z-index or a
+          backdrop-filter creates a stacking context its descendants cannot
+          escape: the panel painted under the demo's own bottom bar, and
+          where the header was blurred it collapsed to a 72px strip because
+          inset-0 resolved against the header rather than the viewport. */}
       {open && (
-        <div className="fixed inset-0 z-50 flex flex-col bg-salon-deep md:hidden">
+        <div className="fixed inset-0 z-[80] flex flex-col bg-salon-deep md:hidden">
           <div className="flex h-[74px] items-center justify-between px-5">
             <span className="font-salon-display text-[1.5rem] font-light tracking-[0.14em] text-salon-bone uppercase">
               Maison Aria
@@ -115,7 +123,7 @@ export function SalonNav() {
           </nav>
         </div>
       )}
-    </header>
+    </>
   );
 }
 

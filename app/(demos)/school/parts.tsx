@@ -44,7 +44,8 @@ export function SchoolNav() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-school-line bg-school-paper/97 backdrop-blur-md">
+    <>
+      <header className="sticky top-0 z-50 border-b border-school-line bg-school-paper/97 backdrop-blur-md">
       <div className="mx-auto flex h-[74px] max-w-[82rem] items-center justify-between gap-4 px-5 sm:px-8">
         <a href="#top" className="flex min-h-11 items-center gap-3">
           <span
@@ -91,9 +92,15 @@ export function SchoolNav() {
           </button>
         </div>
       </div>
+      </header>
 
+      {/* A sibling of <header>, not a child. The header carries a
+          backdrop-filter, which makes it the containing block for any
+          position:fixed descendant — inset-0 then resolved against the 74px
+          header instead of the viewport, so the panel painted a 74px strip and
+          its links spilled transparently over the hero. */}
       {open && (
-        <div className="fixed inset-0 z-[60] flex flex-col bg-school-paper lg:hidden">
+        <div className="fixed inset-0 z-[80] flex flex-col bg-school-paper lg:hidden">
           <div className="flex h-[74px] items-center justify-between border-b border-school-line px-5">
             <span className="font-school-display text-[1.1rem] font-bold text-school-navy">Rosewood International</span>
             <button
@@ -125,7 +132,7 @@ export function SchoolNav() {
           </nav>
         </div>
       )}
-    </header>
+    </>
   );
 }
 

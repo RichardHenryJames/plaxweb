@@ -71,35 +71,40 @@ export function KaanchiNav() {
             </button>
           </div>
         </div>
-
-        {open && (
-          <div className="fixed inset-0 z-[60] flex flex-col bg-kaanchi-ivory md:hidden">
-            <div className="flex h-[72px] items-center justify-between px-5">
-              <span className="font-kaanchi-display text-[1.7rem] tracking-[0.1em] text-kaanchi-ink">KAANCHI</span>
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
-                className="-mr-2 flex h-11 w-11 items-center justify-center text-2xl text-kaanchi-ink"
-                aria-label="Close menu"
-              >
-                <span aria-hidden>×</span>
-              </button>
-            </div>
-            <nav aria-label="Mobile" className="flex flex-1 flex-col justify-center gap-1 px-5 pb-24">
-              {NAV.map(([href, label]) => (
-                <a
-                  key={href}
-                  href={href}
-                  onClick={() => setOpen(false)}
-                  className="border-b border-kaanchi-ink/10 py-5 font-kaanchi-display text-[2rem] text-kaanchi-ink"
-                >
-                  {label}
-                </a>
-              ))}
-            </nav>
-          </div>
-        )}
       </header>
+
+      {/* A sibling of <header>, not a child. The header carries a
+          backdrop-filter, which makes it the containing block for any
+          position:fixed descendant — inset-0 then resolved against the 72px
+          header instead of the viewport, so the panel painted a 72px strip and
+          its links spilled transparently over the page. */}
+      {open && (
+        <div className="fixed inset-0 z-[80] flex flex-col bg-kaanchi-ivory md:hidden">
+          <div className="flex h-[72px] items-center justify-between px-5">
+            <span className="font-kaanchi-display text-[1.7rem] tracking-[0.1em] text-kaanchi-ink">KAANCHI</span>
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              className="-mr-2 flex h-11 w-11 items-center justify-center text-2xl text-kaanchi-ink"
+              aria-label="Close menu"
+            >
+              <span aria-hidden>×</span>
+            </button>
+          </div>
+          <nav aria-label="Mobile" className="flex flex-1 flex-col justify-center gap-1 px-5 pb-24">
+            {NAV.map(([href, label]) => (
+              <a
+                key={href}
+                href={href}
+                onClick={() => setOpen(false)}
+                className="border-b border-kaanchi-ink/10 py-5 font-kaanchi-display text-[2rem] text-kaanchi-ink"
+              >
+                {label}
+              </a>
+            ))}
+          </nav>
+        </div>
+      )}
     </>
   );
 }

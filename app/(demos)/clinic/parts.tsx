@@ -98,7 +98,7 @@ export function ClinicNav() {
       </header>
 
       {open && (
-        <div className="fixed inset-0 z-[60] flex flex-col bg-white lg:hidden">
+        <div className="fixed inset-0 z-[80] flex flex-col bg-white lg:hidden">
           <div className="flex h-[68px] items-center justify-between border-b border-clinic-line px-5">
             <span className="font-clinic-display text-[1.08rem] font-semibold text-clinic-ink">Aarogya Dental Studio</span>
             <button

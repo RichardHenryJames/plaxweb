@@ -23,7 +23,8 @@ export function MittiNav() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-mitti-char/10 bg-mitti-linen/94 backdrop-blur-md">
+    <>
+      <header className="sticky top-0 z-50 border-b border-mitti-char/10 bg-mitti-linen/94 backdrop-blur-md">
       <div className="mx-auto flex h-[72px] max-w-[78rem] items-center justify-between gap-4 px-5 sm:px-8">
         <a href="#top" className="flex min-h-11 items-center font-mitti-display text-[1.25rem] tracking-[0.14em] text-mitti-char uppercase">
           Studio Mitti
@@ -61,9 +62,15 @@ export function MittiNav() {
           </button>
         </div>
       </div>
+      </header>
 
+      {/* A sibling of <header>, not a child. The header carries a
+          backdrop-filter, which makes it the containing block for any
+          position:fixed descendant — inset-0 then resolved against the 72px
+          header instead of the viewport, so the panel painted a 72px strip and
+          its links spilled transparently over the page. */}
       {open && (
-        <div className="fixed inset-0 z-[60] flex flex-col bg-mitti-linen md:hidden">
+        <div className="fixed inset-0 z-[80] flex flex-col bg-mitti-linen md:hidden">
           <div className="flex h-[72px] items-center justify-between px-5">
             <span className="font-mitti-display text-[1.25rem] tracking-[0.14em] text-mitti-char uppercase">
               Studio Mitti
@@ -91,7 +98,7 @@ export function MittiNav() {
           </nav>
         </div>
       )}
-    </header>
+    </>
   );
 }
 
