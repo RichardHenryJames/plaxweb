@@ -56,10 +56,15 @@ const nextConfig: NextConfig = {
     // Two rules per path rather than one `:path*`: that also matches nothing,
     // which sent /topics to /news/topics/ and cost a second hop to strip the
     // trailing slash. Chained redirects leak ranking and slow the hop.
-    return ['topics', 'samachar', 'profile'].flatMap((p) => [
-      { source: `/${p}`, destination: `/news/${p}`, permanent: true },
-      { source: `/${p}/:path+`, destination: `/news/${p}/:path+`, permanent: true },
-    ]);
+    return [
+      ...['topics', 'samachar', 'profile'].flatMap((p) => [
+        { source: `/${p}`, destination: `/news/${p}`, permanent: true },
+        { source: `/${p}/:path+`, destination: `/news/${p}/:path+`, permanent: true },
+      ]),
+      // The news sitemap used to sit at the root. Search Console and anything
+      // else holding the old address gets sent on rather than a 404.
+      { source: '/news-sitemap.xml', destination: '/news/news-sitemap.xml', permanent: true },
+    ];
   },
   async headers() {
     return [
