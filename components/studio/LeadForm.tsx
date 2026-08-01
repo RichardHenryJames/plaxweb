@@ -71,11 +71,32 @@ export function LeadForm({
   const uid = useId();
   const id = (n: string) => `${uid}-${n}`;
 
+  /**
+   * Field errors come back with the server action and would otherwise sit
+   * there until the next submit, still complaining about a value the visitor
+   * has already corrected. Editing a field clears its own message.
+   *
+   * The reset is done during render rather than in an effect: a new response
+   * carries new errors, so the record of "already fixed" belongs to the
+   * response it was collected against.
+   */
+  const [fixed, setFixed] = useState<Record<string, boolean>>({});
+  const [answeredFor, setAnsweredFor] = useState(state);
+  if (answeredFor !== state) {
+    setAnsweredFor(state);
+    setFixed({});
+  }
+  const errorFor = (field: 'name' | 'phone' | 'email') =>
+    fixed[field] ? undefined : state.fieldErrors?.[field];
+  const clearOnEdit = (field: string) => () => {
+    if (!fixed[field]) setFixed((p) => ({ ...p, [field]: true }));
+  };
+
   useEffect(() => {
     if (state.status === 'success') track('lead_submit', { demo: demo || 'none', category });
     if (state.status === 'error') track('lead_error', { demo: demo || 'none' });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.status]);
+  }, [state]);
 
   if (state.status === 'success') {
     return (
@@ -133,12 +154,13 @@ export function LeadForm({
               autoComplete="name"
               placeholder="Ananya Rao"
               className={fieldClass}
-              aria-invalid={Boolean(state.fieldErrors?.name)}
-              aria-describedby={state.fieldErrors?.name ? id('name-err') : undefined}
+              onInput={clearOnEdit('name')}
+              aria-invalid={Boolean(errorFor('name'))}
+              aria-describedby={errorFor('name') ? id('name-err') : undefined}
             />
-            {state.fieldErrors?.name && (
+            {errorFor('name') && (
               <p id={id('name-err')} className="mt-1.5 text-[0.8rem] text-flame">
-                {state.fieldErrors.name}
+                {errorFor('name')}
               </p>
             )}
           </div>
@@ -153,12 +175,13 @@ export function LeadForm({
               autoComplete="tel"
               placeholder="+91 98765 43210"
               className={fieldClass}
-              aria-invalid={Boolean(state.fieldErrors?.phone)}
-              aria-describedby={state.fieldErrors?.phone ? id('phone-err') : undefined}
+              onInput={clearOnEdit('phone')}
+              aria-invalid={Boolean(errorFor('phone'))}
+              aria-describedby={errorFor('phone') ? id('phone-err') : undefined}
             />
-            {state.fieldErrors?.phone && (
+            {errorFor('phone') && (
               <p id={id('phone-err')} className="mt-1.5 text-[0.8rem] text-flame">
-                {state.fieldErrors.phone}
+                {errorFor('phone')}
               </p>
             )}
           </div>
@@ -173,12 +196,13 @@ export function LeadForm({
               autoComplete="email"
               placeholder="you@business.com"
               className={fieldClass}
-              aria-invalid={Boolean(state.fieldErrors?.email)}
-              aria-describedby={state.fieldErrors?.email ? id('email-err') : undefined}
+              onInput={clearOnEdit('email')}
+              aria-invalid={Boolean(errorFor('email'))}
+              aria-describedby={errorFor('email') ? id('email-err') : undefined}
             />
-            {state.fieldErrors?.email && (
+            {errorFor('email') && (
               <p id={id('email-err')} className="mt-1.5 text-[0.8rem] text-flame">
-                {state.fieldErrors.email}
+                {errorFor('email')}
               </p>
             )}
           </div>
