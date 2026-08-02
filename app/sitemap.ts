@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { services } from '@/lib/services';
+import { goals } from '@/lib/goals';
 import { origin, site } from '@/lib/site';
 
 /**
@@ -21,6 +22,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: 'monthly' as const,
       priority: 0.9,
+    })),
+    // Below the industry pages on purpose. These convert someone who arrived
+    // without the vocabulary; the industry pages are what gets searched.
+    ...goals.map((g) => ({
+      url: `${base}${site.basePath}/goals/${g.slug}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
     })),
     { url: `${base}${site.basePath}/contact`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
   ];

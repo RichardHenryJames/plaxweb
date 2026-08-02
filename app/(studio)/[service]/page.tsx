@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getService, serviceSlugs, services, solutionFor } from '@/lib/services';
+import { goalsForService } from '@/lib/goals';
 import { getDemo } from '@/lib/demos';
 import { faqSchema, pageMetadata, serviceBreadcrumb, serviceSchema } from '@/lib/metadata';
 import { jsonLd } from '@/lib/metadata';
@@ -56,6 +57,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
   const related = service.related
     .map((s) => services.find((x) => x.slug === s))
     .filter((s): s is NonNullable<typeof s> => Boolean(s));
+  const goalsHere = goalsForService(service.slug);
 
   return (
     <>
@@ -288,6 +290,28 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
         {/* ---------------------------------------------------------- related */}
         <section aria-labelledby="related" className="border-b border-rule py-14 sm:py-20">
           <div className="mx-auto max-w-[84rem] px-5 sm:px-8">
+            {goalsHere.length > 0 && (
+              <div className="mb-14">
+                <h2 className="font-mono text-[0.66rem] tracking-[0.2em] text-flame uppercase">
+                  What owners in this trade tell us
+                </h2>
+                <nav aria-label="Related business goals" className="mt-5">
+                  <ul className="flex flex-wrap gap-2.5">
+                    {goalsHere.map((g) => (
+                      <li key={g.slug}>
+                        <Link
+                          href={`${site.basePath}/goals/${g.slug}`}
+                          className="inline-flex min-h-[44px] items-center rounded-full border border-rule px-5 text-[0.92rem] transition-colors hover:border-ink hover:bg-ink hover:text-paper"
+                        >
+                          &ldquo;{g.said}&rdquo;
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              </div>
+            )}
+
             <h2
               id="related"
               className="font-display text-[clamp(1.6rem,3.4vw,2.3rem)] leading-[1.06] font-extrabold tracking-[-0.03em]"

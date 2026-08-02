@@ -34,6 +34,9 @@ const ROUTES = [
   '/interior-design-website',
   '/hotel-website-design',
   '/boutique-website-design',
+  '/goals/more-bookings',
+  '/goals/better-leads',
+  '/goals/build-trust',
 ];
 
 const browser = await chromium.launch();

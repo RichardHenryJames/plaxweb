@@ -5,6 +5,7 @@ import { Capabilities } from '@/components/studio/Capabilities';
 import { Process } from '@/components/studio/Process';
 import { MobileProof } from '@/components/studio/MobileProof';
 import { WhyNotATemplate } from '@/components/studio/WhyNotATemplate';
+import { GoalIndex } from '@/components/studio/GoalIndex';
 import { ServiceIndex } from '@/components/studio/ServiceIndex';
 import { Pricing } from '@/components/studio/Pricing';
 import { Faq, faqSchema } from '@/components/studio/Faq';
@@ -115,6 +116,7 @@ export default function PortfolioPage() {
       </section>
 
       <DemoGallery />
+      <GoalIndex />
       <ServiceIndex />
       <WhyNotATemplate />
       <Capabilities />

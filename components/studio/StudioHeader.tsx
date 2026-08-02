@@ -12,9 +12,9 @@ import { site } from '@/lib/site';
  */
 const NAV = [
   { href: '/#demos', label: 'Demos' },
-  { href: '/#services', label: 'What we build' },
+  { href: '/#goals', label: 'By goal' },
+  { href: '/#services', label: 'By industry' },
   { href: '/#process', label: 'Process' },
-  { href: '/#pricing', label: 'Pricing' },
   { href: '/#faq', label: 'FAQ' },
 ];
 

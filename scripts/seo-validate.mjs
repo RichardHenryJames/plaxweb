@@ -26,6 +26,12 @@ const ROUTES = [
   '/interior-design-website',
   '/hotel-website-design',
   '/boutique-website-design',
+  '/goals/more-bookings',
+  '/goals/more-enquiries',
+  '/goals/sell-online',
+  '/goals/better-leads',
+  '/goals/direct-bookings',
+  '/goals/build-trust',
 ];
 
 /** Demos must stay out of the index, or they compete with the pages above. */

@@ -41,6 +41,9 @@ const ROUTES = {
   'svc-interior': '/interior-design-website',
   'svc-resort': '/hotel-website-design',
   'svc-boutique': '/boutique-website-design',
+  'goal-bookings': '/goals/more-bookings',
+  'goal-leads': '/goals/better-leads',
+  'goal-trust': '/goals/build-trust',
 };
 
 const args = process.argv.slice(2);
