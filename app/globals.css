@@ -226,6 +226,22 @@
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
+
+  /* One deliberate exception to the blanket reset above.
+     
+     The gallery previews scroll their screenshot while a pointer is held over
+     them. Collapsing that to 0.001ms did not disable it — it made it jump to
+     the bottom of the shot instantly, which is a worse experience than either
+     the full pan or no pan at all.
+     
+     It is exempt because it is not motion happening to anyone: it starts only
+     on a deliberate hover, reverses the moment the pointer leaves, stays
+     inside a small frame, and all it does is scroll a web page. Reduced motion
+     is about unrequested movement, and a visitor who is holding their cursor
+     still on a screenshot has requested this one. */
+  .preview-pan {
+    transition-duration: 5000ms !important;
+  }
 }
 
 /* ==========================================================================

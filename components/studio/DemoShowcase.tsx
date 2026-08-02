@@ -157,7 +157,7 @@ export function PreviewStage({
               placeholder="blur"
               blurDataURL={p.desktop.blurDataURL}
               style={{ ['--pan' as string]: `-${desktopPan}%` }}
-              className="absolute inset-x-0 top-0 h-auto w-full transition-transform duration-[5000ms] ease-linear group-hover/stage:translate-y-[var(--pan)]"
+              className="preview-pan absolute inset-x-0 top-0 h-auto w-full transition-transform duration-[5000ms] ease-linear group-hover/stage:translate-y-[var(--pan)]"
             />
           </div>
         </div>
@@ -181,7 +181,7 @@ export function PreviewStage({
               placeholder="blur"
               blurDataURL={p.mobile.blurDataURL}
               style={{ ['--pan' as string]: `-${mobilePan}%` }}
-              className="absolute inset-x-0 top-0 h-auto w-full transition-transform duration-[5000ms] ease-linear group-hover/stage:translate-y-[var(--pan)]"
+              className="preview-pan absolute inset-x-0 top-0 h-auto w-full transition-transform duration-[5000ms] ease-linear group-hover/stage:translate-y-[var(--pan)]"
             />
           </div>
         </div>
