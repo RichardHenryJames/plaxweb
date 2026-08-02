@@ -18,6 +18,20 @@ const MOBILE_RATIO = 19.5 / 9;
  * How far the screenshot can slide up inside its frame, as a percentage of the
  * image's own height. Derived from the real capture dimensions so the pan
  * always stops exactly at the bottom of the shot.
+ *
+ * This pan is deliberately NOT disabled under prefers-reduced-motion, which is
+ * the opposite of the rule applied everywhere else on the site.
+ *
+ * That setting exists to prevent motion happening *to* someone: automatic
+ * movement, parallax, large travel they did not ask for and cannot stop. This
+ * is the opposite on every count. It only starts when a pointer is deliberately
+ * held over a preview, it stops the instant that pointer leaves, it is confined
+ * to a small frame, and what it does is scroll a web page — the exact action a
+ * visitor performs to read anything at all.
+ *
+ * Suppressing it left reduced-motion visitors unable to see past the top of any
+ * screenshot, which is not an accessibility win. It never fires on touch, since
+ * Tailwind's hover variant is already gated behind (hover: hover).
  */
 function panDistance(imgW: number, imgH: number, windowRatio: number) {
   const visible = windowRatio / (imgH / imgW);
@@ -143,7 +157,7 @@ export function PreviewStage({
               placeholder="blur"
               blurDataURL={p.desktop.blurDataURL}
               style={{ ['--pan' as string]: `-${desktopPan}%` }}
-              className="absolute inset-x-0 top-0 h-auto w-full transition-transform duration-[5000ms] ease-linear group-hover/stage:translate-y-[var(--pan)] motion-reduce:transition-none motion-reduce:group-hover/stage:translate-y-0"
+              className="absolute inset-x-0 top-0 h-auto w-full transition-transform duration-[5000ms] ease-linear group-hover/stage:translate-y-[var(--pan)]"
             />
           </div>
         </div>
@@ -167,7 +181,7 @@ export function PreviewStage({
               placeholder="blur"
               blurDataURL={p.mobile.blurDataURL}
               style={{ ['--pan' as string]: `-${mobilePan}%` }}
-              className="absolute inset-x-0 top-0 h-auto w-full transition-transform duration-[5000ms] ease-linear group-hover/stage:translate-y-[var(--pan)] motion-reduce:transition-none motion-reduce:group-hover/stage:translate-y-0"
+              className="absolute inset-x-0 top-0 h-auto w-full transition-transform duration-[5000ms] ease-linear group-hover/stage:translate-y-[var(--pan)]"
             />
           </div>
         </div>
