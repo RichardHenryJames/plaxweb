@@ -255,6 +255,141 @@
   }
 }
 
+/* ==========================================================================
+   The reframe: one desktop website becoming the phone version of itself.
+
+   This is the only cinematic moment on the site, and it earns its place by
+   demonstrating the thing PlaxWeb actually sells — that the phone version is
+   designed, not squeezed. Motion here is the argument, not decoration.
+
+   Built on a named view timeline rather than a scroll listener, so the whole
+   thing runs off the main thread with no JavaScript at all. The track is
+   taller than the viewport, which makes `contain` the range where it fully
+   covers the screen — exactly the period the stage is pinned.
+
+   Only `transform` and `opacity` are animated. Both are composited, so this
+   holds 60fps on a mid-range phone; animating width or aspect-ratio instead
+   would relayout on every frame.
+
+   Everything below is progressive enhancement. Without scroll-timeline
+   support, or with reduced motion, the stage renders as a static two-up of
+   the same two screenshots and the section still makes its point.
+========================================================================== */
+
+.reframe-desktop,
+.reframe-phone,
+.reframe-caption-a,
+.reframe-caption-b {
+  will-change: auto;
+}
+
+@supports (animation-timeline: view()) {
+  /* Deliberately not on phones. A 260vh pinned section is a long time to hold
+     someone in one place on a device they are holding in one hand, and the
+     stacked two-up below makes the same point in a fraction of the scroll.
+     Mobile motion is a separate decision, not the desktop one scaled down. */
+  @media (min-width: 640px) and (prefers-reduced-motion: no-preference) {
+    .reframe-track {
+      view-timeline-name: --reframe;
+      view-timeline-axis: block;
+    }
+
+    /* The two-up collapses into a single stacked stage. */
+    .reframe-stage {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+    .reframe-stage > * {
+      grid-area: 1 / 1;
+    }
+
+    .reframe-captions > * {
+      grid-area: 1 / 1;
+    }
+
+    .reframe-desktop {
+      animation: reframe-desktop linear both;
+      animation-timeline: --reframe;
+      animation-range: contain 0% contain 55%;
+      transform-origin: 50% 45%;
+    }
+
+    .reframe-phone {
+      animation: reframe-phone linear both;
+      animation-timeline: --reframe;
+      animation-range: contain 30% contain 85%;
+      transform-origin: 50% 45%;
+    }
+
+    /* Overlapped on purpose. Ending one exactly where the other begins left a
+       moment with both at zero opacity and the column visibly empty. */
+    .reframe-caption-a {
+      animation: reframe-out linear both;
+      animation-timeline: --reframe;
+      animation-range: contain 26% contain 46%;
+    }
+
+    .reframe-caption-b {
+      animation: reframe-in linear both;
+      animation-timeline: --reframe;
+      animation-range: contain 36% contain 56%;
+      opacity: 0;
+    }
+  }
+}
+
+@keyframes reframe-desktop {
+  /* Collapses inward rather than shrinking uniformly: the horizontal squeeze
+     is what reads as "the same page, narrower", which is the whole point. */
+  from {
+    transform: scaleX(1) scaleY(1);
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  to {
+    transform: scaleX(0.2) scaleY(0.86);
+    opacity: 0;
+  }
+}
+
+@keyframes reframe-phone {
+  from {
+    transform: scale(0.82);
+    opacity: 0;
+  }
+  45% {
+    opacity: 1;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes reframe-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes reframe-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Range inputs: keep the track thin but give the control a 24px hit area,
    and inherit the demo's accent through `currentColor`. */
 .range-control {

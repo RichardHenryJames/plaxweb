@@ -3,7 +3,7 @@ import { Hero } from '@/components/studio/Hero';
 import { DemoGallery } from '@/components/studio/DemoGallery';
 import { Capabilities } from '@/components/studio/Capabilities';
 import { Process } from '@/components/studio/Process';
-import { MobileProof } from '@/components/studio/MobileProof';
+import { Reframe } from '@/components/studio/Reframe';
 import { WhyNotATemplate } from '@/components/studio/WhyNotATemplate';
 import { GoalIndex } from '@/components/studio/GoalIndex';
 import { ServiceIndex } from '@/components/studio/ServiceIndex';
@@ -121,7 +121,7 @@ export default function PortfolioPage() {
       <WhyNotATemplate />
       <Capabilities />
       <Process />
-      <MobileProof />
+      <Reframe />
       <Pricing />
       <Faq />
       <ContactSection />
