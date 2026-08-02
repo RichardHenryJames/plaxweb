@@ -1,14 +1,32 @@
 import Link from 'next/link';
 import { catalogue } from '@/lib/demos';
+import { services, solutionFor } from '@/lib/services';
+import { goals } from '@/lib/goals';
 import { site, whatsappUrl } from '@/lib/site';
 
+/**
+ * A resource hub rather than a row of links.
+ *
+ * The footer is the only element on every page, which makes it the strongest
+ * internal linking surface the site has: every indexable page is reachable
+ * from every other page in one click. That matters more here than on an
+ * established site, because a new domain has no external links pointing at
+ * its deeper pages and this is the only signal available that they exist.
+ *
+ * Both navigation systems are repeated in full — by industry for someone who
+ * knows what they want built, by goal for someone who only knows what is
+ * going wrong. Demos are listed too even though they are noindex: they cannot
+ * rank, but they are the thing people actually want to open, and burying them
+ * would be perverse.
+ */
 export function StudioFooter() {
   const year = new Date().getFullYear();
 
   return (
     <footer className="bg-ink text-paper">
       <div className="mx-auto max-w-[84rem] px-5 py-16 sm:px-8 sm:py-20">
-        <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr] md:gap-8">
+        <div className="grid gap-12 lg:grid-cols-[1.25fr_1fr_1fr_1fr] lg:gap-10">
+          {/* ------------------------------------------------------- brand */}
           <div className="max-w-sm">
             <span className="font-display text-[1.6rem] leading-none font-extrabold tracking-[-0.03em]">
               Plax<span className="text-flame-lit">Web</span>
@@ -23,6 +41,7 @@ export function StudioFooter() {
             <p className="mt-5 text-[0.95rem] leading-relaxed text-paper/65">
               We build websites to win business, not awards.
             </p>
+
             <div className="mt-6 flex flex-wrap gap-3">
               <a
                 href={`tel:+${site.phoneRaw}`}
@@ -39,52 +58,94 @@ export function StudioFooter() {
                 WhatsApp
               </a>
             </div>
+
+            <address className="mt-7 text-[0.85rem] leading-relaxed text-paper/45 not-italic">
+              {site.addressLines.map((line) => (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              ))}
+              <span className="mt-2 block">{site.hours}</span>
+            </address>
           </div>
 
-          <nav aria-label="Solutions">
-            <h2 className="font-mono text-[0.65rem] tracking-[0.18em] text-paper/40 uppercase">Website solutions</h2>
+          {/* --------------------------------------------------- industries */}
+          <nav aria-label="Websites by industry">
+            <h2 className="font-mono text-[0.65rem] tracking-[0.18em] text-paper/40 uppercase">By industry</h2>
             <ul className="mt-4 space-y-2.5">
-              {catalogue.map((d) => (
-                <li key={d.slug}>
+              {services.map((s) => (
+                <li key={s.slug}>
                   <Link
-                    href={`${site.basePath}/${d.slug}`}
-                    className="inline-flex min-h-[28px] items-center text-[0.9rem] text-paper/70 transition-colors hover:text-paper"
+                    href={`${site.basePath}/${s.slug}`}
+                    className="inline-flex min-h-[28px] items-center text-[0.88rem] leading-snug text-paper/70 transition-colors hover:text-paper"
                   >
-                    {d.solution.name}
+                    {solutionFor(s).name}
                   </Link>
                 </li>
               ))}
             </ul>
           </nav>
 
-          <div>
-            <h2 className="font-mono text-[0.65rem] tracking-[0.18em] text-paper/40 uppercase">Studio</h2>
-            <ul className="mt-4 space-y-2.5 text-[0.9rem] text-paper/70">
+          {/* -------------------------------------------------------- goals */}
+          <nav aria-label="Websites by business goal">
+            <h2 className="font-mono text-[0.65rem] tracking-[0.18em] text-paper/40 uppercase">By goal</h2>
+            <ul className="mt-4 space-y-2.5">
+              {goals.map((g) => (
+                <li key={g.slug}>
+                  <Link
+                    href={`${site.basePath}/goals/${g.slug}`}
+                    className="inline-flex min-h-[28px] items-start text-[0.88rem] leading-snug text-paper/70 transition-colors hover:text-paper"
+                  >
+                    {g.said}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            <h2 className="mt-9 font-mono text-[0.65rem] tracking-[0.18em] text-paper/40 uppercase">Studio</h2>
+            <ul className="mt-4 space-y-2.5 text-[0.88rem] text-paper/70">
               <li>
                 <Link href={`${site.basePath}/contact`} className="transition-colors hover:text-paper">
                   Get a quote
                 </Link>
               </li>
               <li>
-                <a
-                  href={whatsappUrl('Hi PlaxWeb, I would like to talk about a website for my business.')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition-colors hover:text-paper"
-                >
-                  WhatsApp us
-                </a>
+                <Link href="/#process" className="transition-colors hover:text-paper">
+                  How we work
+                </Link>
               </li>
-              <li className="pt-3 text-paper/45">{site.hours}</li>
+              <li>
+                <Link href="/#pricing" className="transition-colors hover:text-paper">
+                  How pricing works
+                </Link>
+              </li>
+              <li>
+                <Link href="/#faq" className="transition-colors hover:text-paper">
+                  Questions
+                </Link>
+              </li>
             </ul>
-            <address className="mt-6 text-[0.85rem] leading-relaxed text-paper/45 not-italic">
-              {site.addressLines.map((line) => (
-                <span key={line} className="block">
-                  {line}
-                </span>
+          </nav>
+
+          {/* -------------------------------------------------------- demos */}
+          <nav aria-label="Live demo websites">
+            <h2 className="font-mono text-[0.65rem] tracking-[0.18em] text-paper/40 uppercase">Open a live demo</h2>
+            <ul className="mt-4 space-y-2.5">
+              {catalogue.map((d) => (
+                <li key={d.slug}>
+                  <Link
+                    href={`${site.basePath}/${d.slug}`}
+                    className="group inline-flex min-h-[28px] items-baseline gap-2 text-[0.88rem] leading-snug text-paper/70 transition-colors hover:text-paper"
+                  >
+                    {d.brand}
+                    <span className="text-[0.72rem] text-paper/35 transition-colors group-hover:text-paper/60">
+                      {d.industry}
+                    </span>
+                  </Link>
+                </li>
               ))}
-            </address>
-          </div>
+            </ul>
+          </nav>
         </div>
 
         <div className="mt-14 flex flex-col gap-3 border-t border-paper/12 pt-6 text-[0.78rem] text-paper/40 sm:flex-row sm:items-center sm:justify-between">

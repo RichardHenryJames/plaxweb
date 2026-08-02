@@ -95,8 +95,14 @@ for (const route of ROUTES) {
       if (cs.visibility === 'hidden' || cs.display === 'none') continue;
       // Visually-hidden text has no contrast to judge.
       if (el.classList.contains('sr-only') || el.closest('.sr-only')) continue;
+      // Neither does anything removed from the accessibility tree. The lead
+      // form's honeypot is a real label positioned off-screen, and it is
+      // supposed to be unreadable — that is the entire mechanism.
+      if (el.closest('[aria-hidden="true"]')) continue;
       const r = el.getBoundingClientRect();
       if (!r.width || !r.height) continue;
+      // Parked far outside the viewport rather than hidden. Same intent.
+      if (r.right < 0 || r.bottom < 0) continue;
       if (overPhoto(r)) continue;
       const fg = parse(cs.color);
       const bg = effectiveBg(el);
