@@ -38,7 +38,7 @@ export function Reframe({ slug = 'restaurant' }: { slug?: string }) {
       aria-labelledby="reframe-heading"
       className="reframe-track relative border-b border-rule bg-paper-2 sm:h-[260vh]"
     >
-      <div className="sticky top-0 flex min-h-[100svh] flex-col justify-center overflow-hidden py-16 sm:py-20">
+      <div className="sticky top-0 flex min-h-[100svh] flex-col justify-center overflow-hidden pt-24 pb-16 sm:py-20">
         <div className="mx-auto w-full max-w-[84rem] px-5 sm:px-8">
           <div className="grid items-center gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16">
             {/* ------------------------------------------------------ words */}

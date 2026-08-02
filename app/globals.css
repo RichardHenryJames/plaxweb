@@ -455,6 +455,192 @@
   }
 }
 
+/* ==========================================================================
+   The morph: one browser window, six businesses passing through it.
+
+   The second and last cinematic moment. It exists because "we don't use
+   templates" is what every agency says, including the ones that do — it can
+   only be demonstrated. Holding the frame perfectly still is the whole
+   technique: with nothing else moving, six unalike websites become impossible
+   to confuse with one another.
+
+   Six overlapping windows across the pinned range, each fading in as the last
+   fades out. The ranges deliberately overlap so no frame is ever empty, which
+   is the mistake the Reframe's captions made first time round.
+
+   Same rules as everything else here: named view timeline, no JavaScript,
+   opacity and transform only. And the same two-tier treatment of reduced
+   motion — everyone gets the crossfade, only motion-tolerant visitors get the
+   slight scale that makes each site feel like it arrives rather than appears.
+========================================================================== */
+
+@supports (animation-timeline: view()) {
+  @media (min-width: 640px) {
+    .morph-track {
+      view-timeline-name: --morph;
+      view-timeline-axis: block;
+    }
+
+    .morph-labels > * {
+      grid-area: 1 / 1;
+    }
+
+    .morph-shot,
+    .morph-label,
+    .morph-tick {
+      animation-timeline: --morph;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+    }
+
+    .morph-shot,
+    .morph-label {
+      animation-name: morph-hold;
+      opacity: 0;
+    }
+
+    .morph-tick {
+      animation-name: morph-tick;
+    }
+
+    /* The first is already on screen when the scene begins and the last has
+       to stay once it ends, so neither fades at its outer edge. */
+    .morph-shot[data-i='0'],
+    .morph-label[data-i='0'] {
+      animation-name: morph-hold-first;
+    }
+
+    .morph-shot[data-i='5'],
+    .morph-label[data-i='5'] {
+      animation-name: morph-hold-last;
+    }
+
+    [data-i='0'] {
+      animation-range: contain 0% contain 20%;
+    }
+    [data-i='1'] {
+      animation-range: contain 14% contain 37%;
+    }
+    [data-i='2'] {
+      animation-range: contain 31% contain 54%;
+    }
+    [data-i='3'] {
+      animation-range: contain 48% contain 71%;
+    }
+    [data-i='4'] {
+      animation-range: contain 65% contain 88%;
+    }
+    [data-i='5'] {
+      animation-range: contain 82% contain 100%;
+    }
+  }
+
+  /* Each site arrives rather than simply appearing. Small enough to read as
+     depth rather than as a zoom. */
+  @media (min-width: 640px) and (prefers-reduced-motion: no-preference) {
+    .morph-shot {
+      animation-name: morph-arrive;
+    }
+    .morph-shot[data-i='0'] {
+      animation-name: morph-arrive-first;
+    }
+    .morph-shot[data-i='5'] {
+      animation-name: morph-arrive-last;
+    }
+  }
+}
+
+@keyframes morph-hold {
+  0% {
+    opacity: 0;
+  }
+  22% {
+    opacity: 1;
+  }
+  78% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes morph-hold-first {
+  0%,
+  78% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes morph-hold-last {
+  0% {
+    opacity: 0;
+  }
+  22%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes morph-arrive {
+  0% {
+    opacity: 0;
+    transform: scale(1.035);
+  }
+  22% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  78% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.985);
+  }
+}
+
+@keyframes morph-arrive-first {
+  0%,
+  78% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.985);
+  }
+}
+
+@keyframes morph-arrive-last {
+  0% {
+    opacity: 0;
+    transform: scale(1.035);
+  }
+  22%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* The active tick is the only flame on screen, which is enough to read as
+   position without a number or a label. */
+@keyframes morph-tick {
+  0%,
+  100% {
+    background-color: color-mix(in srgb, var(--color-paper) 20%, transparent);
+  }
+  22%,
+  78% {
+    background-color: var(--color-flame-lit);
+  }
+}
+
 /* Range inputs: keep the track thin but give the control a 24px hit area,
    and inherit the demo's accent through `currentColor`. */
 .range-control {

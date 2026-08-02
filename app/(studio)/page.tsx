@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Hero } from '@/components/studio/Hero';
 import { DemoGallery } from '@/components/studio/DemoGallery';
+import { Morph } from '@/components/studio/Morph';
 import { Capabilities } from '@/components/studio/Capabilities';
 import { Process } from '@/components/studio/Process';
 import { Reframe } from '@/components/studio/Reframe';
@@ -115,6 +116,7 @@ export default function PortfolioPage() {
         </div>
       </section>
 
+      <Morph />
       <DemoGallery />
       <GoalIndex />
       <ServiceIndex />
