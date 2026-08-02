@@ -83,42 +83,50 @@ export function Reframe({ slug = 'restaurant' }: { slug?: string }) {
             </div>
 
             {/* ----------------------------------------------------- frames */}
-            <div className="reframe-stage grid min-w-0 grid-cols-1 items-center gap-8 sm:grid-cols-2 sm:gap-10">
-              {/* Desktop. Fixed aspect so the frame never reflows mid-scroll. */}
+            <div className="reframe-stage grid min-w-0 grid-cols-1 items-center gap-10 sm:grid-cols-2 sm:gap-10">
+              {/* Desktop. A real browser is a landscape window, so the frame is
+                  held at 16:10 rather than being given a height — a clamped
+                  height made it letterbox-shaped at some viewports and nothing
+                  like the thing it is meant to depict. */}
               <figure className="reframe-desktop m-0 min-w-0">
-                <div className="overflow-hidden rounded-[10px] border border-rule bg-white shadow-[0_24px_60px_-30px_rgba(20,18,15,0.45)]">
+                <div className="mx-auto w-full max-w-[34rem] overflow-hidden rounded-[10px] border border-rule bg-white shadow-[0_24px_60px_-30px_rgba(20,18,15,0.45)]">
                   <div className="flex items-center gap-1.5 border-b border-rule px-3 py-2">
                     <span aria-hidden className="h-2 w-2 rounded-full bg-rule" />
                     <span aria-hidden className="h-2 w-2 rounded-full bg-rule" />
                     <span aria-hidden className="h-2 w-2 rounded-full bg-rule" />
-                    <span className="ml-2 truncate font-mono text-[0.58rem] text-ink-3">{demo.brand.toLowerCase().replace(/\s+/g, '')}.com</span>
+                    <span className="ml-2 truncate font-mono text-[0.58rem] text-ink-3">
+                      {demo.brand.toLowerCase().replace(/\s+/g, '')}.com
+                    </span>
                   </div>
                   <Image
                     src={desktop.src}
                     width={desktop.width}
                     height={desktop.height}
                     alt={`${demo.brand} on a laptop: the desktop layout of a ${demo.industry.toLowerCase()} website built by PlaxWeb`}
-                    sizes="(min-width: 1024px) 45vw, 45vw"
-                    className="h-[clamp(14rem,32vh,24rem)] w-full object-cover object-top"
+                    sizes="(min-width: 1024px) 45vw, 90vw"
+                    className="aspect-[16/10] w-full object-cover object-top"
                   />
                 </div>
                 <figcaption className="sr-only">Desktop layout</figcaption>
               </figure>
 
-              {/* Phone. Centred in the same cell once the stage collapses. */}
-              <figure className="reframe-phone m-0 mx-auto w-[min(14rem,100%)]">
-                <div className="relative overflow-hidden rounded-[1.9rem] border-[3px] border-ink bg-ink shadow-[0_30px_70px_-28px_rgba(20,18,15,0.6)]">
+              {/* Phone. Sized by height with a 9:19.5 aspect, which is the
+                  shape of an actual handset — the previous version derived its
+                  height from the viewport and came out almost square, so it
+                  read as a rounded box rather than a phone. */}
+              <figure className="reframe-phone m-0 flex justify-center">
+                <div className="relative aspect-[9/19.5] h-[min(30rem,62vh)] overflow-hidden rounded-[2.2rem] border-[4px] border-ink bg-ink shadow-[0_30px_70px_-28px_rgba(20,18,15,0.6)]">
                   <span
                     aria-hidden
-                    className="absolute top-2 left-1/2 z-10 h-1.5 w-14 -translate-x-1/2 rounded-full bg-paper/25"
+                    className="absolute top-2.5 left-1/2 z-10 h-1.5 w-12 -translate-x-1/2 rounded-full bg-paper/30"
                   />
                   <Image
                     src={mobile.src}
                     width={mobile.width}
                     height={mobile.height}
                     alt={`${demo.brand} on a phone: the same website re-laid out for a portrait screen`}
-                    sizes="230px"
-                    className="h-[clamp(16rem,38vh,28rem)] w-full rounded-[1.65rem] object-cover object-top"
+                    sizes="240px"
+                    className="h-full w-full rounded-[1.9rem] object-cover object-top"
                   />
                 </div>
                 <figcaption className="sr-only">Phone layout of the same page</figcaption>
