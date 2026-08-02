@@ -14,6 +14,9 @@ const BASE = process.env.QA_BASE ?? 'http://localhost:3000';
 const ROUTES = [
   '/',
   '/contact',
+  // The same page in its other state. Arriving from a demo swaps in a whole
+  // column of content that the bare URL never renders.
+  '/contact?demo=salon&view=mobile',
   '/salon',
   '/restaurant',
   '/clinic',
@@ -89,7 +92,12 @@ for (const route of ROUTES) {
       imageRects.some((ir) => r.left < ir.right && r.right > ir.left && r.top < ir.bottom && r.bottom > ir.top);
 
     const text = Array.from(document.querySelectorAll('p, li, dd, dt, label, summary, figcaption'));
-    for (const el of text.slice(0, 400)) {
+    // Was capped at 400, which silently skipped the bottom of every long page
+    // — the home page carries more text than that before the footer starts, so
+    // the closing contact block was never once checked. The cap now only
+    // exists to stop a runaway, and says so if it is ever reached.
+    if (text.length > 2000) issues.push(`contrast check truncated at 2000 of ${text.length} elements`);
+    for (const el of text.slice(0, 2000)) {
       if (!el.textContent?.trim()) continue;
       const cs = getComputedStyle(el);
       if (cs.visibility === 'hidden' || cs.display === 'none') continue;

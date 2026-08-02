@@ -72,7 +72,7 @@ export function StudioHeader() {
           <Link
             href={`${site.basePath}/contact`}
             onClick={() => track('contact_start', { from: 'header' })}
-            className="hidden rounded-full bg-ink px-5 py-2.5 text-[0.85rem] font-medium text-paper transition-colors hover:bg-flame sm:inline-flex"
+            className="hidden rounded-full bg-flame px-5 py-2.5 text-[0.85rem] font-medium text-white transition-colors hover:bg-ink sm:inline-flex"
           >
             Get a quote
           </Link>
