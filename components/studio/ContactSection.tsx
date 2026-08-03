@@ -73,6 +73,20 @@ export function ContactSection() {
                   instead.
                 </dd>
               </div>
+              <div>
+                <dt className="font-mono text-[0.62rem] tracking-[0.16em] text-white/65 uppercase">See the work</dt>
+                <dd className="mt-1.5 text-[0.95rem] text-white">
+                  <a
+                    href={site.social.instagram.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-4 hover:no-underline"
+                  >
+                    {site.social.instagram.handle}
+                  </a>{' '}
+                  on {site.social.instagram.name}.
+                </dd>
+              </div>
             </dl>
           </div>
 

@@ -166,6 +166,24 @@ export default async function ContactPage({
                     <p>3. A written scope and a delivery date before any payment.</p>
                   </dd>
                 </div>
+                {/* Not offered as a way to reach us. Enquiries belong in the
+                    form or on WhatsApp, where they get answered; this is here
+                    for the person who wants to see more before deciding. */}
+                <div>
+                  <dt className="font-mono text-[0.62rem] tracking-[0.16em] text-white/65 uppercase">Want to see more first</dt>
+                  <dd className="mt-2 text-[0.92rem] leading-relaxed text-white/85">
+                    Recent work goes up on{' '}
+                    <a
+                      href={site.social.instagram.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline underline-offset-4 hover:no-underline"
+                    >
+                      {site.social.instagram.name} ({site.social.instagram.handle})
+                    </a>
+                    .
+                  </dd>
+                </div>
               </dl>
             </div>
 

@@ -5,7 +5,7 @@ import { getGuide, guides, guideSlugs } from '@/lib/guides';
 import { services, solutionFor } from '@/lib/services';
 import { getDemo } from '@/lib/demos';
 import { jsonLd, pageMetadata } from '@/lib/metadata';
-import { origin, site } from '@/lib/site';
+import { origin, profileUrls, site } from '@/lib/site';
 
 /**
  * A guide. One column, generous measure, no sidebar.
@@ -56,7 +56,17 @@ export default async function GuidePage({ params }: { params: Promise<{ guide: s
     dateModified: guide.updated,
     datePublished: guide.updated,
     author: { '@type': 'Organization', name: site.name, url: `${origin()}${site.home}` },
-    publisher: { '@id': `${origin()}${site.basePath}#plaxweb` },
+    // Spelled out rather than left as a bare @id reference. The node with that
+    // id is only emitted on the home page, so on its own this page had a
+    // publisher pointing at nothing - and Article needs a resolvable one. The
+    // id stays so the two still merge into one entity site-wide.
+    publisher: {
+      '@type': 'Organization',
+      '@id': `${origin()}${site.basePath}#plaxweb`,
+      name: site.name,
+      url: `${origin()}${site.home}`,
+      sameAs: profileUrls,
+    },
     mainEntityOfPage: `${origin()}${site.basePath}/guides/${guide.slug}`,
   };
 

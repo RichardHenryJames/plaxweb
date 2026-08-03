@@ -38,7 +38,30 @@ export const site = {
   hours: 'Mon–Sat, 10am – 7pm IST, with calls scheduled across time zones',
   /** Published starting prices are quoted in these. Used in copy and schema. */
   currencies: ['INR', 'USD', 'AED', 'GBP', 'EUR'],
+  /**
+   * Public profiles.
+   *
+   * Declared in structured data as `sameAs`, which is what tells a search
+   * engine the domain and the account are one entity rather than two things
+   * that happen to share a name. For a domain with no backlinks yet this is
+   * one of the few brand signals available for free, and it is also how a
+   * profile becomes eligible to appear alongside the site in a knowledge
+   * panel.
+   *
+   * Only list something genuinely being posted to. Linking a dormant account
+   * from schema advertises that the studio is quiet.
+   */
+  social: {
+    instagram: {
+      name: 'Instagram',
+      handle: '@plaxweb',
+      url: 'https://www.instagram.com/plaxweb',
+    },
+  },
 } as const;
+
+/** Profile URLs, in the order structured data should list them. */
+export const profileUrls: string[] = Object.values(site.social).map((p) => p.url);
 
 /** Absolute origin. Vercel sets VERCEL_PROJECT_PRODUCTION_URL automatically. */
 export function origin(): string {

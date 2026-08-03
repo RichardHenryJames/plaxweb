@@ -58,6 +58,17 @@ export function StudioFooter() {
               >
                 WhatsApp
               </a>
+              {/* Text, not an icon, because the two beside it are text. A lone
+                  glyph here would read as decoration rather than a third
+                  equally usable route. */}
+              <a
+                href={site.social.instagram.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border border-paper/20 px-4 py-2 text-[0.82rem] transition-colors hover:border-paper/50"
+              >
+                {site.social.instagram.name}
+              </a>
             </div>
 
             <address className="mt-7 text-[0.85rem] leading-relaxed text-paper/45 not-italic">

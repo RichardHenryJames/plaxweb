@@ -11,7 +11,7 @@ import { Faq, faqSchema } from '@/components/studio/Faq';
 import { ContactSection } from '@/components/studio/ContactSection';
 import { TrackView } from '@/components/ui/TrackView';
 import { jsonLd, pageMetadata } from '@/lib/metadata';
-import { origin, site } from '@/lib/site';
+import { origin, profileUrls, site } from '@/lib/site';
 import { demos } from '@/lib/demos';
 import { services } from '@/lib/services';
 
@@ -30,6 +30,9 @@ const orgSchema = {
   parentOrganization: { '@type': 'Organization', name: 'PlaxLabs' },
   description: site.description,
   url: `${origin()}${site.basePath}`,
+  // Ties the domain and the social profile to one entity. Without it they are
+  // two unrelated things that share a name.
+  sameAs: profileUrls,
   telephone: `+${site.phoneRaw}`,
   // No email here on purpose: the domain has no MX records, so publishing one
   // to search engines invites mail that silently bounces. Add it back when a

@@ -82,6 +82,7 @@ function acknowledgement(lead: Lead): string {
     '',
     `${site.name}, a PlaxLabs studio`,
     site.domain,
+    `Recent work: ${site.social.instagram.url}`,
     '',
   ].join('\n');
 }

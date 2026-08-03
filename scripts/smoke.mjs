@@ -238,6 +238,32 @@ if (LOCAL) {
   check('every tel: and wa.me link is dialable', bad.length === 0, bad.join(' | '));
 }
 
+/* ---------------------------------------------------------------- profile */
+// The Instagram URL appears in three places that each break differently: the
+// footer link, the contact block, and the sameAs in structured data. A typo in
+// the last one is invisible on the page and silently costs the entity signal.
+{
+  const PROFILE = 'https://www.instagram.com/plaxweb';
+  await page.goto(`${BASE}/`, { waitUntil: 'domcontentloaded' });
+  const links = await page
+    .locator(`a[href^="${PROFILE}"]`)
+    .evaluateAll((els) => els.map((e) => e.getAttribute('rel') ?? ''));
+  check('home page links the Instagram profile', links.length >= 2, `${links.length} link(s)`);
+  check('…and does not leak the referrer opener', links.every((r) => r.includes('noopener')));
+
+  const graph = await page
+    .locator('script[type="application/ld+json"]')
+    .evaluateAll((els) => els.map((e) => JSON.parse(e.textContent)));
+  const org = graph.find((n) => n['@type'] === 'ProfessionalService');
+  check('org schema declares the profile as sameAs', (org?.sameAs ?? []).includes(PROFILE));
+
+  await page.goto(`${BASE}/guides/getting-found-locally`, { waitUntil: 'domcontentloaded' });
+  const article = await page
+    .locator('script[type="application/ld+json"]')
+    .evaluateAll((els) => els.map((e) => JSON.parse(e.textContent)).find((n) => n['@type'] === 'Article'));
+  check('guide publisher resolves rather than dangling', Boolean(article?.publisher?.name));
+}
+
 /* ------------------------------------------------------------ sitemap etc */
 {
   const res = await page.request.get(`${BASE}/api/geo`);
@@ -250,12 +276,13 @@ for (const path of ['/sitemap.xml', '/robots.txt']) {
   const res = await page.request.get(`${BASE}${path}`);
   const body = await res.text();
   check(`${path} responds`, res.ok());
-  // Home + ten industry pages + six goal pages + contact. Demos are noindex
-  // and deliberately absent: listing a noindexed URL in a sitemap is a
-  // contradiction.
+  // Home + ten industry pages + six goal pages + contact + the guides index
+  // and its four articles. Demos are noindex and deliberately absent: listing
+  // a noindexed URL in a sitemap is a contradiction.
   if (path === '/sitemap.xml') {
     const locs = body.match(/<loc>/g) ?? [];
-    check('sitemap lists every indexable page', locs.length === 23, `\ found`);
+    check('sitemap lists every indexable page', locs.length === 23, `${locs.length} found`);
+    check('sitemap includes the guides', (body.match(/\/guides/g) ?? []).length === 5);
     check('sitemap excludes the demos', !/<loc>[^<]*\/salon<\/loc>/.test(body));
     check('sitemap includes the goal pages', /\/goals\/more-bookings/.test(body));
   }
