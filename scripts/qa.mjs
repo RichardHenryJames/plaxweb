@@ -44,6 +44,8 @@ const ROUTES = {
   'goal-bookings': '/goals/more-bookings',
   'goal-leads': '/goals/better-leads',
   'goal-trust': '/goals/build-trust',
+  guides: '/guides',
+  'guide-cost': '/guides/what-a-business-website-should-cost',
 };
 
 const args = process.argv.slice(2);

@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { services } from '@/lib/services';
 import { goals } from '@/lib/goals';
+import { guides } from '@/lib/guides';
 import { origin, site } from '@/lib/site';
 
 /**
@@ -32,5 +33,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     })),
     { url: `${base}${site.basePath}/contact`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
+    // Guides carry their own date, so the crawler is told when each one
+    // actually changed rather than being told everything changed today.
+    { url: `${base}${site.basePath}/guides`, lastModified: now, changeFrequency: 'weekly', priority: 0.6 },
+    ...guides.map((g) => ({
+      url: `${base}${site.basePath}/guides/${g.slug}`,
+      lastModified: new Date(g.updated),
+      changeFrequency: 'yearly' as const,
+      priority: 0.6,
+    })),
   ];
 }

@@ -67,8 +67,8 @@ export function ContactSection() {
               <div>
                 <dt className="font-mono text-[0.62rem] tracking-[0.16em] text-white/65 uppercase">Not sure yet</dt>
                 <dd className="mt-1.5 text-[0.95rem] text-white">
-                  <Link href="/#goals" className="underline underline-offset-4 hover:no-underline">
-                    Start from the problem
+                  <Link href="/#services" className="underline underline-offset-4 hover:no-underline">
+                    Find your industry
                   </Link>{' '}
                   instead.
                 </dd>

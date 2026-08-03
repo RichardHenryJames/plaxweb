@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { catalogue } from '@/lib/demos';
 import { services, solutionFor } from '@/lib/services';
 import { goals } from '@/lib/goals';
+import { guides } from '@/lib/guides';
 import { site, whatsappUrl } from '@/lib/site';
 
 /**
@@ -105,6 +106,11 @@ export function StudioFooter() {
             <h2 className="mt-9 font-mono text-[0.65rem] tracking-[0.18em] text-paper/40 uppercase">Studio</h2>
             <ul className="mt-4 space-y-2.5 text-[0.88rem] text-paper/70">
               <li>
+                <Link href={`${site.basePath}/guides`} className="transition-colors hover:text-paper">
+                  Guides
+                </Link>
+              </li>
+              <li>
                 <Link href={`${site.basePath}/contact`} className="transition-colors hover:text-paper">
                   Get a quote
                 </Link>
@@ -128,10 +134,24 @@ export function StudioFooter() {
           </nav>
 
           {/* -------------------------------------------------------- demos */}
-          <nav aria-label="Live demo websites">
-            <h2 className="font-mono text-[0.65rem] tracking-[0.18em] text-paper/40 uppercase">Open a live demo</h2>
+          <nav aria-label="Live demo websites and guides">
+            <h2 className="font-mono text-[0.65rem] tracking-[0.18em] text-paper/40 uppercase">Popular guides</h2>
             <ul className="mt-4 space-y-2.5">
-              {catalogue.map((d) => (
+              {guides.map((g) => (
+                <li key={g.slug}>
+                  <Link
+                    href={`${site.basePath}/guides/${g.slug}`}
+                    className="inline-flex min-h-[28px] items-start text-[0.88rem] leading-snug text-paper/70 transition-colors hover:text-paper"
+                  >
+                    {g.h1}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            <h2 className="mt-9 font-mono text-[0.65rem] tracking-[0.18em] text-paper/40 uppercase">Open a live demo</h2>
+            <ul className="mt-4 space-y-2.5">
+              {catalogue.slice(0, 6).map((d) => (
                 <li key={d.slug}>
                   <Link
                     href={`${site.basePath}/${d.slug}`}

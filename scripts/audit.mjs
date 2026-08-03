@@ -40,6 +40,8 @@ const ROUTES = [
   '/goals/more-bookings',
   '/goals/better-leads',
   '/goals/build-trust',
+  '/guides',
+  '/guides/getting-found-locally',
 ];
 
 const browser = await chromium.launch();

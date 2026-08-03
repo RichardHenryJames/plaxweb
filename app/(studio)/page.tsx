@@ -2,11 +2,9 @@ import type { Metadata } from 'next';
 import { Hero } from '@/components/studio/Hero';
 import { DemoGallery } from '@/components/studio/DemoGallery';
 import { Morph } from '@/components/studio/Morph';
-import { Capabilities } from '@/components/studio/Capabilities';
 import { Process } from '@/components/studio/Process';
 import { Reframe } from '@/components/studio/Reframe';
 import { WhyNotATemplate } from '@/components/studio/WhyNotATemplate';
-import { GoalIndex } from '@/components/studio/GoalIndex';
 import { ServiceIndex } from '@/components/studio/ServiceIndex';
 import { Pricing } from '@/components/studio/Pricing';
 import { Faq, faqSchema } from '@/components/studio/Faq';
@@ -18,7 +16,7 @@ import { demos } from '@/lib/demos';
 import { services } from '@/lib/services';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Website Design & Development Company | PlaxWeb',
+  title: 'Web Design & Development | Local SEO | PlaxWeb',
   description: site.description,
   path: site.home,
   image: demos[0].cover.src,
@@ -118,10 +116,8 @@ export default function PortfolioPage() {
 
       <Morph />
       <DemoGallery />
-      <GoalIndex />
       <ServiceIndex />
       <WhyNotATemplate />
-      <Capabilities />
       <Process />
       <Reframe />
       <Pricing />

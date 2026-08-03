@@ -32,6 +32,11 @@ const ROUTES = [
   '/goals/better-leads',
   '/goals/direct-bookings',
   '/goals/build-trust',
+  '/guides',
+  '/guides/what-a-business-website-should-cost',
+  '/guides/website-or-instagram',
+  '/guides/getting-found-locally',
+  '/guides/why-a-slow-website-costs-enquiries',
 ];
 
 /** Demos must stay out of the index, or they compete with the pages above. */

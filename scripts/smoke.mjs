@@ -255,7 +255,7 @@ for (const path of ['/sitemap.xml', '/robots.txt']) {
   // contradiction.
   if (path === '/sitemap.xml') {
     const locs = body.match(/<loc>/g) ?? [];
-    check('sitemap lists the eighteen indexable pages', locs.length === 18, `${locs.length} found`);
+    check('sitemap lists every indexable page', locs.length === 23, `\ found`);
     check('sitemap excludes the demos', !/<loc>[^<]*\/salon<\/loc>/.test(body));
     check('sitemap includes the goal pages', /\/goals\/more-bookings/.test(body));
   }
