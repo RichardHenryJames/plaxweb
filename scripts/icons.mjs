@@ -16,6 +16,19 @@ const SRC = 'C:/Users/parimalkumar/Desktop/Projects/plax/src/app/icon.png';
 const FLAME = { r: 184, g: 57, b: 22 }; // --color-flame
 const PAPER = { r: 244, g: 241, b: 234 }; // --color-paper
 
+// A hard square reads as an unfinished screenshot next to the rounded tiles
+// every other site ships. 22.5% is the ratio the platform masks use, so the
+// corner matches what a browser would have cut anyway.
+const ROUNDING = 0.225;
+
+/** A rounded-square drawn in white, used as an alpha mask rather than as ink. */
+function corners(size) {
+  const r = size * ROUNDING;
+  return Buffer.from(
+    `<svg width="${size}" height="${size}"><rect width="${size}" height="${size}" rx="${r}" ry="${r}" fill="#fff"/></svg>`,
+  );
+}
+
 /** The mark, trimmed to its ink and redrawn in a single flat colour. */
 async function mark(box, colour) {
   // The source is white on transparent, so the shape lives entirely in the
@@ -43,14 +56,19 @@ async function mark(box, colour) {
   return { glyph, width: info.width, height: info.height };
 }
 
-async function icon(size, pad) {
+async function icon(size, pad, rounded = true) {
   const box = Math.round(size * (1 - pad * 2));
   const { glyph, width, height } = await mark(box, PAPER);
+
+  // Order matters: the mask has to land on a tile that already carries the
+  // mark, otherwise the corners get painted back in by the glyph composite.
+  const layers = [{ input: glyph, top: Math.round((size - height) / 2), left: Math.round((size - width) / 2) }];
+  if (rounded) layers.push({ input: corners(size), blend: 'dest-in' });
 
   return sharp({
     create: { width: size, height: size, channels: 4, background: { ...FLAME, alpha: 1 } },
   })
-    .composite([{ input: glyph, top: Math.round((size - height) / 2), left: Math.round((size - width) / 2) }])
+    .composite(layers)
     .png()
     .toBuffer();
 }
@@ -60,7 +78,10 @@ mkdirSync('app', { recursive: true });
 // 22% padding: the mark is tall and narrow, so it needs less breathing room
 // than a square logo would to read at the same optical size.
 await sharp(await icon(512, 0.22)).toFile('app/icon.png');
-await sharp(await icon(180, 0.2)).toFile('app/apple-icon.png');
+
+// iOS masks the home-screen icon itself. Rounding it here too would clip a
+// second time and leave dark slivers in the corners, so this one stays square.
+await sharp(await icon(180, 0.2, false)).toFile('app/apple-icon.png');
 
 // favicon.ico: a single 48px PNG payload, which every browser in use accepts
 // and which stays sharp on a high-density tab bar.
